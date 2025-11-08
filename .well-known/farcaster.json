@@ -9,18 +9,17 @@
   },
   "miniapp": {
     "version": "1",
-    "name": "Vice Toads",
+    "name": "Based Vice Toads",
     "homeUrl": "https://vice-toads.vercel.app",
-    "iconUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
-    "splashImageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeieguywbhmer7aw4dpjw255bwfwnpnpbgxc7yqaemwpe7toef7zz7i",
+    "iconUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
+    "splashImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg2.jpg",
     "splashBackgroundColor": "#000000",
     "webhookUrl": "https://vice-toads.vercel.app/api/webhook",
     "subtitle": "Mint Based Vice Toads NFT",
-    "description": "On-chain art collectibles on Base. Mint your Vice Toad and join the swamp.",
+    "description": "On-chain art collectibles on Base Network.",
     "screenshotUrls": [
-      "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafgcmsftjvx3ty4yivk7v7q5vb7n5s7gcyr3fsoi2oi5yxviobci",
-      "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeihpbx5ufw5nazypve5v56fy7p7hqh7qldoqqdbqe3nruartqg7rai",
-      "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeifrhinb4fkqzgqkpx6bv2234j7jblwobmqzqycje7oeybsd7adwku"
+      "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg3.jpg",
+      "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg4.jpg"
     ],
     "primaryCategory": "art-creativity",
     "tags": [
@@ -30,11 +29,11 @@
       "mint",
       "nft"
     ],
-    "heroImageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeieguywbhmer7aw4dpjw255bwfwnpnpbgxc7yqaemwpe7toef7zz7i",
+    "heroImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
     "tagline": "Mint Based Vice Toads",
-    "ogTitle": "Vice Toads \u2014 Mint on Base",
-    "ogDescription": "Collect and mint your Vice Toads directly on Base.",
-    "ogImageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
+    "ogTitle": "Based Vice Toads \u2014 Mint on Base",
+    "ogDescription": "Collect and mint your Vice Toads NFTs directly on Base.",
+    "ogImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
     "noindex": false
   }
 }
