@@ -4,31 +4,15 @@
     "payload": "eyJkb21haW4iOiJ2aWNlLXRvYWRzLnZlcmNlbC5hcHAifQ",
     "signature": "VuapZP02zGv/2Ho4HslcWbd9GKNA9BcxOc7qh9ND/OtUfuMfVGvaS9Z8gWyG8JEB1H6ZZpND7r/vpwPxjwpJ2Rs="
   },
-  "baseBuilder": {
-    "ownerAddress": "0xYOUR_BASE_WALLET_ADDRESS"
-  },
-  "miniapp": {
+  "frame": {
     "version": "1",
-    "name": "Based Vice Toads",
-    "homeUrl": "https://vice-toads.vercel.app/",
-    "iconUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
-    "splashImageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
-    "splashBackgroundColor": "#000000",
-    "webhookUrl": "https://vice-toads.vercel.app/api/webhook",
-    "subtitle": "Mint Based Vice Toads NFT",
-    "description": "On-chain art collectibles on Base. Mint your Vice Toad and join the swamp.",
-    "screenshotUrls": [
-      "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafgcmsftjvx3ty4yivk7v7q5vb7n5s7gcyr3fsoi2oi5yxviobci",
-      "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeihpbx5ufw5nazypve5v56fy7p7hqh7qldoqqdbqe3nruartqg7rai",
-      "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeifrhinb4fkqzgqkpx6bv2234j7jblwobmqzqycje7oeybsd7adwku"
-    ],
-    "primaryCategory": "art",
-    "tags": ["vice", "toads", "base", "mint", "nft"],
-    "heroImageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeieguywbhmer7aw4dpjw255bwfwnpnpbgxc7yqaemwpe7toef7zz7i",
-    "tagline": "Mint Based Vice Toads",
-    "ogTitle": "Vice Toads — Mint on Base",
-    "ogDescription": "Collect and mint your Vice Toads directly on Base. Limited supply.",
-    "ogImageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
-    "noindex": false
+    "name": "Example Frame",
+    "iconUrl": "https://vice-toads.vercel.app/icon.png",
+    "homeUrl": "https://vice-toads.vercel.app",
+    "imageUrl": "https://vice-toads.vercel.app/image.png",
+    "buttonTitle": "Check this out",
+    "splashImageUrl": "https://vice-toads.vercel.app/splash.png",
+    "splashBackgroundColor": "#eeccff",
+    "webhookUrl": "https://vice-toads.vercel.app/api/webhook"
   }
 }
