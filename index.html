@@ -1,46 +1,111 @@
-<!doctype html>
-<html lang="id">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vice Toads — Mint</title>
-  <meta name="fc:miniapp" content='{
-    "version":"next",
-    "imageUrl":"https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
-    "button":{
-      "title":"Mint Now",
-      "action":{"type":"launch_miniapp","name":"Vice Toads","url":"https://vice-toads.vercel.app"}
-    }
-  }' />
-  <style>
-    html,body{
-      height:100%;
-      background:#000;
-      color:#fff;
-      font-family:Inter,system-ui,Arial;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      text-align:center;
-      margin:0;
-    }
-    a{
-      display:inline-block;
-      background:#7afcff;
-      color:#02121a;
-      padding:14px 22px;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:700;
-      margin-top:16px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Vice Toads — Mint NFT</h1>
-  <p>Click below to mint or view collection</p>
-  <a href="https://opensea.io/collection/vice-toads" target="_blank">Mint Now</a>
-  <footer style="position:fixed;bottom:8px;font-size:12px;opacity:0.7;">Vice Toads • by @ameldoxg</footer>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Based Vice Toads — Mint</title>
+
+    <!-- Farcaster MiniApp Embed -->
+    <meta name="fc:miniapp" content='{
+      "version":"next",
+      "imageUrl":"https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
+      "button":{
+          "title":"Mint Now",
+          "action":{
+              "type":"launch_miniapp",
+              "name":"Based Vice Toads",
+              "url":"https://vice-toads.vercel.app"
+          }
+      }
+    }' />
+
+    <meta property="og:title" content="Based Vice Toads — Mint Now on Base" />
+    <meta property="og:description" content="Mint Based Vice Toads NFT directly on Base Network." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #000;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+      }
+
+      .slideshow {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1.2s ease-in-out;
+      }
+
+      .slide.active {
+        opacity: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+
+      .mint-btn {
+        background: #7afcff;
+        border: none;
+        padding: 16px 28px;
+        border-radius: 14px;
+        color: #02121a;
+        font-size: 1.3rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.25s ease, opacity 0.25s;
+      }
+
+      .mint-btn:hover {
+        transform: scale(1.07);
+        opacity: 0.95;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="slideshow">
+      <div class="slide active">
+        <img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg" alt="Vice Toads 1" />
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/blob/main/images/bg2.jpg?raw=true" alt="Vice Toads 2" />
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/blob/main/images/bg3.jpg?raw=true" alt="Vice Toads 3" />
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/blob/main/images/bg4.jpg?raw=true" alt="Vice Toads 4" />
+      </div>
+    </div>
+
+    <div class="overlay">
+      <button class="mint-btn" id="mintBtn">Mint Now</button>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
 </html>
