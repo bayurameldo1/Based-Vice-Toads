@@ -4,26 +4,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vice Toads — Mint</title>
+  <meta name="fc:miniapp" content='{
+    "version":"next",
+    "imageUrl":"https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
+    "button":{
+      "title":"Mint Now",
+      "action":{"type":"launch_miniapp","name":"Vice Toads","url":"https://vice-toads.vercel.app"}
+    }
+  }' />
+  <style>
+    html,body{
+      height:100%;
+      background:#000;
+      color:#fff;
+      font-family:Inter,system-ui,Arial;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      text-align:center;
+      margin:0;
+    }
+    a{
+      display:inline-block;
+      background:#7afcff;
+      color:#02121a;
+      padding:14px 22px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:700;
+      margin-top:16px;
+    }
+  </style>
 </head>
 <body>
-  <h1 style="font-size:28px;margin:40px 20px;text-align:center;">Vice Toads — Mint</h1>
-  <p style="text-align:center;margin:8px 20px 24px;color:#333;">
-    Jika tombol di bawah tidak bekerja di dalam embed, klik "Open Site".
-  </p>
-
-  <div style="display:flex;gap:12px;justify-content:center;margin-top:12px">
-    <a href="https://opensea.io/collection/vice-toads" target="_blank" rel="noopener noreferrer"
-       style="padding:12px 18px;background:#7afcff;color:#02121a;border-radius:10px;text-decoration:none;font-weight:700;">
-      Mint Now
-    </a>
-    <a href="https://vice-toads.vercel.app/" target="_blank" rel="noopener noreferrer"
-       style="padding:12px 18px;border:1px solid #ddd;border-radius:10px;text-decoration:none;color:#111;">
-      Open Site
-    </a>
-  </div>
-
-  <footer style="position:fixed;left:8px;bottom:8px;font-size:12px;color:#666;">
-    Vice Toads • by @ameldoxg
-  </footer>
+  <h1>Vice Toads — Mint NFT</h1>
+  <p>Click below to mint or view collection</p>
+  <a href="https://opensea.io/collection/vice-toads" target="_blank">Mint Now</a>
+  <footer style="position:fixed;bottom:8px;font-size:12px;opacity:0.7;">Vice Toads • by @ameldoxg</footer>
 </body>
 </html>
