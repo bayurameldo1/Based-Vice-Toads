@@ -10,7 +10,7 @@
   "miniapp": {
     "version": "1",
     "name": "Based Vice Toads",
-    "homeUrl": "https://vice-toads.vercel.app",
+    "homeUrl": "https://vice-toads.vercel.app/",
     "iconUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
     "splashImageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
     "splashBackgroundColor": "#000000",
