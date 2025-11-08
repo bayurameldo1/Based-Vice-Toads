@@ -2,7 +2,7 @@
   "accountAssociation": {
     "header": "eyJmaWQiOjM0NjA3NSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDEwQjUzYTlGNDFBNzhlNENDQ0FhZUEyQzUxZGZiNUY2RmYwMjIzMTgifQ",
     "payload": "eyJkb21haW4iOiJ2aWNlLXRvYWRzLnZlcmNlbC5hcHAifQ",
-    "signature": "VuapZP02zGv/2Ho4HslcWbd9GKNA9BcxOc7qh9ND/OtUfuMfVGvaS9Z8gWyG8JEB1H6ZZpND7r/vpwPxjwpJ2Rs="
+    "signature": "VuapZP02zGv/2Ho4HslcWbd9GKNA9BcxOc7qh9ND/OtUfuMfVGvaS9Z8gWyG8JEB1H6ZZpND7r/vpwPxjwpJ2Rs=","
   },
   "baseBuilder": {
     "ownerAddress": "0xYOUR_BASE_WALLET_ADDRESS"
@@ -31,7 +31,7 @@
     ],
     "heroImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
     "tagline": "Mint Based Vice Toads",
-    "ogTitle": "Based Vice Toads \u2014 Mint on Base",
+    "ogTitle": "Based Vice Toads",
     "ogDescription": "Collect and mint your Vice Toads NFTs directly on Base.",
     "ogImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
     "noindex": false
