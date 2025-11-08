@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vice Toads — Mint on Base</title>
 
-    <!-- Farcaster MiniApp Embed Meta -->
+    <!-- Farcaster MiniApp Embed -->
     <meta name="fc:miniapp" content='{
       "version":"next",
       "imageUrl":"https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
@@ -19,41 +19,98 @@
       }
     }' />
 
-    <!-- Open Graph (for Warpcast preview) -->
+    <!-- OpenGraph -->
     <meta property="og:title" content="Vice Toads — Mint Now on Base" />
     <meta property="og:description" content="Collect and mint your Vice Toad NFTs directly on Base. Limited supply." />
     <meta property="og:image" content="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Styles (optional minimal reset) -->
     <style>
+      :root { --accent: #7afcff; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
       html, body {
-        margin: 0;
-        padding: 0;
-        background: #000;
-        color: #fff;
-        font-family: Inter, system-ui, sans-serif;
         height: 100%;
+        background: #000;
+        font-family: Inter, system-ui, sans-serif;
+        overflow: hidden;
+        color: white;
       }
-      #app {
+      .slideshow {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: #000;
+      }
+      .slide {
+        position: absolute;
+        inset: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-        height: 100vh;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+      .slide.active {
+        opacity: 1;
+      }
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+      }
+      .btn {
+        background: var(--accent);
+        color: #02121a;
+        border: none;
+        font-size: 1.4rem;
+        font-weight: 700;
+        padding: 16px 28px;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+      .btn:hover {
+        transform: scale(1.05);
       }
     </style>
   </head>
 
   <body>
-    <div id="app">
-      <!-- Konten akan di-render dari app.js -->
-      <p>Loading Vice Toads Mini App...</p>
+    <div class="slideshow" id="slides">
+      <div class="slide active"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm" alt="Vice Toad 1"></div>
+      <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafgcmsftjvx3ty4yivk7v7q5vb7n5s7gcyr3fsoi2oi5yxviobci" alt="Vice Toad 2"></div>
+      <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeihpbx5ufw5nazypve5v56fy7p7hqh7qldoqqdbqe3nruartqg7rai" alt="Vice Toad 3"></div>
+      <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeieguywbhmer7aw4dpjw255bwfwnpnpbgxc7yqaemwpe7toef7zz7i" alt="Vice Toad 4"></div>
+      <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeifrhinb4fkqzgqkpx6bv2234j7jblwobmqzqycje7oeybsd7adwku" alt="Vice Toad 5"></div>
     </div>
 
-    <!-- Farcaster MiniApp SDK -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@farcaster/miniapp-sdk/dist/index.min.js"></script>
+    <div class="overlay">
+      <button class="btn" id="mintNow">Mint Now</button>
+    </div>
 
-    <!-- File utama app -->
-    <script type="module" src="./app.js"></script>
+    <script>
+      // Slideshow logic
+      const slides = document.querySelectorAll(".slide");
+      let current = 0;
+      setInterval(() => {
+        slides[current].classList.remove("active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("active");
+      }, 4000);
+
+      // Mint button
+      const btn = document.getElementById("mintNow");
+      btn.addEventListener("click", () => {
+        window.open("https://opensea.io/collection/vice-toads", "_blank");
+      });
+    </script>
   </body>
 </html>
