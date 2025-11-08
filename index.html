@@ -19,46 +19,93 @@
     :root{--accent:#7afcff}
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%;background:#000;color:#fff;font-family:Inter,system-ui,Arial}
-    .slideshow{position:fixed;inset:0;overflow:hidden;background:#000}
-    .slide{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity 900ms}
+    .container{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .slides{position:absolute;inset:0}
+    .slide{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity .8s}
     .slide.active{opacity:1}
     .slide img{width:100%;height:100%;object-fit:contain;display:block}
-    .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;pointer-events:none}
-    .btn{pointer-events:auto;background:var(--accent);border:none;padding:14px 26px;border-radius:12px;color:#02121a;font-weight:700;cursor:pointer;font-size:1.1rem}
+    /* fallback overlay */
+    .fallback{
+      position:relative;
+      z-index:15;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      text-align:center;
+    }
+    .title{font-size:20px;font-weight:700}
+    .subtitle{opacity:0.85}
+    .btn{background:var(--accent);border:none;padding:12px 22px;border-radius:12px;color:#02121a;font-weight:800;cursor:pointer}
+    .hidden{display:none}
   </style>
 </head>
 <body>
-  <div class="slideshow" id="slides">
-    <div class="slide active"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm" alt=""></div>
-    <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafgcmsftjvx3ty4yivk7v7q5vb7n5s7gcyr3fsoi2oi5yxviobci" alt=""></div>
-    <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeihpbx5ufw5nazypve5v56fy7p7hqh7qldoqqdbqe3nruartqg7rai" alt=""></div>
-    <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeieguywbhmer7aw4dpjw255bwfwnpnpbgxc7yqaemwpe7toef7zz7i" alt=""></div>
-    <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeifrhinb4fkqzgqkpx6bv2234j7jblwobmqzqycje7oeybsd7adwku" alt=""></div>
-  </div>
+  <div class="container">
+    <div class="slides" id="slides" aria-hidden="true">
+      <div class="slide active"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm" alt=""></div>
+      <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafgcmsftjvx3ty4yivk7v7q5vb7n5s7gcyr3fsoi2oi5yxviobci" alt=""></div>
+      <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeihpbx5ufw5nazypve5v56fy7p7hqh7qldoqqdbqe3nruartqg7rai" alt=""></div>
+      <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeieguywbhmer7aw4dpjw255bwfwnpnpbgxc7yqaemwpe7toef7zz7i" alt=""></div>
+      <div class="slide"><img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeifrhinb4fkqzgqkpx6bv2234j7jblwobmqzqycje7oeybsd7adwku" alt=""></div>
+    </div>
 
-  <div class="overlay">
-    <button id="mint" class="btn">Mint Now</button>
+    <!-- fallback content (always visible on top) -->
+    <div id="fallback" class="fallback">
+      <div class="title">Vice Toads</div>
+      <div class="subtitle">Collect & mint Vice Toads — click button below</div>
+      <button id="mintBtn" class="btn">Mint Now</button>
+    </div>
   </div>
 
   <script>
-    // Simple slideshow (no modules, no top-level await)
     (function(){
       const slides = Array.from(document.querySelectorAll('.slide'));
-      let idx = 0;
-      function next(){
-        slides[idx].classList.remove('active');
-        idx = (idx + 1) % slides.length;
-        slides[idx].classList.add('active');
+      const fallback = document.getElementById('fallback');
+      const mintBtn = document.getElementById('mintBtn');
+      const IMAGE_TEST = 'https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm';
+      const OPENSEA = 'https://opensea.io/collection/vice-toads';
+
+      // open mint link (try new tab, fallback same frame)
+      function openMint() {
+        const ok = window.open(OPENSEA, '_blank');
+        if (!ok) window.location.href = OPENSEA;
       }
-      const t = setInterval(next, 3500);
+      mintBtn.addEventListener('click', openMint);
 
-      // Mint button opens external url (change to mint page if you have)
-      document.getElementById('mint').addEventListener('click', function(){
-        window.open('https://opensea.io/collection/vice-toads', '_blank');
-      });
+      // try load one image to detect whether iframe blocks images
+      const img = new Image();
+      let loaded = false;
+      img.onload = () => {
+        loaded = true;
+        startSlideshow();
+        // hide fallback subtitle maybe, but keep button visible
+        // (we keep fallback visible as a UI layer so button always accessible)
+      };
+      img.onerror = () => {
+        // images blocked or unreachable: keep fallback visible and don't run slideshow
+        console.warn('Image load failed — likely blocked in iframe or unreachable');
+        // optionally show a background color instead of white
+        document.body.style.background = '#07121a';
+      };
+      // set src (adds cache-busting timestamp if needed)
+      img.src = IMAGE_TEST + '?_=' + Date.now();
 
-      // defensive: if embed sandbox blocks popups, fallback to navigate same frame
-      window.addEventListener('unhandledrejection', ()=>{}); // silence promise errors
+      // slideshow only if image loaded
+      function startSlideshow(){
+        let idx = 0;
+        slides.forEach((s,i)=> s.classList.toggle('active', i===0));
+        setInterval(()=>{
+          slides[idx].classList.remove('active');
+          idx = (idx + 1) % slides.length;
+          slides[idx].classList.add('active');
+        }, 3500);
+      }
+
+      // defensive: if embed prevented popups, clicking still navigates via fallback
+      // (handled in openMint)
     })();
   </script>
 </body>
