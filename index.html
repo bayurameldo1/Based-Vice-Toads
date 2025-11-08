@@ -4,107 +4,26 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vice Toads — Mint</title>
-
-  <!-- Farcaster MiniApp Embed (keep for Warpcast) -->
-  <meta name="fc:miniapp" content='{
-    "version":"next",
-    "imageUrl":"https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiauztb35v3h4bnj4yffviv4v2iwgk4wholxs2lghrt72i3lasuezm",
-    "button":{
-      "title":"Mint Now",
-      "action":{"type":"launch_miniapp","name":"Vice Toads","url":"https://vice-toads.vercel.app"}
-    }
-  }' />
-
-  <style>
-    :root{--bg:#020615;--accent:#7afcff;--muted:#bcd}
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;background:linear-gradient(180deg,var(--bg),#061023);font-family:Inter,system-ui,Arial;color:white}
-    .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;text-align:center}
-    .logo-svg{width:220px;height:220px}
-    h1{font-size:20px;letter-spacing:0.2px}
-    p{opacity:0.86;color:var(--muted);max-width:680px;margin:0 auto}
-    .actions{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap;justify-content:center}
-    .btn{
-      background:var(--accent);
-      color:#02121a;
-      border:none;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;text-decoration:none;
-      display:inline-flex;align-items:center;gap:10px;font-size:15px;
-    }
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--muted);padding:10px 16px;border-radius:12px}
-    footer{position:fixed;left:12px;bottom:10px;opacity:0.7;font-size:12px}
-    @media(max-width:420px){.logo-svg{width:140px;height:140px}h1{font-size:18px}}
-  </style>
 </head>
 <body>
-  <div class="wrap" role="main" aria-label="Vice Toads mini app">
-    <!-- Self-contained SVG "toad" graphic (no external images) -->
-    <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <radialGradient id="g" cx="50%" cy="35%" r="60%">
-          <stop offset="0%" stop-color="#9ae6b4"/>
-          <stop offset="100%" stop-color="#2f8f3b"/>
-        </radialGradient>
-        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-          <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.45"/>
-        </filter>
-      </defs>
+  <h1 style="font-size:28px;margin:40px 20px;text-align:center;">Vice Toads — Mint</h1>
+  <p style="text-align:center;margin:8px 20px 24px;color:#333;">
+    Jika tombol di bawah tidak bekerja di dalam embed, klik "Open Site".
+  </p>
 
-      <!-- body -->
-      <ellipse cx="100" cy="110" rx="74" ry="56" fill="url(#g)" filter="url(#shadow)"/>
-      <!-- belly -->
-      <ellipse cx="100" cy="122" rx="44" ry="28" fill="#d7f4cf" opacity="0.9"/>
-      <!-- eyes -->
-      <circle cx="75" cy="70" r="16" fill="#fff"/>
-      <circle cx="125" cy="70" r="16" fill="#fff"/>
-      <circle cx="78" cy="74" r="7" fill="#052116"/>
-      <circle cx="128" cy="74" r="7" fill="#052116"/>
-      <!-- pupils small shine -->
-      <circle cx="82" cy="70" r="2.2" fill="#fff" opacity="0.9"/>
-      <circle cx="132" cy="70" r="2.2" fill="#fff" opacity="0.9"/>
-      <!-- mouth -->
-      <path d="M72 98 Q100 116 128 98" stroke="#04220f" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <!-- little crown/vice mark -->
-      <rect x="94" y="36" width="12" height="6" rx="1.5" fill="#ffd166" transform="rotate(-12 100 39)"/>
-      <rect x="80" y="38" width="8" height="5" rx="1" fill="#ffd166" transform="rotate(-6 84 40)"/>
-      <rect x="112" y="38" width="8" height="5" rx="1" fill="#ffd166" transform="rotate(6 116 40)"/>
-    </svg>
-
-    <h1>Vice Toads — Mint Based NFT</h1>
-    <p>Collect unique Vice Toads on Base. Click the button below to go to the mint/market page. (This page is self-contained so it always shows inside embeds.)</p>
-
-    <div class="actions">
-      <!-- Prefer anchor (works in iframe); target blank tries to open new tab -->
-      <a class="btn" id="mintBtn" href="https://opensea.io/collection/vice-toads" target="_blank" rel="noopener noreferrer">
-        <!-- simple SVG icon (mint) included inline -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20M2 12h20" stroke="#02121a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Mint Now
-      </a>
-
-      <a class="ghost" href="https://vice-toads.vercel.app" target="_blank" rel="noopener noreferrer">Open Site</a>
-    </div>
+  <div style="display:flex;gap:12px;justify-content:center;margin-top:12px">
+    <a href="https://opensea.io/collection/vice-toads" target="_blank" rel="noopener noreferrer"
+       style="padding:12px 18px;background:#7afcff;color:#02121a;border-radius:10px;text-decoration:none;font-weight:700;">
+      Mint Now
+    </a>
+    <a href="https://vice-toads.vercel.app/" target="_blank" rel="noopener noreferrer"
+       style="padding:12px 18px;border:1px solid #ddd;border-radius:10px;text-decoration:none;color:#111;">
+      Open Site
+    </a>
   </div>
 
-  <footer>Vice Toads • by @ameldoxg</footer>
-
-  <script>
-    // Defensive: if clicked inside a sandboxed iframe where new tab blocked,
-    // fallback to navigate same frame (works even inside strict embeds).
-    (function(){
-      const mint = document.getElementById('mintBtn');
-      mint.addEventListener('click', function(e){
-        // try to open new tab; if blocked, fallback to same-window
-        try {
-          // anchor already has target=_blank; after click we still set timeout fallback
-          setTimeout(() => {
-            // small heuristic: if window still same origin and top accessible then nothing
-          }, 250);
-        } catch(err){
-          // fallback: navigate current frame
-          e.preventDefault();
-          location.href = 'https://opensea.io/collection/vice-toads';
-        }
-      });
-    })();
-  </script>
+  <footer style="position:fixed;left:8px;bottom:8px;font-size:12px;color:#666;">
+    Vice Toads • by @ameldoxg
+  </footer>
 </body>
 </html>
