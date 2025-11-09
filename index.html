@@ -123,6 +123,7 @@
         <button id="claimBtn" class="btn btn-claim disabled" disabled>Claim Now</button>
         <button id="connectInline" class="btn-connect-inline">Connect Wallet</button>
       </div>
+
       <div style="margin-top:10px;color:#071018" id="statusText">Connect wallet to claim</div>
     </div>
 
@@ -184,7 +185,8 @@
 
     async function doConnect(){
       try{
-        statusText.textContent="Membuka wallet...";
+        // CHANGED: tampilkan "Connect Wallet" saat mulai koneksi
+        statusText.textContent="Connect Wallet";
         provider=await web3Modal.connect(); if(!provider) throw new Error("no provider");
         web3=new Web3(provider); const eth=new ethers.providers.Web3Provider(provider);
         let acc=await eth.listAccounts(); if(!acc||!acc.length) acc=await web3.eth.getAccounts();
@@ -226,7 +228,7 @@
     claimBtn.onclick=async()=>{
       if(!currentAddress){alert("Connect wallet first");return;}
       claimBtn.disabled=true;
-      statusText.textContent="Memproses klaim...";
+      statusText.textContent="Claim in progress...";
       setTimeout(()=>{
         statusText.textContent="Claimed +100 — next claim in 24:00:00";
         totalClaimedEl.textContent="100";
