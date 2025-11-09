@@ -29,7 +29,7 @@
       "mint",
       "nft"
     ],
-    "heroImageUrl": "https://vice-toads.vercel.app/images/bg1.jpg",
+    "ImageUrl": "https://vice-toads.vercel.app/images/bg1.jpg",
     "tagline": "Mint Based Vice Toads",
     "ogTitle": "Based Vice Toads",
     "ogDescription": "Collect and mint Vice Toads on Base.",
