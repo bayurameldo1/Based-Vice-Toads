@@ -13,7 +13,7 @@
     "Url": "https://vice-toads.vercel.app",
     "title": "Open App",
     "action": {
-    "type": "launch_frame",
+    "type": "module",
     "iconUrl": "https://vice-toads.vercel.app/images/icon.png",
     "splashImageUrl": "https://vice-toads.vercel.app/images/bg2.jpg",
     "splashBackgroundColor": "#000000",
