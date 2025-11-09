@@ -10,7 +10,10 @@
   "miniapp": {
     "version": "1",
     "name": "Based Vice Toads",
-    "homeUrl": "https://vice-toads.vercel.app",
+    "Url": "https://vice-toads.vercel.app",
+    "title": "Open App",
+    "action": {
+    "type": "launch_frame",
     "iconUrl": "https://vice-toads.vercel.app/images/icon.png",
     "splashImageUrl": "https://vice-toads.vercel.app/images/bg2.jpg",
     "splashBackgroundColor": "#000000",
