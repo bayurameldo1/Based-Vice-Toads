@@ -11,15 +11,15 @@
     "version": "1",
     "name": "Based Vice Toads",
     "homeUrl": "https://vice-toads.vercel.app",
-    "iconUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/favicon.ico",
-    "splashImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg2.jpg",
+    "iconUrl": "https://vice-toads.vercel.app/public/images/icon.png",
+    "splashImageUrl": "https://vice-toads.vercel.app/public/images/bg2.jpg",
     "splashBackgroundColor": "#000000",
-    "webhookUrl": "",
+    "webhookUrl": "https://vice-toads.vercel.app/api/webhook",
     "subtitle": "Mint Based Vice Toads NFT",
     "description": "On-chain art collectibles on Base Network.",
     "screenshotUrls": [
-      "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg3.jpg",
-      "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg4.jpg"
+      "https://vice-toads.vercel.app/public/images/bg3.jpg",
+      "https://vice-toads.vercel.app/public/images/bg4.jpg"
     ],
     "primaryCategory": "art-creativity",
     "tags": [
@@ -29,11 +29,11 @@
       "mint",
       "nft"
     ],
-    "heroImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
+    "heroImageUrl": "https://vice-toads.vercel.app/public/images/bg1.jpg",
     "tagline": "Mint Based Vice Toads",
     "ogTitle": "Based Vice Toads",
     "ogDescription": "Collect and mint Vice Toads on Base.",
-    "ogImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
+    "ogImageUrl": "https://vice-toads.vercel.app/public/images/bg1.jpg",
     "noindex": false
   }
 }
