@@ -54,7 +54,6 @@
       font-weight:800;cursor:pointer}
     .disabled{opacity:.45;pointer-events:none}
     .mint-section{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-top:18px}
-
     .title{font-size:28px; letter-spacing:2px;margin:0;color:#ffd6ec;text-shadow:0 6px 18px rgba(0,0,0,.6);
       text-transform:none;font-weight:900;display:flex;justify-content:center;gap:6px;pointer-events:none}
     .title span{display:inline-block;transform-origin:center;animation:waveLetter 1.05s ease-in-out infinite}
@@ -84,7 +83,6 @@
       animation:boxRiseBlue linear infinite;}
     .blue-bubbles .b::after{content:"";width:32%;height:32%;background:#fff;border-radius:4px;}
     @keyframes boxRiseBlue{0%{transform:translateY(0)scale(.9);opacity:0;}30%{opacity:.9;}100%{transform:translateY(-120vh)scale(1.1);opacity:0;}}
-
   </style>
 </head>
 <body>
@@ -150,7 +148,6 @@
 
   <script>
   (function(){
-    const LS_KEY="vct_claims_v1";const DAY_MS=24*60*60*1000;
     const connectInline=document.getElementById('connectInline');
     const connectFloating=document.getElementById('connectFloating');
     const claimBtn=document.getElementById('claimBtn');
@@ -160,7 +157,7 @@
     const statusText=document.getElementById('statusText');
     const totalClaimedEl=document.getElementById('totalClaimed');
     const mintBtn=document.getElementById('mintBtn');
-    let provider=null,web3=null,currentAddress=null,countdownInterval=null;
+    let provider=null,web3=null,currentAddress=null;
 
     const web3Modal=new window.Web3Modal.default({
       cacheProvider:false,
@@ -170,39 +167,24 @@
       }
     });
 
-    function short(a){return a?(a.slice(0,6)+"..."+a.slice(-4)):"";}
-    function nextAmountFor(r){return((r?.streak||0)+1)*100;}
-    function startCountdown(ms,next){
-      clearInterval(countdownInterval);
-      const start=Date.now();
-      countdownInterval=setInterval(()=>{
-        const t=Math.max(0,ms-(Date.now()-start));
-        if(t<=0){clearInterval(countdownInterval);statusText.textContent="You can claim now — Next +"+next+" pts";return;}
-        const h=Math.floor(t/3600000),m=Math.floor(t%3600000/60000),s=Math.floor(t%60000/1000);
-        statusText.textContent=`Next claim in ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')} — Next +${next} pts`;
-      },1000);
-    }
-
     async function doConnect(){
       try{
-        // CHANGED: tampilkan "Connect Wallet" saat mulai koneksi
         statusText.textContent="Connect Wallet";
-        provider=await web3Modal.connect(); if(!provider) throw new Error("no provider");
-        web3=new Web3(provider); const eth=new ethers.providers.Web3Provider(provider);
+        provider=await web3Modal.connect();
+        web3=new Web3(provider);
+        const eth=new ethers.providers.Web3Provider(provider);
         let acc=await eth.listAccounts(); if(!acc||!acc.length) acc=await web3.eth.getAccounts();
         currentAddress=acc[0].toLowerCase();
-        profileName.textContent=short(currentAddress);
+        profileName.textContent=currentAddress.slice(0,6)+"..."+currentAddress.slice(-4);
         profileSub.textContent="Connected";
-        statusText.textContent="Siap untuk klaim poin";
+        statusText.textContent="Ready to claim points";
         connectInline.style.display='none';
         connectFloating.style.display='block';
         connectFloating.textContent="Disconnect";
         claimBtn.classList.remove('disabled'); claimBtn.disabled=false;
-        // ubah warna claim jadi sama seperti connect wallet
         claimBtn.style.background="linear-gradient(135deg,#ffb6d7,#ff8fca)";
         claimBtn.style.color="#111";
       }catch(e){
-        console.error(e);
         statusText.textContent="Connect Wallet";
         provider=null;web3=null;currentAddress=null;
       }
@@ -217,7 +199,6 @@
       avatarImg.src="https://vice-toads.vercel.app/images/icon.png";
       claimBtn.classList.add('disabled');claimBtn.disabled=true;
       totalClaimedEl.textContent="0";statusText.textContent="Connect wallet to claim";
-      // kembalikan warna claim default
       claimBtn.style.background="rgba(11,7,16,.18)";
       claimBtn.style.color="#fff";
     }
@@ -225,14 +206,13 @@
     connectInline.onclick=doConnect;
     connectFloating.onclick=()=>currentAddress?handleDisconnect():doConnect;
 
-    claimBtn.onclick=async()=>{
+    claimBtn.onclick=()=>{
       if(!currentAddress){alert("Connect wallet first");return;}
       claimBtn.disabled=true;
       statusText.textContent="Claim in progress...";
       setTimeout(()=>{
         statusText.textContent="Claimed +100 — next claim in 24:00:00";
         totalClaimedEl.textContent="100";
-        // setelah claim warna kembali seperti sebelum connect
         claimBtn.style.background="rgba(11,7,16,.18)";
         claimBtn.style.color="#fff";
         claimBtn.disabled=false;
