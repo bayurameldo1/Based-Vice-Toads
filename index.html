@@ -28,9 +28,25 @@
     html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#fff}
     .wrap{max-width:980px;margin:0 auto;padding:12px}
     .marquee{overflow:hidden;white-space:nowrap;padding:6px 0;text-align:center;color:var(--accent);font-weight:700}
-    .hero{position:relative;height:64vh;border-radius:10px;overflow:hidden;margin-top:8px;box-shadow:0 18px 60px rgba(0,0,0,.7)}
+
+    /* HERO: adjusted sizes only */
+    .hero{
+      position:relative;
+      /* make hero panoramic approx 1536x1024 => aspect-ratio 3/2 */
+      width:100%;
+      aspect-ratio: 3 / 2;
+      border-radius:10px;
+      overflow:hidden;
+      margin-top:8px;
+      box-shadow:0 18px 60px rgba(0,0,0,.7);
+      background:#000;
+    }
+
     .slider{display:flex;height:100%;width:400%;animation:slide-left 24s linear infinite}
-    .slide{min-width:100%;height:100%;background-size:cover;background-position:center}
+    .slide{min-width:100%;height:100%;background-size:cover;background-position:center; background-repeat:no-repeat; transition: transform .45s ease;}
+    /* emphasize the middle (second) slide slightly so it looks larger */
+    .slide:nth-child(2){ transform: scale(1.03); }
+
     @keyframes slide-left{
       0%{transform:translateX(0)}20%{transform:translateX(0)}
       30%{transform:translateX(-100%)}50%{transform:translateX(-100%)}
@@ -60,10 +76,11 @@
     .btn-claim{background:rgba(11,7,16,.18);color:#fff;min-width:140px}
     .disabled{opacity:.45;pointer-events:none}
 
+    /* bottom image: force square (1:1) like 1024x1024 */
     .bottom{margin-top:20px;display:flex;justify-content:center}
-    .bottom img{max-width:100%;border-radius:10px}
+    .bottom img{max-width:100%;border-radius:10px; aspect-ratio: 1 / 1; object-fit:cover}
 
-    @media(max-width:520px){ .title{font-size:34px} .hero{height:72vh} }
+    @media(max-width:520px){ .title{font-size:34px} .hero{aspect-ratio: 4 / 3;} }
   </style>
 </head>
 <body>
@@ -117,11 +134,12 @@
     </div>
 
     <div class="bottom">
-      <!-- Bottom image now bg5 -->
+      <!-- Bottom image now using square (bg5) -->
       <img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom" />
     </div>
 
     <div style="height:48px"></div>
+    <div class="marquee" id="marBottom">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
