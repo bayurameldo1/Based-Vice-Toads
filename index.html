@@ -66,60 +66,6 @@
     .logo img{width:30px;height:30px;object-fit:contain}
     .bottom{margin-top:18px;display:flex;justify-content:center}
     .bottom img{width:220px;height:auto;border-radius:10px;object-fit:contain}
-
-    /* ---------- SQUARE (WHITE BOXES) ---------- */
-    .box-bubbles{
-      position:fixed;
-      left:0;
-      bottom:0;
-      width:100%;
-      height:100vh;
-      pointer-events:none;
-      overflow:visible;
-      z-index:1;
-    }
-    .box-bubbles .box{ position:absolute; bottom:-140px; background:#ffffff; box-shadow: 0 8px 30px rgba(0,0,0,0.08), inset 0 -6px 10px rgba(0,0,0,0.04); animation:boxRise linear infinite; border-radius:6px; will-change:transform,opacity; opacity:0; display:flex; align-items:center; justify-content:center; }
-    .box-bubbles .box::after{ content:""; width:36%; height:36%; background: var(--box-blue); border-radius:4px; box-shadow: 0 6px 18px rgba(47,159,255,0.18), inset 0 1px 3px rgba(255,255,255,0.15); pointer-events:none; }
-    @keyframes boxRise{ 0%{ transform: translateY(0) scale(0.92) rotate(0deg); opacity:0; } 6%{ opacity:0.6; } 28%{ opacity:0.96; } 60%{ transform: translateY(-55vh) scale(1.04) rotate(6deg); opacity:0.78; } 90%{ transform: translateY(-100vh) scale(1.08) rotate(12deg); opacity:0.36; } 100%{ transform: translateY(-120vh) scale(1.12) rotate(18deg); opacity:0; } }
-    .box-bubbles .box.n1{ left:6%;  width:18px; height:18px; animation-duration:8.0s; animation-delay:0.2s; }
-    .box-bubbles .box.n2{ left:14%; width:36px; height:36px; animation-duration:10.6s; animation-delay:1.0s; }
-    .box-bubbles .box.n3{ left:22%; width:16px; height:16px; animation-duration:7.2s; animation-delay:0.4s; }
-    .box-bubbles .box.n4{ left:30%; width:46px; height:46px; animation-duration:11.6s; animation-delay:0.6s; }
-    .box-bubbles .box.n5{ left:38%; width:26px; height:26px; animation-duration:8.6s; animation-delay:0.9s; }
-    .box-bubbles .box.n6{ left:46%; width:54px; height:54px; animation-duration:12.8s; animation-delay:0.3s; }
-    .box-bubbles .box.n7{ left:54%; width:20px; height:20px; animation-duration:7.4s; animation-delay:1.4s; }
-    .box-bubbles .box.n8{ left:62%; width:30px; height:30px; animation-duration:9.2s; animation-delay:0.8s; }
-    .box-bubbles .box.n9{ left:70%; width:22px; height:22px; animation-duration:8.2s; animation-delay:0.2s; }
-    .box-bubbles .box.n10{ left:78%; width:42px; height:42px; animation-duration:11.0s; animation-delay:1.1s; }
-    .box-bubbles .box.n11{ left:25%; width:72px; height:72px; animation-duration:14.4s; animation-delay:2.2s; border-radius:8px; }
-    .box-bubbles .box.n12{ left:66%; width:64px; height:64px; animation-duration:13.2s; animation-delay:1.8s; border-radius:8px; }
-
-    /* ---------- BLUE BOXES ---------- */
-    .blue-bubbles{ position:fixed; left:0; bottom:0; width:100%; height:100vh; pointer-events:none; overflow:visible; z-index:1; }
-    .blue-bubbles .b{ position:absolute; bottom:-140px; background: linear-gradient(180deg, rgba(47,159,255,0.98), rgba(12,116,255,0.9)); box-shadow: 0 8px 28px rgba(10,110,220,0.08), inset 0 -6px 10px rgba(0,0,0,0.06); animation:boxRiseBlue linear infinite; border-radius:6px; will-change: transform, opacity; opacity:0; display:flex; align-items:center; justify-content:center; }
-    .blue-bubbles .b::after{ content:""; width:32%; height:32%; background:#ffffff; border-radius:4px; box-shadow:0 1px 3px rgba(0,0,0,0.12); pointer-events:none; }
-    @keyframes boxRiseBlue{ 0%{ transform: translateY(0) scale(0.9) rotate(0deg); opacity:0; } 6%{ opacity:0.6; } 28%{ opacity:0.94; } 60%{ transform: translateY(-55vh) scale(1.03) rotate(-6deg); opacity:0.78; } 90%{ transform: translateY(-100vh) scale(1.06) rotate(-12deg); opacity:0.36; } 100%{ transform: translateY(-120vh) scale(1.09) rotate(-18deg); opacity:0; } }
-    .blue-bubbles .b.b1{ left:9%;  width:22px; height:22px; animation-duration:8.8s; animation-delay:0.4s; }
-    .blue-bubbles .b.b2{ left:18%; width:40px; height:40px; animation-duration:11.0s; animation-delay:1.2s; }
-    .blue-bubbles .b.b3{ left:28%; width:18px; height:18px; animation-duration:7.6s; animation-delay:0.6s; }
-    .blue-bubbles .b.b4{ left:36%; width:48px; height:48px; animation-duration:12.0s; animation-delay:0.9s; }
-    .blue-bubbles .b.b5{ left:44%; width:26px; height:26px; animation-duration:8.8s; animation-delay:0.2s; }
-    .blue-bubbles .b.b6{ left:56%; width:58px; height:58px; animation-duration:13.6s; animation-delay:1.6s; }
-    .blue-bubbles .b.b7{ left:68%; width:20px; height:20px; animation-duration:7.8s; animation-delay:1.0s; }
-    .blue-bubbles .b.b8{ left:82%; width:36px; height:36px; animation-duration:10.0s; animation-delay:0.8s; }
-
-    @media(max-width:520px){
-      .hero{height:320px}
-      .box-bubbles .box.n2{ left:12%; width:30px; height:30px; }
-      .box-bubbles .box.n6{ left:46%; width:44px; height:44px; }
-      .box-bubbles .box.n11{ width:56px; height:56px; }
-      .blue-bubbles .b.b4{ width:40px; height:40px; left:34%; }
-    }
-
-    @media(min-width:900px){
-      .hero{height:520px}
-      .title{font-size:72px}
-    }
   </style>
 </head>
 <body>
@@ -158,40 +104,12 @@
         <button id="connectInline" class="btn-connect-inline">Connect Wallet</button>
       </div>
 
-      <div style="margin-top:10px;color:#071018" id="statusText">Connect wallet to claim</div>
+      <div style="margin-top:10px;color:#071018" id="statusText">Connect your wallet to claim</div>
     </div>
 
     <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom" /></div>
     <div style="height:18px"></div>
     <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
-  </div>
-
-  <!-- white boxes (with BLUE square center) -->
-  <div class="box-bubbles" aria-hidden="true">
-    <div class="box n1"></div>
-    <div class="box n2"></div>
-    <div class="box n3"></div>
-    <div class="box n4"></div>
-    <div class="box n5"></div>
-    <div class="box n6"></div>
-    <div class="box n7"></div>
-    <div class="box n8"></div>
-    <div class="box n9"></div>
-    <div class="box n10"></div>
-    <div class="box n11"></div>
-    <div class="box n12"></div>
-  </div>
-
-  <!-- blue boxes (with WHITE square center) -->
-  <div class="blue-bubbles" aria-hidden="true">
-    <div class="b b1"></div>
-    <div class="b b2"></div>
-    <div class="b b3"></div>
-    <div class="b b4"></div>
-    <div class="b b5"></div>
-    <div class="b b6"></div>
-    <div class="b b7"></div>
-    <div class="b b8"></div>
   </div>
 
   <!-- scripts -->
@@ -225,6 +143,7 @@
 
     function short(a){return a?(a.slice(0,6)+"..."+a.slice(-4)):"";}
     function nextAmountFor(r){return((r?.streak||0)+1)*100;}
+
     function startCountdown(msRemaining,nextAmount){
       clearInterval(countdownInterval);
       const startAt=Date.now();
@@ -241,192 +160,84 @@
     }
     function stopCountdown(){clearInterval(countdownInterval);}
 
-    // CONNECT without signing (direct connect)
     async function doConnect(){
       try{
-        statusText.textContent = "Opening wallet...";
-        provider = await web3Modal.connect();
-        if(!provider) throw new Error("No provider");
+        provider=await web3Modal.connect();
+        web3=new Web3(provider);
+        const a=await web3.eth.getAccounts();
+        currentAddress=a[0].toLowerCase();
+        profileName.textContent=short(currentAddress);
+        profileSub.textContent="Connected";
+        connectInline.style.display='none';
+        connectFloating.style.display='block';
+        claimBtn.classList.remove('disabled');claimBtn.disabled=false;
 
-        web3 = new Web3(provider);
-        const ethProvider = new ethers.providers.Web3Provider(provider);
-        let accounts = [];
-        try { accounts = await ethProvider.listAccounts(); } catch(e) { accounts = await web3.eth.getAccounts(); }
-        if(!accounts||accounts.length===0) throw new Error("No accounts");
-
-        currentAddress = accounts[0].toLowerCase();
-        profileName.textContent = short(currentAddress);
-        profileSub.textContent = "Connected";
-        statusText.textContent = "Connected — detecting Farcaster profile...";
-
-        // hide inline connect and show floating outside UI as "Disconnect"
-        if (connectInline) connectInline.style.display = 'none';
-        if (connectFloating) { connectFloating.style.display = 'block'; connectFloating.textContent = "Disconnect"; }
-
-        // enable claim (but may still be in cooldown)
-        claimBtn.classList.remove('disabled'); claimBtn.disabled = false;
-
-        // set claim button text color to black when connected
+        // === NEW: when connected, make Claim Now text black ===
         claimBtn.style.color = '#000';
 
-        // try Farcaster lookup (best-effort)
-        try {
-          const res = await fetch("/api/farcaster?address=" + currentAddress);
-          if (res.ok){
-            const j = await res.json().catch(()=>null);
-            if (j && j.ok && j.profile){
-              const p = j.profile;
-              profileName.textContent = p.username || p.displayName || short(currentAddress);
-              avatarImg.src = p.avatar || "https://vice-toads.vercel.app/images/icon.png";
-              profileSub.textContent = short(currentAddress);
-              statusText.textContent = "Ready to claim your points";
-            } else {
-              statusText.textContent = "Ready to claim your points";
-            }
-          } else {
-            statusText.textContent = "Ready to claim your points";
-          }
-        } catch(e){ console.warn("farcaster lookup failed", e); statusText.textContent = "Ready to claim your points"; }
-
         loadTotals();
-
-        // bind provider events
-        if (provider && provider.on) {
-          try {
-            provider.on("disconnect", handleDisconnect);
-            provider.on("close", handleDisconnect);
-            provider.on("accountsChanged", (acc) => { if (!acc || acc.length === 0) handleDisconnect(); });
-          } catch(e){ console.warn("provider event bind failed", e); }
-        }
-      }catch(e){
-        console.error("connect error", e);
-        statusText.textContent = "Wallet connection/sign failed";
-        // ensure no half-state
-        try{ if (provider && provider.close) await provider.close(); } catch(_) {}
-        provider = null; web3 = null; currentAddress = null;
-      }
+        provider.on&&provider.on("disconnect",handleDisconnect);
+      }catch(e){statusText.textContent="Wallet connection failed";}
     }
 
-    // disconnect behavior (reset displayed total to 0 but keep localStorage)
     async function handleDisconnect(){
-      try{ if (provider && typeof provider.disconnect === "function") await provider.disconnect(); }catch(e){}
-      try{ await web3Modal.clearCachedProvider(); }catch(e){}
-      try{ if (provider && typeof provider.close === "function") await provider.close(); }catch(e){}
-
-      provider = null; web3 = null; currentAddress = null;
-      if (connectInline) connectInline.style.display = 'inline-block';
-      if (connectFloating) connectFloating.style.display = 'none';
-      profileName.textContent = "Not connected";
-      profileSub.textContent = "Connect wallet to show profile";
-      avatarImg.src = "https://vice-toads.vercel.app/images/icon.png";
-      claimBtn.classList.add('disabled'); claimBtn.disabled = true;
-      totalClaimedEl.textContent = "0"; // reset displayed total on disconnect
-      statusText.textContent = "Connect wallet to claim";
+      try{await web3Modal.clearCachedProvider();}catch(e){}
+      provider=null;web3=null;currentAddress=null;
+      connectInline.style.display='inline-block';
+      connectFloating.style.display='none';
+      profileName.textContent="Not connected";
+      profileSub.textContent="Connect wallet to show profile";
+      avatarImg.src="https://vice-toads.vercel.app/images/icon.png";
+      claimBtn.classList.add('disabled');claimBtn.disabled=true;
+      totalClaimedEl.textContent="0"; // reset total claimed to 0 when disconnected
+      statusText.textContent="Connect your wallet to claim";
       stopCountdown();
 
-      // ensure claim button color back to white
+      // ensure Claim Now text returns to original white when disconnected
       claimBtn.style.color = '#fff';
     }
 
-    connectInline.addEventListener('click', ()=> doConnect());
-    connectFloating.addEventListener('click', async ()=>{
-      if (currentAddress) { await handleDisconnect(); } else { await doConnect(); }
-    });
+    connectInline.addEventListener('click',()=>doConnect());
+    connectFloating.addEventListener('click',async()=>{if(currentAddress){await handleDisconnect();}else{await doConnect();}});
 
-    // CLAIM handler (server attempt then local fallback; streak logic)
-    claimBtn.addEventListener('click', async ()=>{
-      if (!currentAddress){ alert("Connect wallet first"); return; }
-      claimBtn.disabled = true;
-      statusText.textContent = "Processing claim...";
-      try {
-        const resp = await fetch("/api/claim", { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ address: currentAddress, amount:100 }) });
-        const j = await resp.json().catch(()=>null);
-        if (j && j.ok){
-          // apply local update for UI consistency
-          applyLocalAfterClaim(j.claimedAmount || 100);
-          totalClaimedEl.textContent = j.total || getLocalTotal(currentAddress);
-          statusText.textContent = "Claimed +" + (j.claimedAmount || 100) + " — next claim in 24:00:00";
-          startNextCountdownForAddress(currentAddress);
-        } else {
-          // server error -> local fallback
-          localClaim();
-        }
-      } catch(e){
-        // offline / network -> local fallback
-        localClaim();
-      } finally {
-        claimBtn.disabled = false;
-      }
-
-      // restore claim button text color to white after claim
-      claimBtn.style.color = '#fff';
-    });
-
-    function applyLocalAfterClaim(claimAmount){
-      const db = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
-      const rec = db[currentAddress] || { total:0, last:0, streak:0 };
-      const now = Date.now();
-      if (!rec.last || (now - rec.last) >= DAY_MS) rec.streak = (rec.streak || 0) + 1;
-      rec.total = (rec.total || 0) + claimAmount;
-      rec.last = now;
-      db[currentAddress] = rec;
-      localStorage.setItem(LS_KEY, JSON.stringify(db));
-    }
-
-    function localClaim(){
-      const db = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
-      const rec = db[currentAddress] || { total:0, last:0, streak:0 };
-      const now = Date.now();
-      if (rec.last && (now - rec.last) < DAY_MS){
-        const remaining = DAY_MS - (now - rec.last);
-        const nextAmt = nextAmountFor(rec);
-        startCountdown(remaining, nextAmt);
+    claimBtn.addEventListener('click',()=>{
+      if(!currentAddress)return alert("Connect wallet first");
+      const db=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
+      const r=db[currentAddress]||{total:0,last:0,streak:0};
+      const now=Date.now();
+      if(r.last&&(now-r.last)<DAY_MS){
+        const rem=DAY_MS-(now-r.last);
+        startCountdown(rem,nextAmountFor(r));
         return;
       }
-      const amount = nextAmountFor(rec);
-      rec.streak = (rec.streak || 0) + 1;
-      rec.total = (rec.total || 0) + amount;
-      rec.last = now;
-      db[currentAddress] = rec;
-      localStorage.setItem(LS_KEY, JSON.stringify(db));
-      totalClaimedEl.textContent = rec.total;
-      statusText.textContent = "Claimed +" + amount + " — next claim in 24:00:00";
-      startNextCountdownForAddress(currentAddress);
-    }
+      const amt=nextAmountFor(r);
+      r.streak++;r.total+=amt;r.last=now;
+      db[currentAddress]=r;localStorage.setItem(LS_KEY,JSON.stringify(db));
+      totalClaimedEl.textContent=r.total;
+      statusText.textContent="Claimed +"+amt+" — next in 24:00:00";
+      const rem=DAY_MS-(Date.now()-r.last);
+      startCountdown(rem,nextAmountFor(r));
 
-    function startNextCountdownForAddress(address){
-      const db = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
-      const rec = db[address];
-      if (!rec || !rec.last) return;
-      const elapsed = Date.now() - rec.last;
-      if (elapsed >= DAY_MS){ stopCountdown(); statusText.textContent = "You can claim now — Next will be +" + nextAmountFor(rec) + " pts"; return; }
-      const remaining = DAY_MS - elapsed;
-      const nextAmt = nextAmountFor(rec);
-      startCountdown(remaining, nextAmt);
-    }
-
-    function getLocalTotal(address){
-      const db = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
-      const rec = db[address] || { total:0 };
-      return rec.total || 0;
-    }
+      // === NEW: after claim, set Claim Now text back to original color (white) ===
+      claimBtn.style.color = '#fff';
+    });
 
     function loadTotals(){
-      if (!currentAddress) return;
-      const db = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
-      const rec = db[currentAddress] || { total:0, last:0, streak:0 };
-      totalClaimedEl.textContent = rec.total || 0;
-      if (rec.last && (Date.now() - rec.last) < DAY_MS){
-        startCountdown(DAY_MS - (Date.now() - rec.last), nextAmountFor(rec));
-      } else {
+      if(!currentAddress)return;
+      const db=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
+      const r=db[currentAddress]||{total:0,last:0,streak:0};
+      totalClaimedEl.textContent=r.total||0;
+      if(r.last&&(Date.now()-r.last)<DAY_MS){
+        startCountdown(DAY_MS-(Date.now()-r.last),nextAmountFor(r));
+      }else{
         stopCountdown();
-        statusText.textContent = "You can claim now — Next +" + nextAmountFor(rec) + " pts";
-        // keep claim btn text black when ready (connected)
+        statusText.textContent="You can claim now — Next +" + nextAmountFor(r)+" pts";
+        // if connected and ready to claim, keep Claim Now text black (already set at connect)
         if (currentAddress) claimBtn.style.color = '#000';
       }
     }
 
-    mintBtn.addEventListener('click', ()=> window.open('https://opensea.io/collection/based-vice-toads','_blank'));
+    mintBtn.addEventListener('click',()=>window.open('https://opensea.io/collection/based-vice-toads','_blank'));
   })();
   </script>
 </body>
