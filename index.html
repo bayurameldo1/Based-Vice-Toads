@@ -104,7 +104,7 @@
         <button id="connectInline" class="btn-connect-inline">Connect Wallet</button>
       </div>
 
-      <div style="margin-top:10px;color:#071018" id="statusText">Connect your wallet to claim</div>
+      <div style="margin-top:10px;color:#071018" id="statusText">Connect wallet & sign to authenticate</div>
     </div>
 
     <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom" /></div>
@@ -143,7 +143,6 @@
 
     function short(a){return a?(a.slice(0,6)+"..."+a.slice(-4)):"";}
     function nextAmountFor(r){return((r?.streak||0)+1)*100;}
-
     function startCountdown(msRemaining,nextAmount){
       clearInterval(countdownInterval);
       const startAt=Date.now();
@@ -160,48 +159,122 @@
     }
     function stopCountdown(){clearInterval(countdownInterval);}
 
-    async function doConnect(){
+    // NEW: request signature after wallet selection; only treat as connected if signature valid
+    async function doConnectWithSign(){
       try{
-        provider=await web3Modal.connect();
-        web3=new Web3(provider);
-        const a=await web3.eth.getAccounts();
-        currentAddress=a[0].toLowerCase();
-        profileName.textContent=short(currentAddress);
-        profileSub.textContent="Connected";
-        connectInline.style.display='none';
-        connectFloating.style.display='block';
-        claimBtn.classList.remove('disabled');claimBtn.disabled=false;
+        // open web3modal and get provider + accounts
+        provider = await web3Modal.connect();
+        web3 = new Web3(provider);
+        const accounts = await web3.eth.getAccounts();
+        if(!accounts || accounts.length === 0) throw new Error("No accounts");
+        const address = accounts[0].toLowerCase();
 
-        // === NEW: when connected, make Claim Now text black ===
-        claimBtn.style.color = '#000';
+        // ask user to sign a message (timestamped) for authentication
+        const providerForEthers = new ethers.providers.Web3Provider(provider);
+        const signer = providerForEthers.getSigner();
+        const nonce = Math.floor(Date.now() / 1000);
+        const message = `Sign to authenticate with Based Vice Toads — address: ${address} — nonce: ${nonce}`;
+        statusText.textContent = "Please sign the message in your wallet to complete connection";
 
+        let signature;
+        try {
+          signature = await signer.signMessage(message);
+        } catch(err){
+          // user rejected signature or error — treat as not connected
+          console.warn("signature rejected", err);
+          statusText.textContent = "Signature required — connection cancelled";
+          try { if (provider && provider.close) await provider.close(); } catch(e){}
+          // clear provider but DO NOT clear localStorage — keep existing data
+          provider = null;
+          web3 = null;
+          return;
+        }
+
+        // verify signature: recovered address must match selected account
+        const recovered = ethers.utils.verifyMessage(message, signature).toLowerCase();
+        if(recovered !== address){
+          console.warn("signature mismatch", recovered, address);
+          statusText.textContent = "Signature verification failed";
+          // close provider if possible
+          try { if (provider && provider.close) await provider.close(); } catch(e){}
+          provider = null; web3 = null;
+          return;
+        }
+
+        // success: treat as connected
+        currentAddress = address;
+        profileName.textContent = short(currentAddress);
+        profileSub.textContent = "Connected (signed)";
+        statusText.textContent = "Signed & connected — detecting Farcaster profile...";
+
+        // hide inline connect and show floating (Disconnect)
+        if (connectInline) connectInline.style.display = 'none';
+        if (connectFloating) { connectFloating.style.display = 'block'; connectFloating.textContent = "Disconnect"; }
+
+        // enable claim (but may be in cooldown)
+        claimBtn.classList.remove('disabled'); claimBtn.disabled = false;
+
+        // best-effort Farcaster lookup
+        try {
+          const res = await fetch("/api/farcaster?address=" + currentAddress);
+          if (res.ok){
+            const j = await res.json().catch(()=>null);
+            if (j && j.ok && j.profile){
+              const p = j.profile;
+              profileName.textContent = p.username || p.displayName || short(currentAddress);
+              avatarImg.src = p.avatar || "https://vice-toads.vercel.app/images/icon.png";
+              profileSub.textContent = short(currentAddress);
+              statusText.textContent = "Ready to claim your points";
+            } else {
+              statusText.textContent = "Ready to claim your points";
+            }
+          } else {
+            statusText.textContent = "Ready to claim your points";
+          }
+        } catch(e){ console.warn("farcaster lookup failed", e); statusText.textContent = "Ready to claim your points"; }
+
+        // load totals and start countdown if needed
         loadTotals();
-        provider.on&&provider.on("disconnect",handleDisconnect);
-      }catch(e){statusText.textContent="Wallet connection failed";}
+
+        // listen for provider disconnects
+        if (provider && provider.on){
+          provider.on("disconnect", handleDisconnect);
+          provider.on("accountsChanged", (acc) => { if (!acc || acc.length === 0) handleDisconnect(); });
+        }
+      }catch(e){
+        console.error(e);
+        statusText.textContent = "Wallet connection/sign failed";
+        provider = null; web3 = null;
+      }
     }
 
+    // unchanged disconnect behavior (resets visible total to 0 but keeps localStorage)
     async function handleDisconnect(){
-      try{await web3Modal.clearCachedProvider();}catch(e){}
-      provider=null;web3=null;currentAddress=null;
+      try{ if (provider && typeof provider.disconnect === "function") await provider.disconnect(); }catch(e){}
+      try{ await web3Modal.clearCachedProvider(); }catch(e){}
+      try{ if (provider && typeof provider.close === "function") await provider.close(); }catch(e){}
+
+      provider=null; web3=null; currentAddress=null;
       connectInline.style.display='inline-block';
       connectFloating.style.display='none';
       profileName.textContent="Not connected";
       profileSub.textContent="Connect wallet to show profile";
       avatarImg.src="https://vice-toads.vercel.app/images/icon.png";
-      claimBtn.classList.add('disabled');claimBtn.disabled=true;
-      totalClaimedEl.textContent="0"; // reset total claimed to 0 when disconnected
-      statusText.textContent="Connect your wallet to claim";
+      claimBtn.classList.add('disabled'); claimBtn.disabled=true;
+      totalClaimedEl.textContent="0";
+      statusText.textContent="Connect wallet & sign to authenticate";
       stopCountdown();
-
-      // ensure Claim Now text returns to original white when disconnected
-      claimBtn.style.color = '#fff';
     }
 
-    connectInline.addEventListener('click',()=>doConnect());
-    connectFloating.addEventListener('click',async()=>{if(currentAddress){await handleDisconnect();}else{await doConnect();}});
+    connectInline.addEventListener('click', ()=> doConnectWithSign());
+    connectFloating.addEventListener('click', async ()=>{
+      if (currentAddress) { await handleDisconnect(); }
+      else { await doConnectWithSign(); }
+    });
 
-    claimBtn.addEventListener('click',()=>{
-      if(!currentAddress)return alert("Connect wallet first");
+    // CLAIM (unchanged logic except color behavior already implemented elsewhere)
+    claimBtn.addEventListener('click', ()=>{
+      if(!currentAddress) return alert("Connect wallet first");
       const db=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
       const r=db[currentAddress]||{total:0,last:0,streak:0};
       const now=Date.now();
@@ -218,12 +291,12 @@
       const rem=DAY_MS-(Date.now()-r.last);
       startCountdown(rem,nextAmountFor(r));
 
-      // === NEW: after claim, set Claim Now text back to original color (white) ===
+      // restore claim button text color after claim (kept from your previous request)
       claimBtn.style.color = '#fff';
     });
 
     function loadTotals(){
-      if(!currentAddress)return;
+      if(!currentAddress) return;
       const db=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
       const r=db[currentAddress]||{total:0,last:0,streak:0};
       totalClaimedEl.textContent=r.total||0;
@@ -232,12 +305,11 @@
       }else{
         stopCountdown();
         statusText.textContent="You can claim now — Next +" + nextAmountFor(r)+" pts";
-        // if connected and ready to claim, keep Claim Now text black (already set at connect)
         if (currentAddress) claimBtn.style.color = '#000';
       }
     }
 
-    mintBtn.addEventListener('click',()=>window.open('https://opensea.io/collection/based-vice-toads','_blank'));
+    mintBtn.addEventListener('click', ()=> window.open('https://opensea.io/collection/based-vice-toads','_blank'));
   })();
   </script>
 </body>
