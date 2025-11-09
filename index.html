@@ -12,7 +12,7 @@
     "button":{"title":"Mint Now","action":{"type":"launch_miniapp","name":"Based Vice Toads","url":"https://vice-toads.vercel.app"}}
   }' />
 
-  <meta name="description" content="Based Vice Toads — mint collectible NFTs on Base. Clean landing, mint CTA." />
+  <meta name="description" content="Live Mint. Clean landing, mint CTA." />
   <link rel="icon" href="/favicon.png" />
 
   <style>
@@ -84,7 +84,7 @@
 
     <main class="hero">
       <section>
-        <h1>Mint Based Vice Toads — collectible NFTs on Base</h1>
+        <h1>Mint Based Vice Toads</h1>
         <p>Join the swamp. Mint on Base, connect with Farcaster, and collect unique Vice Toads. Limited drop — don’t miss out.</p>
         <div class="actions">
           <button id="mintPrimary" class="btn-primary">Mint Now</button>
@@ -150,7 +150,7 @@
 
       document.getElementById('mintPrimary').addEventListener('click', function(){
         try{ window.parent.postMessage({type:'open_url', url:'https://opensea.io/collection/based-vice-toads/overview'}, '*') }catch(e){}
-        window.open('https://opensea.io/collection/vice-toads', '_blank');
+        window.open('https://opensea.io/collection/based-vice-toads/overview', '_blank');
       });
       document.getElementById('view').addEventListener('click', function(){
         window.open('https://opensea.io/collection/based-vice-toads/overview', '_blank');
