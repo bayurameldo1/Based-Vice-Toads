@@ -26,6 +26,6 @@
     "ogTitle": "Based Vice Toads",
     "ogDescription": "Collect and mint Vice Toads on Base.",
     "ogImageUrl": "https://vice-toads.vercel.app/images/bg1.jpg",
-    "noindex": false
+    "noindex": true
   }
 }
