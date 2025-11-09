@@ -1,16 +1,16 @@
 {
   "accountAssociation": {
-    "header": "",
-    "payload": "",
-    "signature": ""
+    "header": "eyJmaWQiOjM0NjA3NSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDEwQjUzYTlGNDFBNzhlNENDQ0FhZUEyQzUxZGZiNUY2RmYwMjIzMTgifQ",
+    "payload": "eyJkb21haW4iOiJ2aWNlLXRvYWRzLnZlcmNlbC5hcHAifQ",
+    "signature": "VuapZP02zGv/2Ho4HslcWbd9GKNA9BcxOc7qh9ND/OtUfuMfVGvaS9Z8gWyG8JEB1H6ZZpND7r/vpwPxjwpJ2Rs="
   },
   "baseBuilder": {
-    "ownerAddress": "0xYOUR_BASE_WALLET_ADDRESS"
+    "ownerAddress": "0x7Fa924b818D4cFF35F5828164192204439ef4441"
   },
   "miniapp": {
     "version": "1",
     "name": "Based Vice Toads",
-    "homeUrl": "https://vice-toads.vercel.app",
+    "Url": "https://vice-toads.vercel.app",
     "iconUrl": "https://vice-toads.vercel.app/images/icon.png",
     "splashImageUrl": "https://vice-toads.vercel.app/images/bg2.jpg",
     "splashBackgroundColor": "#000000",
@@ -29,11 +29,11 @@
       "mint",
       "nft"
     ],
-    "heroImageUrl": "https://vice-toads.vercel.app/images/bg1.jpg",
+    "ImageUrl": "https://vice-toads.vercel.app/images/bg1.jpg",
     "tagline": "Mint Based Vice Toads",
     "ogTitle": "Based Vice Toads",
     "ogDescription": "Collect and mint Vice Toads on Base.",
     "ogImageUrl": "https://vice-toads.vercel.app/images/bg1.jpg",
-    "noindex": false
+    "noindex": true
   }
 }
