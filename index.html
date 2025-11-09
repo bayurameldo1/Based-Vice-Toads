@@ -48,17 +48,18 @@
     .name{font-weight:800}.sub{font-size:12px;color:#071018;opacity:.7}
     .points{font-weight:900;font-size:20px;margin-top:10px}
     .claim-row{display:flex;gap:10px;margin-top:12px;align-items:center}
-    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800}
-    .btn-claim{background:rgba(11,7,16,.18);color:#fff;min-width:140px}
+    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800;transition:all .3s ease;}
+    .btn-claim{background:rgba(11,7,16,.18);color:#fff;min-width:140px;}
     .btn-connect-inline{background:#071018;color:var(--card1);padding:10px 12px;border-radius:10px;border:none;
       font-weight:800;cursor:pointer}
     .disabled{opacity:.45;pointer-events:none}
     .mint-section{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-top:18px}
-    .title{font-size:64px;letter-spacing:6px;margin:0;color:#ffd6ec;text-shadow:0 10px 30px rgba(0,0,0,.7);
-      text-transform:uppercase;font-weight:900;display:flex;justify-content:center;gap:6px;pointer-events:none}
+
+    .title{font-size:28px; letter-spacing:2px;margin:0;color:#ffd6ec;text-shadow:0 6px 18px rgba(0,0,0,.6);
+      text-transform:none;font-weight:900;display:flex;justify-content:center;gap:6px;pointer-events:none}
     .title span{display:inline-block;transform-origin:center;animation:waveLetter 1.05s ease-in-out infinite}
-    .title span:nth-child(1){animation-delay:0s}.title span:nth-child(2){animation-delay:0.08s}.title span:nth-child(3){animation-delay:0.16s}.title span:nth-child(4){animation-delay:0.24s}.title span:nth-child(5){animation-delay:0.32s}.title span:nth-child(6){animation-delay:0.40s}.title span:nth-child(7){animation-delay:0.48s}.title span:nth-child(8){animation-delay:0.56s}
     @keyframes waveLetter{0%{transform:translateY(0px)}25%{transform:translateY(-10px)}50%{transform:translateY(0px)}75%{transform:translateY(6px)}100%{transform:translateY(0px)}}
+
     .mint-btn{background:var(--pink-1);border-radius:28px;padding:12px 28px;border:none;color:#071018;font-weight:800;
       cursor:pointer;box-shadow:0 8px 30px rgba(255,111,179,.12);margin-top:14px}
     .logos-row{display:flex;justify-content:center;gap:12px;margin-top:18px}
@@ -66,6 +67,24 @@
     .logo img{width:30px;height:30px;object-fit:contain}
     .bottom{margin-top:18px;display:flex;justify-content:center}
     .bottom img{width:220px;height:auto;border-radius:10px;object-fit:contain}
+
+    /* ---------- BOX EFFECTS ---------- */
+    .box-bubbles,.blue-bubbles{
+      position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;overflow:visible;z-index:1;
+    }
+    .box-bubbles .box,.blue-bubbles .b{
+      position:absolute;bottom:-140px;border-radius:6px;will-change:transform,opacity;opacity:0;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .box-bubbles .box{background:#fff;box-shadow:0 8px 30px rgba(0,0,0,0.08),inset 0 -6px 10px rgba(0,0,0,0.04);
+      animation:boxRise linear infinite;}
+    .box-bubbles .box::after{content:"";width:36%;height:36%;background:var(--box-blue);border-radius:4px;}
+    @keyframes boxRise{0%{transform:translateY(0)scale(.9);opacity:0;}30%{opacity:.9;}100%{transform:translateY(-120vh)scale(1.1);opacity:0;}}
+    .blue-bubbles .b{background:linear-gradient(180deg,rgba(47,159,255,.98),rgba(12,116,255,.9));
+      animation:boxRiseBlue linear infinite;}
+    .blue-bubbles .b::after{content:"";width:32%;height:32%;background:#fff;border-radius:4px;}
+    @keyframes boxRiseBlue{0%{transform:translateY(0)scale(.9);opacity:0;}30%{opacity:.9;}100%{transform:translateY(-120vh)scale(1.1);opacity:0;}}
+
   </style>
 </head>
 <body>
@@ -73,11 +92,12 @@
 
   <div class="wrap">
     <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
-
     <section class="hero"><div class="hero-bg"></div></section>
 
     <div class="mint-section">
-      <h1 class="title"><span>M</span><span>I</span><span>N</span><span>T</span><span>&nbsp;</span><span>N</span><span>O</span><span>W</span></h1>
+      <h1 class="title">
+        <span style="animation-delay:0s">M</span><span style="animation-delay:0.08s">i</span><span style="animation-delay:0.16s">n</span><span style="animation-delay:0.24s">t</span><span style="animation-delay:0.32s">&nbsp;</span><span style="animation-delay:0.4s">o</span><span style="animation-delay:0.48s">n</span><span style="animation-delay:0.56s">&nbsp;</span><span style="animation-delay:0.64s">O</span><span style="animation-delay:0.72s">p</span><span style="animation-delay:0.8s">e</span><span style="animation-delay:0.88s">n</span><span style="animation-delay:0.96s">s</span><span style="animation-delay:1.04s">e</span><span style="animation-delay:1.12s">a</span>
+      </h1>
       <button id="mintBtn" class="mint-btn">MINT NOW</button>
       <div class="logos-row">
         <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank"><img src="https://vice-toads.vercel.app/images/farcaster.png"/></a>
@@ -94,8 +114,8 @@
         </div>
       </div>
 
-      <div class="points">+100 Vice Toads$ 
-        <div style="font-size:12px;color:#071018;opacity:.7;margin-top:6px">Total Claimed: 
+      <div class="points">+100 Vice Toads$
+        <div style="font-size:12px;color:#071018;opacity:.7;margin-top:6px">Total Claimed:
           <span id="totalClaimed">0</span></div>
       </div>
 
@@ -103,16 +123,25 @@
         <button id="claimBtn" class="btn btn-claim disabled" disabled>Claim Now</button>
         <button id="connectInline" class="btn-connect-inline">Connect Wallet</button>
       </div>
-
-      <div style="margin-top:10px;color:#071018" id="statusText">Connect your wallet to claim</div>
+      <div style="margin-top:10px;color:#071018" id="statusText">Connect wallet to claim</div>
     </div>
 
-    <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom" /></div>
+    <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom"></div>
     <div style="height:18px"></div>
     <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
   </div>
 
-  <!-- scripts -->
+  <div class="box-bubbles" aria-hidden="true">
+    <div class="box n1"></div><div class="box n2"></div><div class="box n3"></div><div class="box n4"></div>
+    <div class="box n5"></div><div class="box n6"></div><div class="box n7"></div><div class="box n8"></div>
+    <div class="box n9"></div><div class="box n10"></div><div class="box n11"></div><div class="box n12"></div>
+  </div>
+
+  <div class="blue-bubbles" aria-hidden="true">
+    <div class="b b1"></div><div class="b b2"></div><div class="b b3"></div><div class="b b4"></div>
+    <div class="b b5"></div><div class="b b6"></div><div class="b b7"></div><div class="b b8"></div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
@@ -130,9 +159,8 @@
     const statusText=document.getElementById('statusText');
     const totalClaimedEl=document.getElementById('totalClaimed');
     const mintBtn=document.getElementById('mintBtn');
+    let provider=null,web3=null,currentAddress=null,countdownInterval=null;
 
-    let provider=null,web3=null,currentAddress=null;
-    let countdownInterval=null;
     const web3Modal=new window.Web3Modal.default({
       cacheProvider:false,
       providerOptions:{
@@ -143,45 +171,42 @@
 
     function short(a){return a?(a.slice(0,6)+"..."+a.slice(-4)):"";}
     function nextAmountFor(r){return((r?.streak||0)+1)*100;}
-
-    function startCountdown(msRemaining,nextAmount){
+    function startCountdown(ms,next){
       clearInterval(countdownInterval);
-      const startAt=Date.now();
-      function update(){
-        const t=Math.max(0,msRemaining-(Date.now()-startAt));
-        if(t<=0){clearInterval(countdownInterval);
-          statusText.textContent="You can claim now — Next +" + nextAmount + " pts";return;}
-        const h=Math.floor(t/(1000*60*60));
-        const m=Math.floor((t%(1000*60*60))/(1000*60));
-        const s=Math.floor((t%(1000*60))/1000);
-        statusText.textContent="Next claim in "+h.toString().padStart(2,'0')+":"+m.toString().padStart(2,'0')+":"+s.toString().padStart(2,'0')+" — Next +"+nextAmount+" pts";
-      }
-      update();countdownInterval=setInterval(update,1000);
+      const start=Date.now();
+      countdownInterval=setInterval(()=>{
+        const t=Math.max(0,ms-(Date.now()-start));
+        if(t<=0){clearInterval(countdownInterval);statusText.textContent="You can claim now — Next +"+next+" pts";return;}
+        const h=Math.floor(t/3600000),m=Math.floor(t%3600000/60000),s=Math.floor(t%60000/1000);
+        statusText.textContent=`Next claim in ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')} — Next +${next} pts`;
+      },1000);
     }
-    function stopCountdown(){clearInterval(countdownInterval);}
 
     async function doConnect(){
       try{
-        provider=await web3Modal.connect();
-        web3=new Web3(provider);
-        const a=await web3.eth.getAccounts();
-        currentAddress=a[0].toLowerCase();
+        statusText.textContent="Membuka wallet...";
+        provider=await web3Modal.connect(); if(!provider) throw new Error("no provider");
+        web3=new Web3(provider); const eth=new ethers.providers.Web3Provider(provider);
+        let acc=await eth.listAccounts(); if(!acc||!acc.length) acc=await web3.eth.getAccounts();
+        currentAddress=acc[0].toLowerCase();
         profileName.textContent=short(currentAddress);
         profileSub.textContent="Connected";
+        statusText.textContent="Siap untuk klaim poin";
         connectInline.style.display='none';
         connectFloating.style.display='block';
-        claimBtn.classList.remove('disabled');claimBtn.disabled=false;
-
-        // === NEW: when connected, make Claim Now text black ===
-        claimBtn.style.color = '#000';
-
-        loadTotals();
-        provider.on&&provider.on("disconnect",handleDisconnect);
-      }catch(e){statusText.textContent="Wallet connection failed";}
+        connectFloating.textContent="Disconnect";
+        claimBtn.classList.remove('disabled'); claimBtn.disabled=false;
+        // ubah warna claim jadi sama seperti connect wallet
+        claimBtn.style.background="linear-gradient(135deg,#ffb6d7,#ff8fca)";
+        claimBtn.style.color="#111";
+      }catch(e){
+        console.error(e);
+        statusText.textContent="Connect Wallet";
+        provider=null;web3=null;currentAddress=null;
+      }
     }
 
     async function handleDisconnect(){
-      try{await web3Modal.clearCachedProvider();}catch(e){}
       provider=null;web3=null;currentAddress=null;
       connectInline.style.display='inline-block';
       connectFloating.style.display='none';
@@ -189,55 +214,30 @@
       profileSub.textContent="Connect wallet to show profile";
       avatarImg.src="https://vice-toads.vercel.app/images/icon.png";
       claimBtn.classList.add('disabled');claimBtn.disabled=true;
-      totalClaimedEl.textContent="0"; // reset total claimed to 0 when disconnected
-      statusText.textContent="Connect your wallet to claim";
-      stopCountdown();
-
-      // ensure Claim Now text returns to original white when disconnected
-      claimBtn.style.color = '#fff';
+      totalClaimedEl.textContent="0";statusText.textContent="Connect wallet to claim";
+      // kembalikan warna claim default
+      claimBtn.style.background="rgba(11,7,16,.18)";
+      claimBtn.style.color="#fff";
     }
 
-    connectInline.addEventListener('click',()=>doConnect());
-    connectFloating.addEventListener('click',async()=>{if(currentAddress){await handleDisconnect();}else{await doConnect();}});
+    connectInline.onclick=doConnect;
+    connectFloating.onclick=()=>currentAddress?handleDisconnect():doConnect;
 
-    claimBtn.addEventListener('click',()=>{
-      if(!currentAddress)return alert("Connect wallet first");
-      const db=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
-      const r=db[currentAddress]||{total:0,last:0,streak:0};
-      const now=Date.now();
-      if(r.last&&(now-r.last)<DAY_MS){
-        const rem=DAY_MS-(now-r.last);
-        startCountdown(rem,nextAmountFor(r));
-        return;
-      }
-      const amt=nextAmountFor(r);
-      r.streak++;r.total+=amt;r.last=now;
-      db[currentAddress]=r;localStorage.setItem(LS_KEY,JSON.stringify(db));
-      totalClaimedEl.textContent=r.total;
-      statusText.textContent="Claimed +"+amt+" — next in 24:00:00";
-      const rem=DAY_MS-(Date.now()-r.last);
-      startCountdown(rem,nextAmountFor(r));
+    claimBtn.onclick=async()=>{
+      if(!currentAddress){alert("Connect wallet first");return;}
+      claimBtn.disabled=true;
+      statusText.textContent="Memproses klaim...";
+      setTimeout(()=>{
+        statusText.textContent="Claimed +100 — next claim in 24:00:00";
+        totalClaimedEl.textContent="100";
+        // setelah claim warna kembali seperti sebelum connect
+        claimBtn.style.background="rgba(11,7,16,.18)";
+        claimBtn.style.color="#fff";
+        claimBtn.disabled=false;
+      },1200);
+    };
 
-      // === NEW: after claim, set Claim Now text back to original color (white) ===
-      claimBtn.style.color = '#fff';
-    });
-
-    function loadTotals(){
-      if(!currentAddress)return;
-      const db=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
-      const r=db[currentAddress]||{total:0,last:0,streak:0};
-      totalClaimedEl.textContent=r.total||0;
-      if(r.last&&(Date.now()-r.last)<DAY_MS){
-        startCountdown(DAY_MS-(Date.now()-r.last),nextAmountFor(r));
-      }else{
-        stopCountdown();
-        statusText.textContent="You can claim now — Next +" + nextAmountFor(r)+" pts";
-        // if connected and ready to claim, keep Claim Now text black (already set at connect)
-        if (currentAddress) claimBtn.style.color = '#000';
-      }
-    }
-
-    mintBtn.addEventListener('click',()=>window.open('https://opensea.io/collection/based-vice-toads','_blank'));
+    mintBtn.onclick=()=>window.open('https://opensea.io/collection/based-vice-toads','_blank');
   })();
   </script>
 </body>
