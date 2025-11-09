@@ -1,51 +1,161 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Based Vice Toads — Mint</title>
+  <title>Based Vice Toads — Mint & Community</title>
 
   <!-- Farcaster MiniApp Embed -->
   <meta name="fc:miniapp" content='{
     "version":"next",
     "imageUrl":"https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
-    "button":{
-      "title":"Mint Now",
-      "action":{
-        "type":"launch_miniapp",
-        "name":"Based Vice Toads",
-        "url":"https://vice-toads.vercel.app"
-      }
-    }
+    "button":{"title":"Mint Now","action":{"type":"launch_miniapp","name":"Based Vice Toads","url":"https://vice-toads.vercel.app"}}
   }' />
 
-  <meta property="og:title" content="Based Vice Toads" />
-  <meta property="og:description" content="Mint Based Vice Toads NFT directly on Base Network." />
-  <meta property="og:image" content="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg" />
+  <meta name="description" content="Based Vice Toads — mint collectible NFTs on Base. Clean landing, mint CTA." />
+  <link rel="icon" href="/favicon.png" />
 
   <style>
-    html, body { margin:0; height:100%; background:#000; font-family:Inter,system-ui,Arial; color:#fff; overflow:hidden; }
-    .slideshow { position:fixed; inset:0; }
-    .slide { position:absolute; inset:0; opacity:0; transition:opacity 1.1s ease-in-out; }
-    .slide.active { opacity:1; }
-    .slide img { width:100%; height:100%; object-fit:cover; display:block; }
-    .overlay { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:10; pointer-events:none; }
-    .mint-btn { pointer-events:auto; background:#7afcff; color:#02121a; border:none; padding:14px 24px; border-radius:12px; font-weight:800; font-size:18px; cursor:pointer; }
-    .mint-btn:hover { transform:scale(1.03); }
+    /* Modern clean layout inspired by sleek SaaS landing pages */
+    :root{
+      --bg:#05030a; --muted:#9aa4b2; --accent:#7afcff; --card:#0b0d12; --glass:rgba(255,255,255,0.03);
+      --maxw:1100px; --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:linear-gradient(180deg,#020312 0%, #050313 100%);color:#fff}
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#2ef6c1,#4bd0ff);display:flex;align-items:center;justify-content:center;color:#02121a;font-weight:800}
+    .nav{display:flex;gap:14px;align-items:center}
+    .nav a{color:var(--muted);text-decoration:none;font-weight:600}
+    .cta{background:var(--accent);color:#02121a;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:800}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 520px;gap:28px;align-items:center;padding:48px 0}
+    .hero h1{font-size:38px;line-height:1.03;margin-bottom:12px}
+    .hero p{color:var(--muted);margin-bottom:20px;font-size:16px}
+    .hero .actions{display:flex;gap:12px;align-items:center}
+    .btn-primary{background:var(--accent);color:#02121a;padding:14px 20px;border-radius:12px;font-weight:800;border:none;cursor:pointer}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px 18px;border-radius:10px;color:var(--muted);cursor:pointer}
+
+    /* Card on right */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:18px;box-shadow:0 6px 30px rgba(2,6,23,0.6);}
+    .card img{width:100%;height:320px;object-fit:cover;border-radius:12px}
+
+    /* Features */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+    .feature{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);min-height:120px}
+    .feature h4{margin-bottom:8px}
+
+    /* Footer */
+    footer{margin-top:44px;padding:24px 0;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;align-items:center}
+
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr; padding:28px 0}
+      .card img{height:220px}
+      .features{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:560px){
+      .features{grid-template-columns:1fr}
+      .logo{width:36px;height:36px}
+      .hero h1{font-size:26px}
+    }
   </style>
 </head>
 <body>
-  <div class="slideshow">
-    <div class="slide active"><img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg" alt=""></div>
-    <div class="slide"><img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg2.jpg" alt=""></div>
-    <div class="slide"><img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg3.jpg" alt=""></div>
-    <div class="slide"><img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg4.jpg" alt=""></div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">VT</div>
+        <div>
+          <div style="font-weight:800">Based Vice Toads</div>
+          <div style="font-size:12px;color:var(--muted)">by @ameldoxg</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#mint">Mint</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a class="cta" href="https://opensea.io/collection/based-vice-toads/overview" target="_blank">Marketplace</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <section>
+        <h1>Mint Based Vice Toads — collectible NFTs on Base</h1>
+        <p>Join the swamp. Mint on Base, connect with Farcaster, and collect unique Vice Toads. Limited drop — don’t miss out.</p>
+        <div class="actions">
+          <button id="mintPrimary" class="btn-primary">Mint Now</button>
+          <button id="view" class="btn-ghost">View Collection</button>
+        </div>
+
+        <div class="features" style="margin-top:28px">
+          <div class="feature"><h4>On‑chain art</h4><p class="muted">Every Vice Toad is onchain and verified on Base.</p></div>
+          <div class="feature"><h4>Farcaster Ready</h4><p class="muted">Miniapp embed and Warpcast integration supported.</p></div>
+          <div class="feature"><h4>Community</h4><p class="muted">Join the Farcaster community and swap editions.</p></div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <img src="https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg" alt="Vice Toads preview" />
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+          <div><strong>Vice Toad #001</strong><div style="font-size:13px;color:var(--muted)">Artist: ameldoxg</div></div>
+          <div style="font-weight:800;color:var(--muted)">0.05 ETH</div>
+        </div>
+      </aside>
+    </main>
+
+    <section id="about" style="margin-top:36px">
+      <h3>About the Drop</h3>
+      <p style="color:var(--muted);max-width:760px">Based Vice Toads is a limited collection of on-chain amphibian art minted on Base. Each piece is uniquely generated and stored decentralized. This mini-site is a fast landing for minting and promoting the collection.</p>
+    </section>
+
+    <section id="faq" style="margin-top:30px">
+      <h3>FAQ</h3>
+      <div style="margin-top:10px;color:var(--muted)">
+        <strong>How to mint?</strong>
+        <p>Click Mint Now and follow the instructions. Wallet connection will be required.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2025 Based Vice Toads</div>
+      <div>Made with ❤️ on Base</div>
+    </footer>
   </div>
 
-  <div class="overlay">
-    <button id="mintBtn" class="mint-btn">Mint Now</button>
-  </div>
+  <script>
+    // app-like behavior: send ready signal and open links
+    (function(){
+      // try to import Farcaster SDK and call ready (if allowed), otherwise postMessage fallback
+      (async function(){
+        let sdk = null;
+        try{
+          const mod = await import('https://cdn.jsdelivr.net/npm/@farcaster/miniapp-sdk/dist/index.min.js');
+          sdk = mod.sdk ?? mod.default ?? null;
+          if (sdk && sdk.actions && typeof sdk.actions.ready === 'function') {
+            await sdk.actions.ready();
+            console.log('sdk.actions.ready() called');
+          }
+        }catch(e){
+          console.warn('SDK import failed (ok if embed):', e?.message || e);
+        }
+        try{
+          window.parent.postMessage({type:'miniapp_ready', source:'based-vice-toads', ts:Date.now()}, '*');
+          console.log('posted miniapp_ready');
+        }catch(e){}
+      })();
 
-  <script src="./app.js"></script>
+      document.getElementById('mintPrimary').addEventListener('click', function(){
+        try{ window.parent.postMessage({type:'open_url', url:'https://opensea.io/collection/based-vice-toads/overview'}, '*') }catch(e){}
+        window.open('https://opensea.io/collection/vice-toads', '_blank');
+      });
+      document.getElementById('view').addEventListener('click', function(){
+        window.open('https://opensea.io/collection/based-vice-toads/overview', '_blank');
+      });
+    })();
+  </script>
 </body>
 </html>
