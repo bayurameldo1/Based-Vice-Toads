@@ -21,20 +21,45 @@
   }' />
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-    :root{
-      --bg:#05020a; --pink:#ff6fb3; --card1:#ffb6d7; --card2:#ff8fca; --accent:#00f2d6;
-    }
-    html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#fff}
-    .wrap{max-width:980px;margin:0 auto;padding:12px}
-    .marquee{overflow:hidden;white-space:nowrap;padding:6px 0;text-align:center;color:var(--accent);font-weight:700}
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap');
 
-    /* HERO: adjusted sizes only */
+    :root{
+      --bg-pink: #17000b;
+      --accent: #00f2d6;
+      --pink-1: #ff6fb3;
+      --card1:#ffb6d7;
+      --card2:#ff8fca;
+      --box-blue: #2f9fff;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:linear-gradient(180deg,#1a0316 0%, #2b021f 60%, #1a0316 100%);
+      font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:#fff;
+    }
+
+    /* keep wrap above decorative layers so UI stays clickable */
+    .wrap{max-width:980px;margin:0 auto;padding:12px; position:relative; z-index:3;}
+
+    .marquee{
+      overflow:hidden;
+      white-space:nowrap;
+      padding:6px 0;
+      text-align:center;
+      color:#0ab7ff;
+      font-weight:700;
+      font-size:14px;
+    }
+    .marquee .inner{display:inline-block;padding-left:100%;animation:marqueeAnim 10s linear infinite}
+    @keyframes marqueeAnim{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* HERO: static single image (bg1) - NO carousel or sliding */
     .hero{
       position:relative;
-      /* make hero panoramic approx 1536x1024 => aspect-ratio 3/2 */
       width:100%;
-      aspect-ratio: 3 / 2;
+      height:380px;
       border-radius:10px;
       overflow:hidden;
       margin-top:8px;
@@ -42,28 +67,204 @@
       background:#000;
     }
 
-    .slider{display:flex;height:100%;width:400%;animation:slide-left 24s linear infinite}
-    .slide{min-width:100%;height:100%;background-size:cover;background-position:center; background-repeat:no-repeat; transition: transform .45s ease;}
-    /* emphasize the middle (second) slide slightly so it looks larger */
-    .slide:nth-child(2){ transform: scale(1.03); }
-
-    @keyframes slide-left{
-      0%{transform:translateX(0)}20%{transform:translateX(0)}
-      30%{transform:translateX(-100%)}50%{transform:translateX(-100%)}
-      60%{transform:translateX(-200%)}80%{transform:translateX(-200%)}
-      90%{transform:translateX(-300%)}100%{transform:translateX(-300%)}
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      background-image:url('https://vice-toads.vercel.app/images/bg1.jpg');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      transform:scale(1.02);
+      filter:contrast(1.02) saturate(1.02);
     }
-    .overlay{position:absolute;z-index:6;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
-    .title{font-size:48px;letter-spacing:6px;margin:0;color:#ffd6ec;text-shadow:0 10px 30px rgba(0,0,0,.7);text-transform:uppercase;font-weight:800;animation:wave 2.8s ease-in-out infinite}
-    @keyframes wave{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
-    .controls{pointer-events:auto;margin-top:16px;display:flex;align-items:center;gap:12px}
-    .mint-btn{background:var(--pink);border-radius:28px;padding:12px 28px;border:none;color:#071018;font-weight:800;cursor:pointer;box-shadow:0 8px 30px rgba(255,111,179,.12)}
-    .logos{display:flex;gap:10px;align-items:center}
-    .logo{width:44px;height:44px;border-radius:8px;overflow:hidden;background:#fff;padding:6px;display:flex;align-items:center;justify-content:center}
-    .logo img{width:28px;height:28px;object-fit:contain}
 
-    /* profile card */
-    .card{width:92%;max-width:420px;margin:18px auto;padding:16px;border-radius:12px;background:linear-gradient(180deg,var(--card1),var(--card2));color:#071018;box-shadow:0 14px 40px rgba(0,0,0,.48)}
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(255,140,190,0.06), rgba(255,105,170,0.12) 60%);
+      mix-blend-mode:screen;
+      pointer-events:none;
+    }
+
+    /* ---------- WHITE BOXES (existing) - with BLUE SQUARE center ---------- */
+    .box-bubbles{
+      position:fixed;
+      left:0;
+      bottom:0;
+      width:100%;
+      height:100vh;
+      pointer-events:none;
+      overflow:visible;
+      z-index:1; /* behind .wrap (wrap z-index:3) */
+    }
+
+    .box-bubbles .box{
+      position:absolute;
+      bottom:-140px;
+      background: #ffffff;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08), inset 0 -6px 10px rgba(0,0,0,0.04);
+      animation:boxRise linear infinite;
+      border-radius:6px;
+      will-change: transform, opacity;
+      opacity:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* blue inner SQUARE (not circle) for white boxes */
+    .box-bubbles .box::after{
+      content:"";
+      width:36%;
+      height:36%;
+      background: var(--box-blue);
+      border-radius:4px; /* square with slight rounding */
+      box-shadow: 0 6px 18px rgba(47,159,255,0.18), inset 0 1px 3px rgba(255,255,255,0.15);
+      pointer-events:none;
+    }
+
+    @keyframes boxRise{
+      0%{ transform: translateY(0) scale(0.92) rotate(0deg); opacity:0; }
+      6%{ opacity:0.6; }
+      28%{ opacity:0.96; }
+      60%{ transform: translateY(-55vh) scale(1.04) rotate(6deg); opacity:0.78; }
+      90%{ transform: translateY(-100vh) scale(1.08) rotate(12deg); opacity:0.36; }
+      100%{ transform: translateY(-120vh) scale(1.12) rotate(18deg); opacity:0; }
+    }
+
+    .box-bubbles .box.n1{ left:6%;  width:18px; height:18px; animation-duration:8.0s; animation-delay:0.2s; }
+    .box-bubbles .box.n2{ left:14%; width:36px; height:36px; animation-duration:10.6s; animation-delay:1.0s; }
+    .box-bubbles .box.n3{ left:22%; width:16px; height:16px; animation-duration:7.2s; animation-delay:0.4s; }
+    .box-bubbles .box.n4{ left:30%; width:46px; height:46px; animation-duration:11.6s; animation-delay:0.6s; }
+    .box-bubbles .box.n5{ left:38%; width:26px; height:26px; animation-duration:8.6s; animation-delay:0.9s; }
+    .box-bubbles .box.n6{ left:46%; width:54px; height:54px; animation-duration:12.8s; animation-delay:0.3s; }
+    .box-bubbles .box.n7{ left:54%; width:20px; height:20px; animation-duration:7.4s; animation-delay:1.4s; }
+    .box-bubbles .box.n8{ left:62%; width:30px; height:30px; animation-duration:9.2s; animation-delay:0.8s; }
+    .box-bubbles .box.n9{ left:70%; width:22px; height:22px; animation-duration:8.2s; animation-delay:0.2s; }
+    .box-bubbles .box.n10{ left:78%; width:42px; height:42px; animation-duration:11.0s; animation-delay:1.1s; }
+    .box-bubbles .box.n11{ left:25%; width:72px; height:72px; animation-duration:14.4s; animation-delay:2.2s; border-radius:8px; }
+    .box-bubbles .box.n12{ left:66%; width:64px; height:64px; animation-duration:13.2s; animation-delay:1.8s; border-radius:8px; }
+
+    /* ---------- BLUE BOXES (new) - with WHITE SQUARE center ---------- */
+    .blue-bubbles{
+      position:fixed;
+      left:0;
+      bottom:0;
+      width:100%;
+      height:100vh;
+      pointer-events:none;
+      overflow:visible;
+      z-index:1; /* behind .wrap */
+    }
+
+    .blue-bubbles .b{
+      position:absolute;
+      bottom:-140px;
+      background: linear-gradient(180deg, rgba(47,159,255,0.98), rgba(12,116,255,0.9));
+      box-shadow: 0 8px 28px rgba(10,110,220,0.08), inset 0 -6px 10px rgba(0,0,0,0.06);
+      animation:boxRiseBlue linear infinite;
+      border-radius:6px;
+      will-change: transform, opacity;
+      opacity:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* white inner SQUARE for blue boxes */
+    .blue-bubbles .b::after{
+      content:"";
+      width:32%;
+      height:32%;
+      background: #ffffff;
+      border-radius:4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      pointer-events:none;
+    }
+
+    @keyframes boxRiseBlue{
+      0%{ transform: translateY(0) scale(0.9) rotate(0deg); opacity:0; }
+      6%{ opacity:0.6; }
+      28%{ opacity:0.94; }
+      60%{ transform: translateY(-55vh) scale(1.03) rotate(-6deg); opacity:0.78; }
+      90%{ transform: translateY(-100vh) scale(1.06) rotate(-12deg); opacity:0.36; }
+      100%{ transform: translateY(-120vh) scale(1.09) rotate(-18deg); opacity:0; }
+    }
+
+    .blue-bubbles .b.b1{ left:9%;  width:22px; height:22px; animation-duration:8.8s; animation-delay:0.4s; }
+    .blue-bubbles .b.b2{ left:18%; width:40px; height:40px; animation-duration:11.0s; animation-delay:1.2s; }
+    .blue-bubbles .b.b3{ left:28%; width:18px; height:18px; animation-duration:7.6s; animation-delay:0.6s; }
+    .blue-bubbles .b.b4{ left:36%; width:48px; height:48px; animation-duration:12.0s; animation-delay:0.9s; }
+    .blue-bubbles .b.b5{ left:44%; width:26px; height:26px; animation-duration:8.8s; animation-delay:0.2s; }
+    .blue-bubbles .b.b6{ left:56%; width:58px; height:58px; animation-duration:13.6s; animation-delay:1.6s; }
+    .blue-bubbles .b.b7{ left:68%; width:20px; height:20px; animation-duration:7.8s; animation-delay:1.0s; }
+    .blue-bubbles .b.b8{ left:82%; width:36px; height:36px; animation-duration:10.0s; animation-delay:0.8s; }
+
+    /* small responsive adjustments */
+    @media(max-width:520px){
+      .hero{height:320px}
+      .box-bubbles .box.n2{ left:12%; width:30px; height:30px; }
+      .box-bubbles .box.n6{ left:46%; width:44px; height:44px; }
+      .box-bubbles .box.n11{ width:56px; height:56px; }
+      .blue-bubbles .b.b4{ width:40px; height:40px; left:34%; }
+    }
+
+    @media(min-width:900px){
+      .hero{height:520px}
+      .title{font-size:72px}
+    }
+
+    /* rest of page styles (mint section, profile card, etc.) unchanged */
+    .mint-section{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      margin-top:18px;
+    }
+    .title{
+      font-size:64px;
+      letter-spacing:6px;
+      margin:0;
+      color:#ffd6ec;
+      text-shadow:0 10px 30px rgba(0,0,0,.7);
+      text-transform:uppercase;
+      font-weight:900;
+      display:flex;
+      justify-content:center;
+      gap:6px;
+      pointer-events:none;
+    }
+    .title span{ display:inline-block; transform-origin:center; animation:waveLetter 1.05s ease-in-out infinite; }
+    .title span:nth-child(1){ animation-delay:0s } .title span:nth-child(2){ animation-delay:0.08s }
+    .title span:nth-child(3){ animation-delay:0.16s } .title span:nth-child(4){ animation-delay:0.24s }
+    .title span:nth-child(5){ animation-delay:0.32s } .title span:nth-child(6){ animation-delay:0.40s }
+    .title span:nth-child(7){ animation-delay:0.48s } .title span:nth-child(8){ animation-delay:0.56s }
+    @keyframes waveLetter{
+      0%   { transform: translateY(0px) rotate(0deg); }
+      25%  { transform: translateY(-10px) rotate(-1deg); }
+      50%  { transform: translateY(0px) rotate(0deg); }
+      75%  { transform: translateY(6px) rotate(1deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    .mint-btn{
+      background:var(--pink-1);
+      border-radius:28px;
+      padding:12px 28px;
+      border:none;
+      color:#071018;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 8px 30px rgba(255,111,179,.12);
+      margin-top:14px;
+    }
+
+    .logos-row{display:flex;justify-content:center;gap:12px;margin-top:18px}
+    .logo{width:48px;height:48px;border-radius:8px;overflow:hidden;background:#fff;padding:6px;display:flex;align-items:center;justify-content:center}
+    .logo img{width:30px;height:30px;object-fit:contain}
+
+    .card{width:92%;max-width:420px;margin:18px auto 6px;padding:16px;border-radius:12px;background:linear-gradient(180deg,var(--card1),var(--card2));color:#071018;box-shadow:0 14px 40px rgba(0,0,0,.48)}
     .card .row{display:flex;align-items:center;gap:12px}
     .avatar{width:56px;height:56px;border-radius:50%;overflow:hidden;background:#fff;flex:0 0 56px}
     .avatar img{width:56px;height:56px;object-fit:cover}
@@ -76,44 +277,40 @@
     .btn-claim{background:rgba(11,7,16,.18);color:#fff;min-width:140px}
     .disabled{opacity:.45;pointer-events:none}
 
-    /* bottom image: force square (1:1) like 1024x1024 */
-    .bottom{margin-top:20px;display:flex;justify-content:center}
-    .bottom img{max-width:100%;border-radius:10px; aspect-ratio: 1 / 1; object-fit:cover}
-
-    @media(max-width:520px){ .title{font-size:34px} .hero{aspect-ratio: 4 / 3;} }
+    .bottom{margin-top:18px;display:flex;justify-content:center}
+    .bottom img{width:220px;height:auto;border-radius:10px;object-fit:contain;filter: drop-shadow(0 10px 18px rgba(0,0,0,.6))}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="marquee" id="marTop">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</div>
+    <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
 
     <section class="hero">
-      <div class="slider">
-        <div class="slide" style="background-image:url('https://vice-toads.vercel.app/images/bg1.jpg')"></div>
-        <div class="slide" style="background-image:url('https://vice-toads.vercel.app/images/bg2.jpg')"></div>
-        <div class="slide" style="background-image:url('https://vice-toads.vercel.app/images/bg3.jpg')"></div>
-        <div class="slide" style="background-image:url('https://vice-toads.vercel.app/images/bg4.jpg')"></div>
-      </div>
-
-      <div class="overlay">
-        <h1 class="title">MINT NOW</h1>
-
-        <div class="controls">
-          <button id="mintBtn" class="mint-btn">MINT NOW</button>
-
-          <div class="logos">
-            <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank" title="Farcaster">
-              <img src="https://vice-toads.vercel.app/images/farcaster.png" alt="farcaster" />
-            </a>
-            <a class="logo" href="https://base.app/profile/0xbres" target="_blank" title="Base App">
-              <img src="https://vice-toads.vercel.app/images/baseapp.png" alt="baseapp" />
-            </a>
-          </div>
-        </div>
-      </div>
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
     </section>
 
-    <!-- profile / claim card -->
+    <!-- Mint section (unchanged) -->
+    <div class="mint-section">
+      <h1 class="title" aria-hidden="true">
+        <span>M</span><span>I</span><span>N</span><span>T</span>
+        <span>&nbsp;</span>
+        <span>N</span><span>O</span><span>W</span>
+      </h1>
+
+      <button id="mintBtn" class="mint-btn">MINT NOW</button>
+
+      <div class="logos-row">
+        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank" title="Farcaster">
+          <img src="https://vice-toads.vercel.app/images/farcaster.png" alt="farcaster" />
+        </a>
+        <a class="logo" href="https://base.app/profile/0xbres" target="_blank" title="Base App">
+          <img src="https://vice-toads.vercel.app/images/baseapp.png" alt="baseapp" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Profile / Claim (unchanged) -->
     <div class="card" id="profileCard">
       <div class="row">
         <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png" alt="avatar" /></div>
@@ -123,25 +320,57 @@
         </div>
       </div>
 
-      <div class="points">+100 Vice Toads$ <div style="font-size:12px;color:#071018;opacity:.7;margin-top:6px">Total Claimed: <span id="totalClaimed">0</span></div></div>
+      <div class="points">+100 Vice Toads$ 
+        <div style="font-size:12px;color:#071018;opacity:.7;margin-top:6px">
+          Total Claimed: <span id="totalClaimed">0</span>
+        </div>
+      </div>
 
       <div class="claim-row">
         <button id="connectBtn" class="btn btn-connect">Connect Wallet</button>
-        <button id="claimBtn" class="btn btn-claim disabled" disabled>Claim +100</button>
+        <button id="claimBtn" class="btn btn-claim disabled" disabled>Claim Now</button>
       </div>
 
       <div style="margin-top:10px;color:#071018" id="statusText">Connect your wallet to claim</div>
     </div>
 
     <div class="bottom">
-      <!-- Bottom image now using square (bg5) -->
       <img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom" />
     </div>
 
-    <div style="height:48px"></div>
-    <div class="marquee" id="marBottom">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</div>
+    <div style="height:18px"></div>
+    <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
   </div>
 
+  <!-- white boxes (with BLUE square center) -->
+  <div class="box-bubbles" aria-hidden="true">
+    <div class="box n1"></div>
+    <div class="box n2"></div>
+    <div class="box n3"></div>
+    <div class="box n4"></div>
+    <div class="box n5"></div>
+    <div class="box n6"></div>
+    <div class="box n7"></div>
+    <div class="box n8"></div>
+    <div class="box n9"></div>
+    <div class="box n10"></div>
+    <div class="box n11"></div>
+    <div class="box n12"></div>
+  </div>
+
+  <!-- blue boxes (with WHITE square center) -->
+  <div class="blue-bubbles" aria-hidden="true">
+    <div class="b b1"></div>
+    <div class="b b2"></div>
+    <div class="b b3"></div>
+    <div class="b b4"></div>
+    <div class="b b5"></div>
+    <div class="b b6"></div>
+    <div class="b b7"></div>
+    <div class="b b8"></div>
+  </div>
+
+  <!-- scripts unchanged -->
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
@@ -152,7 +381,6 @@
       const INFURA_ID = "REPLACE_WITH_INFURA_PROJECT_ID";
       const FARCASTER_API = "/api/farcaster";
       const CLAIM_API = "/api/claim";
-
       const connectBtn = document.getElementById('connectBtn');
       const claimBtn = document.getElementById('claimBtn');
       const profileName = document.getElementById('profileName');
@@ -168,10 +396,7 @@
       const providerOptions = {
         walletconnect: {
           package: window.WalletConnectProvider.default,
-          options: {
-            rpc: { 1: "https://mainnet.infura.io/v3/" + INFURA_ID },
-            bridge: "https://bridge.walletconnect.org"
-          }
+          options: { rpc: { 1: "https://mainnet.infura.io/v3/" + INFURA_ID }, bridge: "https://bridge.walletconnect.org" }
         }
       };
       const web3Modal = new window.Web3Modal.default({ cacheProvider:false, providerOptions });
@@ -204,9 +429,7 @@
 
           loadTotals();
           statusText.textContent = "Ready to claim your points";
-        } catch(e){
-          statusText.textContent = "Wallet connection failed";
-        }
+        } catch(e){ statusText.textContent = "Wallet connection failed"; }
       });
 
       claimBtn.addEventListener('click', async ()=>{
@@ -216,26 +439,17 @@
         try {
           const resp = await fetch(CLAIM_API, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ address: currentAddress, amount:100 }) });
           const j = await resp.json();
-          if (j.ok){
-            totalClaimedEl.textContent = j.total || 0;
-            statusText.textContent = "Claimed +100 — next claim in 24h";
-          } else {
-            statusText.textContent = j.error || "Claim failed";
-          }
-        } catch(e){
-          statusText.textContent = "Offline claim mode";
-          localClaim();
-        } finally { claimBtn.disabled = false; }
+          if (j.ok){ totalClaimedEl.textContent = j.total || 0; statusText.textContent = "Claimed +100 — next claim in 24h"; }
+          else { statusText.textContent = j.error || "Claim failed"; }
+        } catch(e){ statusText.textContent = "Offline claim mode"; localClaim(); }
+        finally { claimBtn.disabled = false; }
       });
 
       function localClaim(){
         const db = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
         const rec = db[currentAddress] || { total:0, last:0 };
         const now = Date.now(), day = 24*60*60*1000;
-        if (now - rec.last < day){
-          statusText.textContent = "Cooldown active";
-          return;
-        }
+        if (now - rec.last < day){ statusText.textContent = "Cooldown active"; return; }
         rec.total += 100; rec.last = now;
         db[currentAddress] = rec; localStorage.setItem(LS_KEY, JSON.stringify(db));
         totalClaimedEl.textContent = rec.total;
