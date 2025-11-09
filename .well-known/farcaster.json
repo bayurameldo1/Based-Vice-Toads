@@ -34,6 +34,6 @@
     "ogTitle": "Based Vice Toads",
     "ogDescription": "Collect and mint your Vice Toads NFTs directly on Base.",
     "ogImageUrl": "https://raw.githubusercontent.com/bayurameldo1/Based-Vice-Toads/refs/heads/main/images/bg1.jpg",
-    "noindex": false
+    "noindex": true
   }
 }
