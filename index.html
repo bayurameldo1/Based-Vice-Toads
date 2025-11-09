@@ -67,22 +67,60 @@
     .bottom{margin-top:18px;display:flex;justify-content:center}
     .bottom img{width:220px;height:auto;border-radius:10px;object-fit:contain}
 
-    /* ---------- BOX EFFECTS ---------- */
+    /* ---------- BOX EFFECTS (OPTIMIZED / LIGHTER) ---------- */
+    /* Put behind UI (wrap z-index:3) and ensure pointer-events none */
     .box-bubbles,.blue-bubbles{
-      position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;overflow:visible;z-index:1;
+      position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;overflow:visible;
+      z-index:1; /* behind UI */
+      /* mix-blend-mode removed on desktop to avoid heavy blending; kept subtle visual via opacity */
     }
-    .box-bubbles .box,.blue-bubbles .b{
-      position:absolute;bottom:-140px;border-radius:6px;will-change:transform,opacity;opacity:0;
-      display:flex;align-items:center;justify-content:center;
+
+    /* white boxes with blue center */
+    .box-bubbles .box{
+      position:absolute;bottom:-220px;background:#ffffff;border-radius:6px;
+      /* lighten shadow for performance */
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06), inset 0 -4px 8px rgba(0,0,0,0.03);
+      opacity:0;display:flex;align-items:center;justify-content:center;will-change:transform,opacity;transform-origin:center;
+      animation-fill-mode:forwards;
+      animation-play-state: running;
     }
-    .box-bubbles .box{background:#fff;box-shadow:0 8px 30px rgba(0,0,0,0.08),inset 0 -6px 10px rgba(0,0,0,0.04);
-      animation:boxRise linear infinite;}
-    .box-bubbles .box::after{content:"";width:36%;height:36%;background:var(--box-blue);border-radius:4px;}
-    @keyframes boxRise{0%{transform:translateY(0)scale(.9);opacity:0;}30%{opacity:.9;}100%{transform:translateY(-120vh)scale(1.1);opacity:0;}}
-    .blue-bubbles .b{background:linear-gradient(180deg,rgba(47,159,255,.98),rgba(12,116,255,.9));
-      animation:boxRiseBlue linear infinite;}
+    .box-bubbles .box::after{content:"";width:36%;height:36%;background: var(--box-blue);border-radius:4px;}
+
+    /* blue boxes with white center */
+    .blue-bubbles .b{
+      position:absolute;bottom:-220px;background: linear-gradient(180deg, rgba(47,159,255,0.98), rgba(12,116,255,0.9));
+      border-radius:6px;box-shadow: 0 6px 18px rgba(10,110,220,0.06), inset 0 -4px 8px rgba(0,0,0,0.03);
+      opacity:0;display:flex;align-items:center;justify-content:center;will-change:transform,opacity;transform-origin:center;
+      animation-fill-mode:forwards;
+      animation-play-state: running;
+    }
     .blue-bubbles .b::after{content:"";width:32%;height:32%;background:#fff;border-radius:4px;}
-    @keyframes boxRiseBlue{0%{transform:translateY(0)scale(.9);opacity:0;}30%{opacity:.9;}100%{transform:translateY(-120vh)scale(1.1);opacity:0;}}
+
+    /* animation moving up */
+    @keyframes boxRise {
+      0%{ transform: translateY(0) scale(0.92) rotate(0deg); opacity:0; }
+      8%{ opacity:0.6; }
+      30%{ opacity:0.95; }
+      60%{ transform: translateY(-55vh) scale(1.03) rotate(6deg); opacity:0.78; }
+      90%{ transform: translateY(-100vh) scale(1.06) rotate(10deg); opacity:0.36; }
+      100%{ transform: translateY(-120vh) scale(1.09) rotate(14deg); opacity:0; }
+    }
+    @keyframes boxRiseBlue {
+      0%{ transform: translateY(0) scale(0.9) rotate(0deg); opacity:0; }
+      8%{ opacity:0.6; }
+      30%{ opacity:0.94; }
+      60%{ transform: translateY(-55vh) scale(1.02) rotate(-6deg); opacity:0.78; }
+      90%{ transform: translateY(-100vh) scale(1.05) rotate(-10deg); opacity:0.36; }
+      100%{ transform: translateY(-120vh) scale(1.08) rotate(-14deg); opacity:0; }
+    }
+
+    /* mobile performance adjustments */
+    @media (max-width:520px){
+      .box-bubbles, .blue-bubbles { mix-blend-mode: normal; } /* avoid blend cost */
+      .box-bubbles .box, .blue-bubbles .b {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.04), inset 0 -2px 6px rgba(0,0,0,0.02);
+      }
+    }
   </style>
 </head>
 <body>
@@ -98,14 +136,14 @@
       </h1>
       <button id="mintBtn" class="mint-btn">MINT NOW</button>
       <div class="logos-row">
-        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank"><img src="https://vice-toads.vercel.app/images/farcaster.png"/></a>
-        <a class="logo" href="https://base.app/profile/0xbres" target="_blank"><img src="https://vice-toads.vercel.app/images/baseapp.png"/></a>
+        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank"><img src="https://vice-toads.vercel.app/images/farcaster.png" alt="farcaster" /></a>
+        <a class="logo" href="https://base.app/profile/0xbres" target="_blank"><img src="https://vice-toads.vercel.app/images/baseapp.png" alt="baseapp" /></a>
       </div>
     </div>
 
     <div class="card">
       <div class="row">
-        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png"/></div>
+        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png" alt="avatar" /></div>
         <div style="flex:1">
           <div class="name" id="profileName">Not connected</div>
           <div class="sub" id="profileSub">Connect wallet to show profile</div>
@@ -125,27 +163,131 @@
       <div style="margin-top:10px;color:#071018" id="statusText">Connect wallet to claim</div>
     </div>
 
-    <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom"></div>
+    <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom" /></div>
     <div style="height:18px"></div>
     <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
   </div>
 
-  <div class="box-bubbles" aria-hidden="true">
-    <div class="box n1"></div><div class="box n2"></div><div class="box n3"></div><div class="box n4"></div>
-    <div class="box n5"></div><div class="box n6"></div><div class="box n7"></div><div class="box n8"></div>
-    <div class="box n9"></div><div class="box n10"></div><div class="box n11"></div><div class="box n12"></div>
-  </div>
-
-  <div class="blue-bubbles" aria-hidden="true">
-    <div class="b b1"></div><div class="b b2"></div><div class="b b3"></div><div class="b b4"></div>
-    <div class="b b5"></div><div class="b b6"></div><div class="b b7"></div><div class="b b8"></div>
-  </div>
+  <!-- containers for boxes (behind UI) -->
+  <div class="box-bubbles" id="boxBubbles" aria-hidden="true"></div>
+  <div class="blue-bubbles" id="blueBubbles" aria-hidden="true"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
 
+  <script>
+    /***********************
+     * LIGHTWEIGHT BOX GENERATOR
+     * - fewer initial elements
+     * - less-frequent refresh (10s)
+     * - pause when page not visible
+     ***********************/
+    (function createBoxes(){
+      const boxContainer = document.getElementById('boxBubbles');
+      const blueContainer = document.getElementById('blueBubbles');
+
+      function makeBox(isBlue, leftPct, sizePx, durationSec, delaySec, rotateDeg){
+        const el = document.createElement('div');
+        el.className = isBlue ? 'b' : 'box';
+        el.style.left = leftPct + '%';
+        el.style.width = sizePx + 'px';
+        el.style.height = sizePx + 'px';
+        el.style.borderRadius = (sizePx > 60 ? '8px' : '6px');
+        el.style.animationName = isBlue ? 'boxRiseBlue' : 'boxRise';
+        el.style.animationDuration = durationSec + 's';
+        el.style.animationTimingFunction = 'linear';
+        el.style.animationDelay = delaySec + 's';
+        el.style.animationIterationCount = 'infinite';
+        el.style.transform = `rotate(${rotateDeg}deg)`;
+        el.style.opacity = '0';
+        return el;
+      }
+
+      // categories
+      const sizes = {
+        small: [12, 20],
+        medium: [28, 48],
+        large: [64, 100]
+      };
+      const speeds = {
+        fast: [6, 9],
+        medium: [10, 13],
+        slow: [14, 20]
+      };
+      function rand(min,max){ return Math.random()*(max-min)+min; }
+
+      function generate(container, isBlue, count){
+        const sizeKeys = ['small','medium','large'];
+        const speedKeys = ['fast','medium','slow'];
+        for (let i=0;i<count;i++){
+          const sk = sizeKeys[i % sizeKeys.length];
+          const sp = speedKeys[i % speedKeys.length];
+          const sizePx = Math.floor(rand(...sizes[sk]));
+          const duration = Number(rand(...speeds[sp]).toFixed(2));
+          const delay = -Math.abs(rand(0,6)); // negative start offsets
+          const left = rand(2, 94);
+          const rot = rand(-16, 16);
+          const el = makeBox(isBlue, left, sizePx, duration, delay, rot);
+          container.appendChild(el);
+        }
+      }
+
+      // initial (reduced)
+      boxContainer.innerHTML = '';
+      blueContainer.innerHTML = '';
+      generate(boxContainer, false, 8); // white boxes (smaller count)
+      generate(blueContainer, true, 6);  // blue boxes
+
+      // periodic refresh: less frequent and smaller batches
+      let refreshTimer = null;
+      function startRefresh(){
+        if (refreshTimer) return;
+        refreshTimer = setInterval(()=>{
+          // remove oldest two of each
+          for(let i=0;i<2;i++){
+            if(boxContainer.firstChild) boxContainer.removeChild(boxContainer.firstChild);
+            if(blueContainer.firstChild) blueContainer.removeChild(blueContainer.firstChild);
+          }
+          // add small new batch
+          generate(boxContainer, false, 2);
+          generate(blueContainer, true, 1);
+        }, 10000); // every 10s
+      }
+      function stopRefresh(){
+        if (refreshTimer){ clearInterval(refreshTimer); refreshTimer = null; }
+      }
+      startRefresh();
+
+      // pause animations & generator on hidden tab to save CPU
+      function handleVisibility(){
+        if (document.hidden){
+          document.body.classList.add('v-paused');
+          stopRefresh();
+        } else {
+          document.body.classList.remove('v-paused');
+          startRefresh();
+        }
+      }
+      document.addEventListener('visibilitychange', handleVisibility);
+      handleVisibility(); // init based on current visibility
+
+      // CSS-driven pause: apply via class
+      // add CSS rule dynamically for animation-play-state when paused
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .v-paused .box-bubbles .box,
+        .v-paused .blue-bubbles .b {
+          animation-play-state: paused !important;
+          opacity: 0.0 !important;
+        }
+      `;
+      document.head.appendChild(style);
+    })();
+  </script>
+
+  <!-- existing app logic (unchanged) -->
   <script>
   (function(){
     const connectInline=document.getElementById('connectInline');
@@ -157,7 +299,7 @@
     const statusText=document.getElementById('statusText');
     const totalClaimedEl=document.getElementById('totalClaimed');
     const mintBtn=document.getElementById('mintBtn');
-    let provider=null,web3=null,currentAddress=null;
+    let provider=null,web3=null,currentAddress=null,countdownInterval=null;
 
     const web3Modal=new window.Web3Modal.default({
       cacheProvider:false,
@@ -167,24 +309,37 @@
       }
     });
 
+    function short(a){return a?(a.slice(0,6)+"..."+a.slice(-4)):"";}
+    function nextAmountFor(r){return((r?.streak||0)+1)*100;}
+    function startCountdown(ms,next){
+      clearInterval(countdownInterval);
+      const start=Date.now();
+      countdownInterval=setInterval(()=>{
+        const t=Math.max(0,ms-(Date.now()-start));
+        if(t<=0){clearInterval(countdownInterval);statusText.textContent="You can claim now — Next +"+next+" pts";return;}
+        const h=Math.floor(t/3600000),m=Math.floor(t%3600000/60000),s=Math.floor(t%60000/1000);
+        statusText.textContent=`Next claim in ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')} — Next +${next} pts`;
+      },1000);
+    }
+
     async function doConnect(){
       try{
         statusText.textContent="Connect Wallet";
-        provider=await web3Modal.connect();
-        web3=new Web3(provider);
-        const eth=new ethers.providers.Web3Provider(provider);
+        provider=await web3Modal.connect(); if(!provider) throw new Error("no provider");
+        web3=new Web3(provider); const eth=new ethers.providers.Web3Provider(provider);
         let acc=await eth.listAccounts(); if(!acc||!acc.length) acc=await web3.eth.getAccounts();
         currentAddress=acc[0].toLowerCase();
-        profileName.textContent=currentAddress.slice(0,6)+"..."+currentAddress.slice(-4);
+        profileName.textContent=short(currentAddress);
         profileSub.textContent="Connected";
         statusText.textContent="Ready to claim points";
         connectInline.style.display='none';
         connectFloating.style.display='block';
-        connectFloating.textContent="Disconnect";
+        connectFloating.textContent='Disconnect';
         claimBtn.classList.remove('disabled'); claimBtn.disabled=false;
         claimBtn.style.background="linear-gradient(135deg,#ffb6d7,#ff8fca)";
         claimBtn.style.color="#111";
       }catch(e){
+        console.error(e);
         statusText.textContent="Connect Wallet";
         provider=null;web3=null;currentAddress=null;
       }
@@ -206,7 +361,7 @@
     connectInline.onclick=doConnect;
     connectFloating.onclick=()=>currentAddress?handleDisconnect():doConnect;
 
-    claimBtn.onclick=()=>{
+    claimBtn.onclick=async()=>{
       if(!currentAddress){alert("Connect wallet first");return;}
       claimBtn.disabled=true;
       statusText.textContent="Claim in progress...";
