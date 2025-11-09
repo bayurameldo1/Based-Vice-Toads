@@ -1,134 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Based Vice Toads — Mint</title>
-<link rel="icon" type="image/png" href="/public/images/icon.png">
+<link rel="icon" type="image/png" href="https://vice-toads.vercel.app/images/icon.png">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:#000;
-  font-family:'Poppins',sans-serif;
-  overflow:hidden;
-  color:#7afcff;
-}
-.slideshow{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  display:block;
-  overflow:hidden;
-  background:#000;
-}
-.slide{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  transition:opacity 1.2s ease-in-out;
-}
-.slide.active{
-  opacity:1;
-}
-.slide img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  background:#000;
-  display:block;
-}
-.overlay{
-  position:absolute;
-  top:0;left:0;right:0;bottom:0;
-  z-index:2;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-.logo-row{
-  display:flex;
-  gap:20px;
-  margin-bottom:20px;
-}
-.logo-row img{
-  width:40px;height:40px;
-  cursor:pointer;
-  transition:transform .3s;
-}
-.logo-row img:hover{transform:scale(1.1)}
-button{
-  background:#7afcff;
-  color:#000;
-  font-weight:bold;
-  border:none;
-  border-radius:10px;
-  padding:15px 30px;
-  font-size:20px;
-  cursor:pointer;
-  animation:wave 2s ease-in-out infinite;
-}
-@keyframes wave{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-}
-.marquee{
-  position:fixed;
-  width:100%;
-  white-space:nowrap;
-  overflow:hidden;
-  background:#000;
-  color:#7afcff;
-  font-size:18px;
-  z-index:3;
-}
-.marquee.top{top:0}
-.marquee.bottom{bottom:0}
-.track{
-  display:inline-block;
-  padding-left:100%;
-  animation:scroll 15s linear infinite;
-}
-@keyframes scroll{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-100%)}
-}
+body{background:#000;font-family:Inter,system-ui,Arial;color:#fff;overflow:hidden}
+.marquee{position:fixed;width:100%;white-space:nowrap;overflow:hidden;background:#000;color:#7afcff;font-size:18px;z-index:50}
+.marquee.top{top:0}.marquee.bottom{bottom:0}
+.track{display:inline-block;padding-left:100%;animation:scroll 15s linear infinite}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+.stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10}
+.slideshow{position:absolute;inset:0;overflow:hidden;background:#000}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease-in-out}
+.slide.active{opacity:1}
+.slide img{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+.overlay{position:relative;z-index:20;display:flex;flex-direction:column;align-items:center;gap:12px;pointer-events:none}
+.logo-row{display:flex;gap:12px;pointer-events:auto}
+.logo-row img{width:40px;height:40px;cursor:pointer;border-radius:8px;background:rgba(0,0,0,0.25);padding:6px}
+.mint-wrap{pointer-events:auto;background:rgba(0,0,0,0.35);padding:14px 20px;border-radius:16px}
+.mint-btn{background:#7afcff;color:#001;padding:10px 18px;border-radius:10px;border:none;font-weight:800;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="marquee top">
-  <div class="track"><span>— join the waitlist — join the waitlist — join the waitlist — join the waitlist — </span></div>
-</div>
-
-<div class="slideshow" id="slideshow">
-  <div class="slide active"><img src="/public/images/bg1.jpg" alt=""></div>
-  <div class="slide"><img src="/public/images/bg2.jpg" alt=""></div>
-  <div class="slide"><img src="/public/images/bg3.jpg" alt=""></div>
-  <div class="slide"><img src="/public/images/bg4.jpg" alt=""></div>
-</div>
-
-<div class="overlay">
-  <div class="logo-row">
-    <img src="/public/images/farcaster.png" alt="Farcaster" onclick="window.open('https://farcaster.xyz/ameldoxg','_blank')">
-    <img src="/public/images/baseapp.png" alt="Base" onclick="window.open('https://base.app/profile/0xbres','_blank')">
+<div class="marquee top"><div class="track">— join the waitlist — join the waitlist — join the waitlist — </div></div>
+<div class="stage">
+  <div class="slideshow" id="slideshow">
+    <div class="slide active"><img src="https://vice-toads.vercel.app/images/bg1.jpg" alt="bg1"></div>
+    <div class="slide"><img src="https://vice-toads.vercel.app/images/bg2.jpg" alt="bg2"></div>
+    <div class="slide"><img src="https://vice-toads.vercel.app/images/bg3.jpg" alt="bg3"></div>
+    <div class="slide"><img src="https://vice-toads.vercel.app/images/bg4.jpg" alt="bg4"></div>
   </div>
-  <button onclick="window.open('https://opensea.io/collection/based-vice-toads/overview','_blank')">MINT NOW</button>
+  <div class="overlay" aria-hidden="false">
+    <div class="logo-row">
+      <img src="https://vice-toads.vercel.app/images/farcaster.png" alt="Farcaster" id="farcasterLogo">
+      <img src="https://vice-toads.vercel.app/images/baseapp.png" alt="Base" id="baseLogo">
+    </div>
+    <div class="mint-wrap">
+      <button class="mint-btn" id="mintBtn">MINT NOW</button>
+    </div>
+  </div>
 </div>
-
-<div class="marquee bottom">
-  <div class="track"><span>— join the waitlist — join the waitlist — join the waitlist — join the waitlist — </span></div>
-</div>
+<div class="marquee bottom"><div class="track">— join the waitlist — join the waitlist — join the waitlist — </div></div>
 
 <script>
+// slideshow
 const slides = document.querySelectorAll('.slide');
 let idx = 0;
-setInterval(()=>{
-  slides[idx].classList.remove('active');
-  idx = (idx + 1) % slides.length;
-  slides[idx].classList.add('active');
-},4000);
+setInterval(function(){ slides[idx].classList.remove('active'); idx = (idx+1)%slides.length; slides[idx].classList.add('active'); },4000);
+
+// links
+document.getElementById('mintBtn').addEventListener('click', function(){ window.open('https://opensea.io/collection/based-vice-toads/overview','_blank'); });
+document.getElementById('farcasterLogo').addEventListener('click', function(){ window.open('https://farcaster.xyz/ameldoxg','_blank'); });
+document.getElementById('baseLogo').addEventListener('click', function(){ window.open('https://base.app/profile/0xbres','_blank'); });
 </script>
 </body>
 </html>
