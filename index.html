@@ -6,6 +6,8 @@
   <title>Based Vice Toads — Mint & Claim</title>
   <link rel="icon" href="https://vice-toads.vercel.app/images/icon.png" />
 
+  <!-- Farcaster frame + miniapp metadata (added fc:frame and keep fc:miniapp) -->
+  <meta name="fc:frame" content="vNext" />
   <meta name="fc:miniapp" content='{
     "version":"next",
     "imageUrl":"https://vice-toads.vercel.app/images/bg1.jpg",
@@ -18,6 +20,13 @@
         }
     }
   }' />
+
+  <!-- Open Graph fallback (helps Farcaster preview) -->
+  <meta property="og:title" content="Based Vice Toads — Mint Now on Base" />
+  <meta property="og:description" content="Mint your Vice Toad and claim daily points on Base." />
+  <meta property="og:image" content="https://vice-toads.vercel.app/images/bg1.jpg" />
+  <meta property="og:url" content="https://vice-toads.vercel.app" />
+  <meta property="og:type" content="website" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap');
@@ -331,20 +340,12 @@
           statusText.textContent = 'Claimed +' + (j.claimedAmount||100) + ' — next claim in 24:00:00';
         } else { localClaim(); }
       }catch(e){ localClaim(); }
-      finally{ 
-        claimBtn.disabled=false; 
-        /* === KATAK: setelah claim, kembalikan warna Claim ke warna SEBELUM CONNECT (putih) === */
-        claimBtn.style.color = '#fff';
-      }
+      finally{ claimBtn.disabled=false; claimBtn.style.color='#fff'; }
     });
 
-    /* auto silent connect attempt */
     (async function tryAuto(){ try{ const ok = await trySilentConnect(); if(!ok){ if(connectInline) connectInline.style.display='inline-block'; if(connectFloating) connectFloating.style.display='none'; } }catch(e){console.warn(e);} })();
 
-    /* mint button opens the specific OpenSea collection overview (user request) */
     mintBtn.addEventListener('click', ()=> window.open('https://opensea.io/collection/based-vice-toads/overview','_blank'));
-
-    /* tell parent frame we're ready (helps Base preview) */
     window.addEventListener('load', ()=> { try{ window.parent.postMessage({ type:'miniapp.ready', origin: window.location.origin }, '*'); }catch(e){} });
     window.vct = { trySilentConnect, userConnect, handleDisconnect };
   })();
