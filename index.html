@@ -48,13 +48,13 @@
     .name{font-weight:800}.sub{font-size:12px;color:#071018;opacity:.7}
     .points{font-weight:900;font-size:20px;margin-top:10px}
     .claim-row{display:flex;gap:10px;margin-top:12px;align-items:center}
-    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800;transition:all .3s ease;}
-    .btn-claim{background:rgba(11,7,16,.18);color:#fff;min-width:140px;}
+    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800}
+    .btn-claim{background:rgba(11,7,16,.18);color:#fff;min-width:140px}
     .btn-connect-inline{background:#071018;color:var(--card1);padding:10px 12px;border-radius:10px;border:none;
       font-weight:800;cursor:pointer}
     .disabled{opacity:.45;pointer-events:none}
     .mint-section{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-top:18px}
-    .title{font-size:28px; letter-spacing:2px;margin:0;color:#ffd6ec;text-shadow:0 6px 18px rgba(0,0,0,.6);
+    .title{font-size:64px;letter-spacing:6px;margin:0;color:#ffd6ec;text-shadow:0 10px 30px rgba(0,0,0,.7);
       text-transform:none;font-weight:900;display:flex;justify-content:center;gap:6px;pointer-events:none}
     .title span{display:inline-block;transform-origin:center;animation:waveLetter 1.05s ease-in-out infinite}
     @keyframes waveLetter{0%{transform:translateY(0px)}25%{transform:translateY(-10px)}50%{transform:translateY(0px)}75%{transform:translateY(6px)}100%{transform:translateY(0px)}}
@@ -67,59 +67,58 @@
     .bottom{margin-top:18px;display:flex;justify-content:center}
     .bottom img{width:220px;height:auto;border-radius:10px;object-fit:contain}
 
-    /* ---------- BOX EFFECTS (OPTIMIZED / LIGHTER) ---------- */
-    /* Put behind UI (wrap z-index:3) and ensure pointer-events none */
-    .box-bubbles,.blue-bubbles{
-      position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;overflow:visible;
-      z-index:1; /* behind UI */
-      /* mix-blend-mode removed on desktop to avoid heavy blending; kept subtle visual via opacity */
+    /* ---------- SQUARE (WHITE BOXES) ---------- */
+    .box-bubbles{
+      position:fixed;
+      left:0;
+      bottom:0;
+      width:100%;
+      height:100vh;
+      pointer-events:none;
+      overflow:visible;
+      z-index:1;
+    }
+    .box-bubbles .box{ position:absolute; bottom:-140px; background:#ffffff; box-shadow: 0 8px 30px rgba(0,0,0,0.08), inset 0 -6px 10px rgba(0,0,0,0.04); animation:boxRise linear infinite; border-radius:6px; will-change:transform,opacity; opacity:0; display:flex; align-items:center; justify-content:center; }
+    .box-bubbles .box::after{ content:""; width:36%; height:36%; background: var(--box-blue); border-radius:4px; box-shadow: 0 6px 18px rgba(47,159,255,0.18), inset 0 1px 3px rgba(255,255,255,0.15); pointer-events:none; }
+    @keyframes boxRise{ 0%{ transform: translateY(0) scale(0.92) rotate(0deg); opacity:0; } 6%{ opacity:0.6; } 28%{ opacity:0.96; } 60%{ transform: translateY(-55vh) scale(1.04) rotate(6deg); opacity:0.78; } 90%{ transform: translateY(-100vh) scale(1.08) rotate(12deg); opacity:0.36; } 100%{ transform: translateY(-120vh) scale(1.12) rotate(18deg); opacity:0; } }
+    .box-bubbles .box.n1{ left:6%;  width:18px; height:18px; animation-duration:8.0s; animation-delay:0.2s; }
+    .box-bubbles .box.n2{ left:14%; width:36px; height:36px; animation-duration:10.6s; animation-delay:1.0s; }
+    .box-bubbles .box.n3{ left:22%; width:16px; height:16px; animation-duration:7.2s; animation-delay:0.4s; }
+    .box-bubbles .box.n4{ left:30%; width:46px; height:46px; animation-duration:11.6s; animation-delay:0.6s; }
+    .box-bubbles .box.n5{ left:38%; width:26px; height:26px; animation-duration:8.6s; animation-delay:0.9s; }
+    .box-bubbles .box.n6{ left:46%; width:54px; height:54px; animation-duration:12.8s; animation-delay:0.3s; }
+    .box-bubbles .box.n7{ left:54%; width:20px; height:20px; animation-duration:7.4s; animation-delay:1.4s; }
+    .box-bubbles .box.n8{ left:62%; width:30px; height:30px; animation-duration:9.2s; animation-delay:0.8s; }
+    .box-bubbles .box.n9{ left:70%; width:22px; height:22px; animation-duration:8.2s; animation-delay:0.2s; }
+    .box-bubbles .box.n10{ left:78%; width:42px; height:42px; animation-duration:11.0s; animation-delay:1.1s; }
+    .box-bubbles .box.n11{ left:25%; width:72px; height:72px; animation-duration:14.4s; animation-delay:2.2s; border-radius:8px; }
+    .box-bubbles .box.n12{ left:66%; width:64px; height:64px; animation-duration:13.2s; animation-delay:1.8s; border-radius:8px; }
+
+    /* ---------- BLUE BOXES ---------- */
+    .blue-bubbles{ position:fixed; left:0; bottom:0; width:100%; height:100vh; pointer-events:none; overflow:visible; z-index:1; }
+    .blue-bubbles .b{ position:absolute; bottom:-140px; background: linear-gradient(180deg, rgba(47,159,255,0.98), rgba(12,116,255,0.9)); box-shadow: 0 8px 28px rgba(10,110,220,0.08), inset 0 -6px 10px rgba(0,0,0,0.06); animation:boxRiseBlue linear infinite; border-radius:6px; will-change: transform, opacity; opacity:0; display:flex; align-items:center; justify-content:center; }
+    .blue-bubbles .b::after{ content:""; width:32%; height:32%; background:#ffffff; border-radius:4px; box-shadow:0 1px 3px rgba(0,0,0,0.12); pointer-events:none; }
+    @keyframes boxRiseBlue{ 0%{ transform: translateY(0) scale(0.9) rotate(0deg); opacity:0; } 6%{ opacity:0.6; } 28%{ opacity:0.94; } 60%{ transform: translateY(-55vh) scale(1.03) rotate(-6deg); opacity:0.78; } 90%{ transform: translateY(-100vh) scale(1.06) rotate(-12deg); opacity:0.36; } 100%{ transform: translateY(-120vh) scale(1.09) rotate(-18deg); opacity:0; } }
+    .blue-bubbles .b.b1{ left:9%;  width:22px; height:22px; animation-duration:8.8s; animation-delay:0.4s; }
+    .blue-bubbles .b.b2{ left:18%; width:40px; height:40px; animation-duration:11.0s; animation-delay:1.2s; }
+    .blue-bubbles .b.b3{ left:28%; width:18px; height:18px; animation-duration:7.6s; animation-delay:0.6s; }
+    .blue-bubbles .b.b4{ left:36%; width:48px; height:48px; animation-duration:12.0s; animation-delay:0.9s; }
+    .blue-bubbles .b.b5{ left:44%; width:26px; height:26px; animation-duration:8.8s; animation-delay:0.2s; }
+    .blue-bubbles .b.b6{ left:56%; width:58px; height:58px; animation-duration:13.6s; animation-delay:1.6s; }
+    .blue-bubbles .b.b7{ left:68%; width:20px; height:20px; animation-duration:7.8s; animation-delay:1.0s; }
+    .blue-bubbles .b.b8{ left:82%; width:36px; height:36px; animation-duration:10.0s; animation-delay:0.8s; }
+
+    @media(max-width:520px){
+      .hero{height:320px}
+      .box-bubbles .box.n2{ left:12%; width:30px; height:30px; }
+      .box-bubbles .box.n6{ left:46%; width:44px; height:44px; }
+      .box-bubbles .box.n11{ width:56px; height:56px; }
+      .blue-bubbles .b.b4{ width:40px; height:40px; left:34%; }
     }
 
-    /* white boxes with blue center */
-    .box-bubbles .box{
-      position:absolute;bottom:-220px;background:#ffffff;border-radius:6px;
-      /* lighten shadow for performance */
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06), inset 0 -4px 8px rgba(0,0,0,0.03);
-      opacity:0;display:flex;align-items:center;justify-content:center;will-change:transform,opacity;transform-origin:center;
-      animation-fill-mode:forwards;
-      animation-play-state: running;
-    }
-    .box-bubbles .box::after{content:"";width:36%;height:36%;background: var(--box-blue);border-radius:4px;}
-
-    /* blue boxes with white center */
-    .blue-bubbles .b{
-      position:absolute;bottom:-220px;background: linear-gradient(180deg, rgba(47,159,255,0.98), rgba(12,116,255,0.9));
-      border-radius:6px;box-shadow: 0 6px 18px rgba(10,110,220,0.06), inset 0 -4px 8px rgba(0,0,0,0.03);
-      opacity:0;display:flex;align-items:center;justify-content:center;will-change:transform,opacity;transform-origin:center;
-      animation-fill-mode:forwards;
-      animation-play-state: running;
-    }
-    .blue-bubbles .b::after{content:"";width:32%;height:32%;background:#fff;border-radius:4px;}
-
-    /* animation moving up */
-    @keyframes boxRise {
-      0%{ transform: translateY(0) scale(0.92) rotate(0deg); opacity:0; }
-      8%{ opacity:0.6; }
-      30%{ opacity:0.95; }
-      60%{ transform: translateY(-55vh) scale(1.03) rotate(6deg); opacity:0.78; }
-      90%{ transform: translateY(-100vh) scale(1.06) rotate(10deg); opacity:0.36; }
-      100%{ transform: translateY(-120vh) scale(1.09) rotate(14deg); opacity:0; }
-    }
-    @keyframes boxRiseBlue {
-      0%{ transform: translateY(0) scale(0.9) rotate(0deg); opacity:0; }
-      8%{ opacity:0.6; }
-      30%{ opacity:0.94; }
-      60%{ transform: translateY(-55vh) scale(1.02) rotate(-6deg); opacity:0.78; }
-      90%{ transform: translateY(-100vh) scale(1.05) rotate(-10deg); opacity:0.36; }
-      100%{ transform: translateY(-120vh) scale(1.08) rotate(-14deg); opacity:0; }
-    }
-
-    /* mobile performance adjustments */
-    @media (max-width:520px){
-      .box-bubbles, .blue-bubbles { mix-blend-mode: normal; } /* avoid blend cost */
-      .box-bubbles .box, .blue-bubbles .b {
-        box-shadow: 0 4px 10px rgba(0,0,0,0.04), inset 0 -2px 6px rgba(0,0,0,0.02);
-      }
+    @media(min-width:900px){
+      .hero{height:520px}
+      .title{font-size:72px}
     }
   </style>
 </head>
@@ -128,30 +127,47 @@
 
   <div class="wrap">
     <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
+
     <section class="hero"><div class="hero-bg"></div></section>
 
     <div class="mint-section">
       <h1 class="title">
-        <span style="animation-delay:0s">M</span><span style="animation-delay:0.08s">i</span><span style="animation-delay:0.16s">n</span><span style="animation-delay:0.24s">t</span><span style="animation-delay:0.32s">&nbsp;</span><span style="animation-delay:0.4s">o</span><span style="animation-delay:0.48s">n</span><span style="animation-delay:0.56s">&nbsp;</span><span style="animation-delay:0.64s">O</span><span style="animation-delay:0.72s">p</span><span style="animation-delay:0.8s">e</span><span style="animation-delay:0.88s">n</span><span style="animation-delay:0.96s">s</span><span style="animation-delay:1.04s">e</span><span style="animation-delay:1.12s">a</span>
+        <span style="animation-delay:0s">M</span>
+        <span style="animation-delay:0.08s">i</span>
+        <span style="animation-delay:0.16s">n</span>
+        <span style="animation-delay:0.24s">t</span>
+        <span style="animation-delay:0.32s">&nbsp;</span>
+        <span style="animation-delay:0.40s">o</span>
+        <span style="animation-delay:0.48s">n</span>
+        <span style="animation-delay:0.56s">&nbsp;</span>
+        <span style="animation-delay:0.64s">O</span>
+        <span style="animation-delay:0.72s">p</span>
+        <span style="animation-delay:0.80s">e</span>
+        <span style="animation-delay:0.88s">n</span>
+        <span style="animation-delay:0.96s">s</span>
+        <span style="animation-delay:1.04s">e</span>
+        <span style="animation-delay:1.12s">a</span>
       </h1>
+
       <button id="mintBtn" class="mint-btn">MINT NOW</button>
+
       <div class="logos-row">
-        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank"><img src="https://vice-toads.vercel.app/images/farcaster.png" alt="farcaster" /></a>
-        <a class="logo" href="https://base.app/profile/0xbres" target="_blank"><img src="https://vice-toads.vercel.app/images/baseapp.png" alt="baseapp" /></a>
+        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank"><img src="https://vice-toads.vercel.app/images/farcaster.png"/></a>
+        <a class="logo" href="https://base.app/profile/0xbres" target="_blank"><img src="https://vice-toads.vercel.app/images/baseapp.png"/></a>
       </div>
     </div>
 
     <div class="card">
       <div class="row">
-        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png" alt="avatar" /></div>
+        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png"/></div>
         <div style="flex:1">
           <div class="name" id="profileName">Not connected</div>
           <div class="sub" id="profileSub">Connect wallet to show profile</div>
         </div>
       </div>
 
-      <div class="points">+100 Vice Toads$
-        <div style="font-size:12px;color:#071018;opacity:.7;margin-top:6px">Total Claimed:
+      <div class="points">+100 Vice Toads$ 
+        <div style="font-size:12px;color:#071018;opacity:.7;margin-top:6px">Total Claimed: 
           <span id="totalClaimed">0</span></div>
       </div>
 
@@ -168,213 +184,278 @@
     <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
   </div>
 
-  <!-- containers for boxes (behind UI) -->
-  <div class="box-bubbles" id="boxBubbles" aria-hidden="true"></div>
-  <div class="blue-bubbles" id="blueBubbles" aria-hidden="true"></div>
+  <!-- white boxes (with BLUE square center) -->
+  <div class="box-bubbles" aria-hidden="true">
+    <div class="box n1"></div>
+    <div class="box n2"></div>
+    <div class="box n3"></div>
+    <div class="box n4"></div>
+    <div class="box n5"></div>
+    <div class="box n6"></div>
+    <div class="box n7"></div>
+    <div class="box n8"></div>
+    <div class="box n9"></div>
+    <div class="box n10"></div>
+    <div class="box n11"></div>
+    <div class="box n12"></div>
+  </div>
 
+  <!-- blue boxes (with WHITE square center) -->
+  <div class="blue-bubbles" aria-hidden="true">
+    <div class="b b1"></div>
+    <div class="b b2"></div>
+    <div class="b b3"></div>
+    <div class="b b4"></div>
+    <div class="b b5"></div>
+    <div class="b b6"></div>
+    <div class="b b7"></div>
+    <div class="b b8"></div>
+  </div>
+
+  <!-- scripts -->
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
 
   <script>
-    /***********************
-     * LIGHTWEIGHT BOX GENERATOR
-     * - fewer initial elements
-     * - less-frequent refresh (10s)
-     * - pause when page not visible
-     ***********************/
-    (function createBoxes(){
-      const boxContainer = document.getElementById('boxBubbles');
-      const blueContainer = document.getElementById('blueBubbles');
-
-      function makeBox(isBlue, leftPct, sizePx, durationSec, delaySec, rotateDeg){
-        const el = document.createElement('div');
-        el.className = isBlue ? 'b' : 'box';
-        el.style.left = leftPct + '%';
-        el.style.width = sizePx + 'px';
-        el.style.height = sizePx + 'px';
-        el.style.borderRadius = (sizePx > 60 ? '8px' : '6px');
-        el.style.animationName = isBlue ? 'boxRiseBlue' : 'boxRise';
-        el.style.animationDuration = durationSec + 's';
-        el.style.animationTimingFunction = 'linear';
-        el.style.animationDelay = delaySec + 's';
-        el.style.animationIterationCount = 'infinite';
-        el.style.transform = `rotate(${rotateDeg}deg)`;
-        el.style.opacity = '0';
-        return el;
-      }
-
-      // categories
-      const sizes = {
-        small: [12, 20],
-        medium: [28, 48],
-        large: [64, 100]
-      };
-      const speeds = {
-        fast: [6, 9],
-        medium: [10, 13],
-        slow: [14, 20]
-      };
-      function rand(min,max){ return Math.random()*(max-min)+min; }
-
-      function generate(container, isBlue, count){
-        const sizeKeys = ['small','medium','large'];
-        const speedKeys = ['fast','medium','slow'];
-        for (let i=0;i<count;i++){
-          const sk = sizeKeys[i % sizeKeys.length];
-          const sp = speedKeys[i % speedKeys.length];
-          const sizePx = Math.floor(rand(...sizes[sk]));
-          const duration = Number(rand(...speeds[sp]).toFixed(2));
-          const delay = -Math.abs(rand(0,6)); // negative start offsets
-          const left = rand(2, 94);
-          const rot = rand(-16, 16);
-          const el = makeBox(isBlue, left, sizePx, duration, delay, rot);
-          container.appendChild(el);
-        }
-      }
-
-      // initial (reduced)
-      boxContainer.innerHTML = '';
-      blueContainer.innerHTML = '';
-      generate(boxContainer, false, 8); // white boxes (smaller count)
-      generate(blueContainer, true, 6);  // blue boxes
-
-      // periodic refresh: less frequent and smaller batches
-      let refreshTimer = null;
-      function startRefresh(){
-        if (refreshTimer) return;
-        refreshTimer = setInterval(()=>{
-          // remove oldest two of each
-          for(let i=0;i<2;i++){
-            if(boxContainer.firstChild) boxContainer.removeChild(boxContainer.firstChild);
-            if(blueContainer.firstChild) blueContainer.removeChild(blueContainer.firstChild);
-          }
-          // add small new batch
-          generate(boxContainer, false, 2);
-          generate(blueContainer, true, 1);
-        }, 10000); // every 10s
-      }
-      function stopRefresh(){
-        if (refreshTimer){ clearInterval(refreshTimer); refreshTimer = null; }
-      }
-      startRefresh();
-
-      // pause animations & generator on hidden tab to save CPU
-      function handleVisibility(){
-        if (document.hidden){
-          document.body.classList.add('v-paused');
-          stopRefresh();
-        } else {
-          document.body.classList.remove('v-paused');
-          startRefresh();
-        }
-      }
-      document.addEventListener('visibilitychange', handleVisibility);
-      handleVisibility(); // init based on current visibility
-
-      // CSS-driven pause: apply via class
-      // add CSS rule dynamically for animation-play-state when paused
-      const style = document.createElement('style');
-      style.innerHTML = `
-        .v-paused .box-bubbles .box,
-        .v-paused .blue-bubbles .b {
-          animation-play-state: paused !important;
-          opacity: 0.0 !important;
-        }
-      `;
-      document.head.appendChild(style);
-    })();
-  </script>
-
-  <!-- existing app logic (unchanged) -->
-  <script>
   (function(){
-    const connectInline=document.getElementById('connectInline');
-    const connectFloating=document.getElementById('connectFloating');
-    const claimBtn=document.getElementById('claimBtn');
-    const profileName=document.getElementById('profileName');
-    const profileSub=document.getElementById('profileSub');
-    const avatarImg=document.getElementById('avatarImg');
-    const statusText=document.getElementById('statusText');
-    const totalClaimedEl=document.getElementById('totalClaimed');
-    const mintBtn=document.getElementById('mintBtn');
-    let provider=null,web3=null,currentAddress=null,countdownInterval=null;
+    // ---------- helper UI refs ----------
+    const connectInline = document.getElementById('connectInline');
+    const connectFloating = document.getElementById('connectFloating');
+    const claimBtn = document.getElementById('claimBtn');
+    const profileName = document.getElementById('profileName');
+    const profileSub = document.getElementById('profileSub');
+    const avatarImg = document.getElementById('avatarImg');
+    const statusText = document.getElementById('statusText');
+    const totalClaimedEl = document.getElementById('totalClaimed');
 
-    const web3Modal=new window.Web3Modal.default({
-      cacheProvider:false,
-      providerOptions:{
-        walletconnect:{package:window.WalletConnectProvider.default,
-        options:{rpc:{1:"https://mainnet.infura.io/v3/REPLACE_WITH_INFURA_PROJECT_ID"}}}
+    const LS_KEY="vct_claims_v1"; const DAY_MS = 24*60*60*1000;
+    let provider = null, web3 = null, currentAddress = null, countdownInterval = null;
+
+    // ---------- pick best injected provider (prefer Base/coinbase) ----------
+    function pickInjectedProvider(){
+      if (typeof window.ethereum === 'undefined') return null;
+      if (Array.isArray(window.ethereum.providers)){
+        const p = window.ethereum.providers.find(p => p.isBaseWallet || p.isCoinbaseWallet || p.isCoinbase) 
+                || window.ethereum.providers.find(p => p.isCoinbaseWallet) 
+                || window.ethereum.providers.find(p => p.isMetaMask)
+                || window.ethereum.providers[0];
+        return p || null;
+      }
+      return window.ethereum;
+    }
+
+    function short(a){ return a ? (a.slice(0,6) + '...' + a.slice(-4)) : ''; }
+
+    function setConnectedState(addr){
+      currentAddress = addr.toLowerCase();
+      profileName.textContent = short(currentAddress);
+      profileSub.textContent = 'Connected';
+      statusText.textContent = 'Ready to claim your points';
+      if (claimBtn){ claimBtn.classList.remove('disabled'); claimBtn.disabled = false; claimBtn.style.color = '#000'; }
+      if (connectInline) connectInline.style.display = 'none';
+      if (connectFloating) { connectFloating.style.display = 'block'; connectFloating.textContent = 'Disconnect'; }
+      loadTotalsFor(currentAddress);
+    }
+
+    function handleDisconnect(){
+      provider = null; web3 = null; currentAddress = null;
+      if (connectInline) connectInline.style.display = 'inline-block';
+      if (connectFloating) connectFloating.style.display = 'none';
+      profileName.textContent = 'Not connected';
+      profileSub.textContent = 'Connect wallet to show profile';
+      avatarImg.src = 'https://vice-toads.vercel.app/images/icon.png';
+      if (claimBtn){ claimBtn.classList.add('disabled'); claimBtn.disabled = true; claimBtn.style.color = '#fff'; }
+      totalClaimedEl.textContent = '0';
+      statusText.textContent = 'Connect wallet to claim';
+      stopCountdown();
+    }
+
+    function attachProviderListeners(p){
+      if (!p || !p.on) return;
+      try {
+        p.on('accountsChanged', (acc) => {
+          if (!acc || acc.length === 0) { handleDisconnect(); }
+          else setConnectedState(acc[0]);
+        });
+        p.on('disconnect', () => handleDisconnect());
+        p.on('close', () => handleDisconnect());
+      } catch(e){ console.warn('provider events failed', e); }
+    }
+
+    // ---------- silent connect using eth_accounts ----------
+    async function trySilentConnect(){
+      const p = pickInjectedProvider();
+      if (!p) return false;
+      try {
+        // use request if supported
+        const accounts = (typeof p.request === 'function') ? await p.request({ method: 'eth_accounts' }) : (await new Promise((res,rej)=> window.web3 && window.web3.eth.getAccounts((err,acc)=> err?rej(err):res(acc))));
+        if (accounts && Array.isArray(accounts) && accounts.length > 0){
+          provider = p;
+          web3 = new Web3(provider);
+          setConnectedState(accounts[0]);
+          attachProviderListeners(provider);
+          // optional: try farcaster mapping endpoint /api/farcaster (best-effort)
+          try {
+            const r = await fetch('/api/farcaster?address=' + accounts[0]);
+            if (r.ok){
+              const j = await r.json().catch(()=>null);
+              if (j && j.ok && j.profile){
+                const prof = j.profile;
+                profileName.textContent = prof.username || prof.displayName || short(accounts[0]);
+                if (prof.avatar) avatarImg.src = prof.avatar;
+              }
+            }
+          } catch(e){}
+          return true;
+        }
+      } catch(e){
+        console.warn('silent connect failed', e);
+      }
+      return false;
+    }
+
+    // ---------- user-initiated connect (eth_requestAccounts) ----------
+    async function userConnect(){
+      const p = pickInjectedProvider();
+      if (!p){
+        alert('No injected wallet found. Try opening with Base app or use WalletConnect.');
+        return;
+      }
+      try {
+        statusText.textContent = 'Connect wallet';
+        provider = p;
+        // request accounts (will show popup)
+        const accounts = await provider.request({ method: 'eth_requestAccounts' });
+        if (accounts && accounts.length > 0){
+          web3 = new Web3(provider);
+          setConnectedState(accounts[0]);
+          attachProviderListeners(provider);
+          // farcaster lookup best-effort
+          try {
+            const r = await fetch('/api/farcaster?address=' + accounts[0]);
+            if (r.ok){
+              const j = await r.json().catch(()=>null);
+              if (j && j.ok && j.profile){
+                const prof = j.profile;
+                profileName.textContent = prof.username || prof.displayName || short(accounts[0]);
+                if (prof.avatar) avatarImg.src = prof.avatar;
+              }
+            }
+          } catch(e){}
+        } else {
+          statusText.textContent = 'Connect wallet';
+        }
+      } catch(err){
+        console.warn('userConnect failed', err);
+        statusText.textContent = 'Connect wallet';
+      }
+    }
+
+    // ---------- simple claim/local fallback (kept small) ----------
+    function getLocalRecord(addr){ const db = JSON.parse(localStorage.getItem(LS_KEY)||'{}'); return db[addr]||{total:0,last:0,streak:0}; }
+    function setLocalRecord(addr,rec){ const db = JSON.parse(localStorage.getItem(LS_KEY)||'{}'); db[addr]=rec; localStorage.setItem(LS_KEY,JSON.stringify(db)); }
+
+    function loadTotalsFor(addr){
+      const rec = getLocalRecord(addr);
+      totalClaimedEl.textContent = rec.total || 0;
+      if (rec.last && (Date.now()-rec.last)<DAY_MS){
+        startCountdown(DAY_MS - (Date.now()-rec.last), ((rec.streak||0)+1)*100);
+      } else { stopCountdown(); statusText.textContent = 'You can claim now — Next +' + (((rec.streak||0)+1)*100) + ' pts'; }
+    }
+
+    function localClaim(){
+      if (!currentAddress) return;
+      const rec = getLocalRecord(currentAddress);
+      const now = Date.now();
+      if (rec.last && (now - rec.last) < DAY_MS){
+        // still cooldown
+        const remain = DAY_MS - (now - rec.last);
+        startCountdown(remain, ((rec.streak||0)+1)*100);
+        return;
+      }
+      rec.streak = (rec.streak||0)+1;
+      const amount = rec.streak*100;
+      rec.total = (rec.total||0)+amount;
+      rec.last = now;
+      setLocalRecord(currentAddress, rec);
+      totalClaimedEl.textContent = rec.total;
+      statusText.textContent = 'Claimed +' + amount + ' — next claim in 24:00:00';
+      startCountdown(DAY_MS, ((rec.streak||0)+1)*100);
+    }
+
+    // countdown
+    function startCountdown(msRemaining,nextAmount){
+      clearInterval(countdownInterval);
+      const start = Date.now();
+      function tick(){
+        const t = Math.max(0, msRemaining - (Date.now() - start));
+        if (t <= 0){ clearInterval(countdownInterval); statusText.textContent = 'You can claim now — Next +' + nextAmount + ' pts'; return; }
+        const h = Math.floor(t/3600000);
+        const m = Math.floor((t%3600000)/60000);
+        const s = Math.floor((t%60000)/1000);
+        statusText.textContent = 'Next claim in ' + String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ' — Next +' + nextAmount + ' pts';
+      }
+      tick(); countdownInterval = setInterval(tick,1000);
+    }
+    function stopCountdown(){ clearInterval(countdownInterval); countdownInterval = null; }
+
+    // ---------- wire UI ----------
+    connectInline.addEventListener('click', userConnect);
+    connectFloating.addEventListener('click', async ()=>{
+      if (currentAddress){ handleDisconnect(); }
+      else await userConnect();
+    });
+
+    claimBtn.addEventListener('click', async ()=>{
+      if (!currentAddress){ alert('Connect wallet first'); return; }
+      // per request: show english message "Claim in progress..."
+      statusText.textContent = 'Claim in progress...';
+      claimBtn.disabled = true;
+      // quick attempt to call server, otherwise local fallback
+      try {
+        const res = await fetch('/api/claim', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ address: currentAddress, amount:100 }) });
+        const j = await res.json().catch(()=>null);
+        if (j && j.ok){
+          // use server response
+          totalClaimedEl.textContent = j.total || getLocalRecord(currentAddress).total;
+          // update local record to reflect server
+          const rec = getLocalRecord(currentAddress);
+          rec.total = j.total || rec.total;
+          rec.last = Date.now();
+          rec.streak = j.streak || rec.streak || 1;
+          setLocalRecord(currentAddress, rec);
+          startCountdown(DAY_MS, ((rec.streak||0)+1)*100);
+          statusText.textContent = 'Claimed +' + (j.claimedAmount||100) + ' — next claim in 24:00:00';
+        } else {
+          // fallback
+          localClaim();
+        }
+      } catch(e){
+        localClaim();
+      } finally {
+        claimBtn.disabled = false;
+        // after claim change style back to "pre-connect" color per your rule
+        claimBtn.style.color = '#fff';
       }
     });
 
-    function short(a){return a?(a.slice(0,6)+"..."+a.slice(-4)):"";}
-    function nextAmountFor(r){return((r?.streak||0)+1)*100;}
-    function startCountdown(ms,next){
-      clearInterval(countdownInterval);
-      const start=Date.now();
-      countdownInterval=setInterval(()=>{
-        const t=Math.max(0,ms-(Date.now()-start));
-        if(t<=0){clearInterval(countdownInterval);statusText.textContent="You can claim now — Next +"+next+" pts";return;}
-        const h=Math.floor(t/3600000),m=Math.floor(t%3600000/60000),s=Math.floor(t%60000/1000);
-        statusText.textContent=`Next claim in ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')} — Next +${next} pts`;
-      },1000);
-    }
+    // ---------- auto-connect attempt on load (silent) ----------
+    (async function tryAuto(){
+      // small delay to let environment initialize (mobile in-app browsers)
+      try {
+        const ok = await trySilentConnect();
+        if (!ok){
+          // keep UI as-is (Connect Wallet visible)
+          if (connectInline) connectInline.style.display = 'inline-block';
+          if (connectFloating) connectFloating.style.display = 'none';
+        }
+      } catch(e){ console.warn('auto connect err', e); }
+    })();
 
-    async function doConnect(){
-      try{
-        statusText.textContent="Connect Wallet";
-        provider=await web3Modal.connect(); if(!provider) throw new Error("no provider");
-        web3=new Web3(provider); const eth=new ethers.providers.Web3Provider(provider);
-        let acc=await eth.listAccounts(); if(!acc||!acc.length) acc=await web3.eth.getAccounts();
-        currentAddress=acc[0].toLowerCase();
-        profileName.textContent=short(currentAddress);
-        profileSub.textContent="Connected";
-        statusText.textContent="Ready to claim points";
-        connectInline.style.display='none';
-        connectFloating.style.display='block';
-        connectFloating.textContent='Disconnect';
-        claimBtn.classList.remove('disabled'); claimBtn.disabled=false;
-        claimBtn.style.background="linear-gradient(135deg,#ffb6d7,#ff8fca)";
-        claimBtn.style.color="#111";
-      }catch(e){
-        console.error(e);
-        statusText.textContent="Connect Wallet";
-        provider=null;web3=null;currentAddress=null;
-      }
-    }
-
-    async function handleDisconnect(){
-      provider=null;web3=null;currentAddress=null;
-      connectInline.style.display='inline-block';
-      connectFloating.style.display='none';
-      profileName.textContent="Not connected";
-      profileSub.textContent="Connect wallet to show profile";
-      avatarImg.src="https://vice-toads.vercel.app/images/icon.png";
-      claimBtn.classList.add('disabled');claimBtn.disabled=true;
-      totalClaimedEl.textContent="0";statusText.textContent="Connect wallet to claim";
-      claimBtn.style.background="rgba(11,7,16,.18)";
-      claimBtn.style.color="#fff";
-    }
-
-    connectInline.onclick=doConnect;
-    connectFloating.onclick=()=>currentAddress?handleDisconnect():doConnect;
-
-    claimBtn.onclick=async()=>{
-      if(!currentAddress){alert("Connect wallet first");return;}
-      claimBtn.disabled=true;
-      statusText.textContent="Claim in progress...";
-      setTimeout(()=>{
-        statusText.textContent="Claimed +100 — next claim in 24:00:00";
-        totalClaimedEl.textContent="100";
-        claimBtn.style.background="rgba(11,7,16,.18)";
-        claimBtn.style.color="#fff";
-        claimBtn.disabled=false;
-      },1200);
-    };
-
-    mintBtn.onclick=()=>window.open('https://opensea.io/collection/based-vice-toads','_blank');
+    // expose for debug
+    window.vct = { trySilentConnect, userConnect, handleDisconnect };
   })();
   </script>
 </body>
