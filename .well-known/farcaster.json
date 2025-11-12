@@ -10,7 +10,7 @@
     "iconUrl": "https://vice-toads.vercel.app/icon.png",
     "homeUrl": "https://vice-toads.vercel.app",
     "imageUrl": "https://vice-toads.vercel.app/image.png",
-    "buttonTitle": "Check this out",
+    "buttonTitle": "launch",
     "splashImageUrl": "https://vice-toads.vercel.app/splash.png",
     "splashBackgroundColor": "#eeccff",
     "webhookUrl": "https://vice-toads.vercel.app/api/webhook"
