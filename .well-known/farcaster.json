@@ -1,3 +1,7 @@
+
+  "baseBuilder": {
+    "ownerAddress": "0x7204f8dCcd784D3Be6577Eee99e59cBB6C0F4aE9"
+  }
 {
   "accountAssociation": {
     "header": "eyJmaWQiOjM0NjA3NSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDEwQjUzYTlGNDFBNzhlNENDQ0FhZUEyQzUxZGZiNUY2RmYwMjIzMTgifQ",
