@@ -1,91 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charSet="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Based Vice Toads — Mint & Claim</title>
   <link rel="icon" href="https://vice-toads.vercel.app/images/icon.png" />
 
-  <!-- IMPORTANT: single-line fc:frame meta (launch_frame) like fid-azuki to avoid white preview -->
-  <meta name="fc:frame" content='{"version":"next","imageUrl":"https://vice-toads.vercel.app/images/bg1.jpg","button":{"title":"Mint now","action":{"type":"launch_frame","name":"Based Vice Toads","url":"https://vice-toads.vercel.app/","splashImageUrl":"https://vice-toads.vercel.app/images/bg2.jpg","splashBackgroundColor":"#17000b"}}}' />
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Based Vice Toads"/>
-  <meta property="og:description" content="Mint Based Vice Toads — on Base / OpenSea."/>
-  <meta property="og:image" content="https://vice-toads.vercel.app/images/bg1.jpg"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Based Vice Toads"/>
-  <meta name="twitter:description" content="Mint Based Vice Toads — on Base / OpenSea."/>
-  <meta name="twitter:image" content="https://vice-toads.vercel.app/images/bg1.jpg"/>
+  <!-- Farcaster Embed (FID Azuki style) -->
+  <meta name="fc:frame" content='{
+    "version":"next",
+    "imageUrl":"https://vice-toads.vercel.app/images/bg1.jpg",
+    "button":{
+        "title":"Mint Now",
+        "action":{
+        "type":"launch_frame",
+        "name":"Based Vice Toads",
+        "url":"https://vice-toads.vercel.app",
+        "splashImageUrl":"https://vice-toads.vercel.app/images/bg2.jpg",
+        "splashBackgroundColor":"#17000b"
+        }
+    }
+  }' />
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800;900&display=swap');
-    :root{--bg:#17000b;--pink:#ff6fb3;--box-blue:#2f9fff}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#1a0316 0%,#2b021f 60%,#1a0316 100%);font-family:Poppins,system-ui,Roboto,Arial;color:#fff;overflow-x:hidden}
-    .wrap{max-width:980px;margin:0 auto;padding:12px;position:relative;z-index:3}
-    .marquee{overflow:hidden;white-space:nowrap;padding:6px 0;text-align:center;color:#0ab7ff;font-weight:700;font-size:14px}
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap');
+    html,body{
+      height:100%;margin:0;
+      background:linear-gradient(180deg,#1a0316 0%,#2b021f 60%,#1a0316 100%);
+      font-family:Poppins,system-ui;overflow-x:hidden;color:#fff;
+    }
+    .wrap{max-width:980px;margin:0 auto;padding:12px;position:relative;z-index:3;}
+    .marquee{overflow:hidden;white-space:nowrap;padding:6px 0;text-align:center;color:#0ab7ff;font-weight:700;font-size:14px;}
     .marquee .inner{display:inline-block;padding-left:100%;animation:marqueeAnim 10s linear infinite}
     @keyframes marqueeAnim{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-    .hero{position:relative;width:100%;height:420px;border-radius:10px;overflow:hidden;margin-top:8px;box-shadow:0 18px 60px rgba(0,0,0,.7);background:#000}
-    .hero-bg{position:absolute;inset:0;background-image:url('https://vice-toads.vercel.app/images/bg1.jpg');background-size:cover;background-position:center;transition:background-image 1s ease}
-    .mint-section{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-top:18px}
-    .title{font-size:40px;letter-spacing:2px;margin:0;color:#ffd6ec;text-shadow:0 6px 18px rgba(0,0,0,.6);font-weight:900;display:flex;gap:4px}
-    .title span{display:inline-block;animation:wave 1.05s ease-in-out infinite;transform-origin:center}
-    @keyframes wave{0%{transform:translateY(0)}25%{transform:translateY(-8px)}50%{transform:translateY(0)}75%{transform:translateY(6px)}100%{transform:translateY(0)}}
-    .mint-btn{background:var(--pink);border-radius:28px;padding:12px 28px;border:none;color:#071018;font-weight:800;cursor:pointer;box-shadow:0 8px 30px rgba(255,111,179,.12);margin-top:14px}
-    .logos-row{display:flex;justify-content:center;gap:12px;margin-top:14px}
-    .logo{width:44px;height:44px;border-radius:8px;overflow:hidden;background:#fff;padding:6px;display:flex;align-items:center;justify-content:center}
-    .logo img{width:28px;height:28px;object-fit:contain}
-    .card{width:92%;max-width:420px;margin:18px auto;padding:16px;border-radius:12px;background:linear-gradient(180deg,#ffb6d7,#ff8fca);color:#071018;box-shadow:0 14px 40px rgba(0,0,0,.48)}
+    .hero{position:relative;width:100%;height:380px;border-radius:10px;overflow:hidden;margin-top:8px;background:url('https://vice-toads.vercel.app/images/bg1.jpg') center/cover;}
+    .mint-section{text-align:center;margin-top:18px}
+    .title{font-size:64px;letter-spacing:6px;margin:0;color:#ffd6ec;text-shadow:0 10px 30px rgba(0,0,0,.7);
+      font-weight:900;display:inline-block;animation:wave 2.5s ease-in-out infinite alternate;}
+    @keyframes wave{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+    .mint-btn{background:#ff6fb3;border-radius:28px;padding:12px 28px;border:none;color:#071018;font-weight:800;
+      cursor:pointer;box-shadow:0 8px 30px rgba(255,111,179,.2);margin-top:14px}
+    .logos-row{display:flex;justify-content:center;gap:12px;margin-top:18px}
+    .logo{width:48px;height:48px;border-radius:8px;overflow:hidden;background:#fff;padding:6px;display:flex;align-items:center;justify-content:center}
+    .logo img{width:30px;height:30px;object-fit:contain}
+
+    .card{width:92%;max-width:420px;margin:18px auto;padding:16px;border-radius:12px;
+      background:linear-gradient(180deg,#ffb6d7,#ff8fca);color:#071018;box-shadow:0 14px 40px rgba(0,0,0,.48)}
     .row{display:flex;align-items:center;gap:12px}
-    .avatar{width:56px;height:56px;border-radius:50%;overflow:hidden;background:#fff;flex:0 0 56px}
-    .avatar img{width:56px;height:56px;object-fit:cover}
+    .avatar{width:56px;height:56px;border-radius:50%;overflow:hidden;background:#fff}
+    .avatar img{width:100%;height:100%;object-fit:cover}
     .points{font-weight:900;font-size:20px;margin-top:10px}
-    .claim-row{display:flex;gap:10px;margin-top:12px;align-items:center}
-    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800;transition:all .25s}
-    .btn-connect{background:#071018;color:#ffb6d7}
+    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800}
     .btn-claim{background:rgba(11,7,16,.18);color:#fff;min-width:140px}
+    .btn-connect{background:#071018;color:#ffb6d7}
     .disabled{opacity:.45;pointer-events:none}
     .bottom{margin-top:18px;display:flex;justify-content:center}
-    .bottom img{width:220px;height:auto;border-radius:10px;object-fit:contain}
+    .bottom img{width:220px;height:auto;border-radius:10px}
 
-    /* BOX EFFECTS (light & behind UI) */
-    .box-bubbles,.blue-bubbles{position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;overflow:visible;z-index:1}
-    .box{position:absolute;bottom:-220px;background:#fff;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,0.06);opacity:0;display:flex;align-items:center;justify-content:center;will-change:transform,opacity;animation-fill-mode:forwards}
-    .box::after{content:"";width:36%;height:36%;background:var(--box-blue);border-radius:4px}
-    .blue{position:absolute;bottom:-220px;background:linear-gradient(180deg,#2f9fff,#0c74ff);border-radius:6px;box-shadow:0 6px 18px rgba(10,110,220,0.06);opacity:0;display:flex;align-items:center;justify-content:center;will-change:transform,opacity;animation-fill-mode:forwards}
-    .blue::after{content:"";width:32%;height:32%;background:#fff;border-radius:4px}
-
-    @keyframes rise {0%{transform:translateY(0) scale(.94) rotate(0);opacity:0}8%{opacity:.6}30%{opacity:.95}60%{transform:translateY(-55vh) scale(1.03) rotate(6deg);opacity:.78}90%{transform:translateY(-100vh) scale(1.06) rotate(10deg);opacity:.36}100%{transform:translateY(-120vh) scale(1.09) rotate(14deg);opacity:0}}
-    @keyframes riseBlue {0%{transform:translateY(0) scale(.9) rotate(0);opacity:0}8%{opacity:.6}30%{opacity:.94}60%{transform:translateY(-55vh) scale(1.02) rotate(-6deg);opacity:.78}90%{transform:translateY(-100vh) scale(1.05) rotate(-10deg);opacity:.36}100%{transform:translateY(-120vh) scale(1.08) rotate(-14deg);opacity:0}}
-    @media(max-width:520px){ .hero{height:320px} .title{font-size:28px} }
+    /* Floating squares */
+    .square{position:fixed;bottom:-60px;opacity:.6;background:#fff;animation:floatSquare linear infinite;border-radius:6px;}
+    .square::after{content:"";position:absolute;width:40%;height:40%;background:#00f2ff;top:30%;left:30%;border-radius:4px;}
+    @keyframes floatSquare{
+      0%{transform:translateY(0) rotate(0deg);opacity:.1}
+      50%{opacity:.8}
+      100%{transform:translateY(-110vh) rotate(360deg);opacity:0}
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
 
-    <section class="hero"><div id="heroBg" class="hero-bg"></div></section>
+    <section class="hero"></section>
 
     <div class="mint-section">
-      <h1 class="title" aria-hidden="true">
-        <span style="animation-delay:0s">M</span><span style="animation-delay:0.08s">i</span><span style="animation-delay:0.16s">n</span><span style="animation-delay:0.24s">t</span><span style="animation-delay:0.32">&nbsp;</span><span style="animation-delay:0.4s">o</span><span style="animation-delay:0.48s">n</span><span style="animation-delay:0.56">&nbsp;</span><span style="animation-delay:0.64s">O</span><span style="animation-delay:0.72s">p</span><span style="animation-delay:0.8s">e</span><span style="animation-delay:0.88s">n</span><span style="animation-delay:0.96s">s</span><span style="animation-delay:1.04s">e</span><span style="animation-delay:1.12s">a</span>
-      </h1>
-
-      <button id="mintBtn" class="mint-btn" aria-label="Mint on OpenSea">MINT NOW</button>
-
+      <h1 class="title">Mint on Opensea</h1>
+      <button id="mintBtn" class="mint-btn">MINT NOW</button>
       <div class="logos-row">
-        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank" rel="noopener"><img src="https://vice-toads.vercel.app/images/farcaster.png" alt="farcaster"/></a>
-        <a class="logo" href="https://base.app/profile/0xbres" target="_blank" rel="noopener"><img src="https://vice-toads.vercel.app/images/baseapp.png" alt="baseapp"/></a>
+        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank"><img src="https://vice-toads.vercel.app/images/farcaster.png"/></a>
+        <a class="logo" href="https://base.app/profile/0xbres" target="_blank"><img src="https://vice-toads.vercel.app/images/baseapp.png"/></a>
       </div>
     </div>
 
-    <div class="card" id="profileCard" role="region" aria-label="Profile card">
+    <div class="card">
       <div class="row">
-        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png" alt="avatar" /></div>
-        <div style="flex:1">
-          <div class="name" id="profileName">Not connected</div>
-          <div class="sub" id="profileSub">Connect wallet to show profile</div>
+        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png"/></div>
+        <div>
+          <div id="profileName">Not connected</div>
+          <div id="profileSub">Connect wallet to show profile</div>
         </div>
       </div>
 
@@ -94,232 +97,91 @@
           <span id="totalClaimed">0</span></div>
       </div>
 
-      <div class="claim-row">
+      <div class="row" style="margin-top:10px;">
         <button id="claimBtn" class="btn btn-claim disabled" disabled>Claim Now</button>
-        <button id="connectInline" class="btn btn-connect">Connect Wallet</button>
+        <button id="connectBtn" class="btn btn-connect">Connect Wallet</button>
       </div>
 
       <div style="margin-top:10px;color:#071018" id="statusText">Connect wallet to claim</div>
     </div>
 
-    <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" alt="bottom" /></div>
-    <div style="height:18px"></div>
+    <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" /></div>
     <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
   </div>
 
-  <div class="box-bubbles" id="boxBubbles" aria-hidden="true"></div>
-  <div class="blue-bubbles" id="blueBubbles" aria-hidden="true"></div>
-
-  <!-- libs -->
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
-
-  <script>
-  /* ------------------- lightweight box generator (behind UI) ------------------- */
-  (function createBoxes(){
-    const boxContainer = document.getElementById('boxBubbles');
-    const blueContainer = document.getElementById('blueBubbles');
-    function makeEl(cls,left,size,dur,delay,rot){
-      const el = document.createElement('div');
-      el.className = cls;
-      el.style.left = left + '%';
-      el.style.width = size + 'px';
-      el.style.height = size + 'px';
-      el.style.borderRadius = (size>60?'8px':'6px');
-      el.style.animationName = cls === 'blue' ? 'riseBlue' : 'rise';
-      el.style.animationDuration = dur+'s';
-      el.style.animationTimingFunction = 'linear';
-      el.style.animationDelay = delay+'s';
-      el.style.animationIterationCount = 'infinite';
-      el.style.transform = 'rotate('+rot+'deg)';
-      el.style.opacity = '0';
-      return el;
-    }
-    function rand(min,max){return Math.random()*(max-min)+min}
-    function gen(container,cls,count){
-      const sizes = [[12,20],[28,48],[64,100]];
-      const speeds = [[6,9],[10,13],[14,20]];
-      for(let i=0;i<count;i++){
-        const szs = sizes[i%3]; const sp = speeds[i%3];
-        const size = Math.floor(rand(szs[0],szs[1]));
-        const dur = Number(rand(sp[0],sp[1]).toFixed(2));
-        const delay = -Math.abs(rand(0,6));
-        const left = rand(2,94);
-        const rot = rand(-18,18);
-        const el = makeEl(cls,left,size,dur,delay,rot);
-        container.appendChild(el);
-      }
-    }
-    gen(boxContainer,'box',9); gen(blueContainer,'blue',7);
-    let ti=null;
-    function refresh(){
-      for(let i=0;i<2;i++){ if(boxContainer.firstChild) boxContainer.removeChild(boxContainer.firstChild); if(blueContainer.firstChild) blueContainer.removeChild(blueContainer.firstChild); }
-      gen(boxContainer,'box',2); gen(blueContainer,'blue',1);
-    }
-    ti=setInterval(refresh,10000);
-    document.addEventListener('visibilitychange', ()=>{ if(document.hidden) clearInterval(ti); else ti=setInterval(refresh,10000); });
-  })();
-  </script>
 
   <script>
   (function(){
-    const LS_KEY="vct_claims_v1", DAY_MS=24*60*60*1000;
-    const connectInline=document.getElementById('connectInline');
+    const connectBtn=document.getElementById('connectBtn');
     const claimBtn=document.getElementById('claimBtn');
     const profileName=document.getElementById('profileName');
-    const profileSub=document.getElementById('profileSub');
-    const avatarImg=document.getElementById('avatarImg');
-    const statusText=document.getElementById('statusText');
     const totalClaimedEl=document.getElementById('totalClaimed');
+    const statusText=document.getElementById('statusText');
     const mintBtn=document.getElementById('mintBtn');
-    const heroBg=document.getElementById('heroBg');
+    const LS_KEY="vct_claims_v1";
+    const DAY_MS=24*60*60*1000;
+    let provider=null,web3=null,currentAddress=null;
 
-    const slides = [
-      'https://vice-toads.vercel.app/images/bg1.jpg',
-      'https://vice-toads.vercel.app/images/bg2.jpg',
-      'https://vice-toads.vercel.app/images/bg3.jpg',
-      'https://vice-toads.vercel.app/images/bg4.jpg'
-    ];
-    let currentSlide=0;
-    function setSlide(i){ heroBg.style.backgroundImage = "url('"+slides[i]+"')"; }
-    setSlide(0);
-    setInterval(()=>{ currentSlide = (currentSlide+1) % slides.length; setSlide(currentSlide); }, 50000);
+    const web3Modal=new window.Web3Modal.default({cacheProvider:false,providerOptions:{walletconnect:{package:window.WalletConnectProvider.default}}});
 
-    let provider=null,web3=null,currentAddress=null,countdownInterval=null;
+    function short(a){return a?a.slice(0,6)+"..."+a.slice(-4):"";}
+    function loadTotals(){
+      const db=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
+      const rec=db[currentAddress]||{total:0};
+      totalClaimedEl.textContent=rec.total||0;
+    }
 
-    function short(a){ return a ? (a.slice(0,6) + '...' + a.slice(-4)) : ''; }
-    function readLocal(addr){ const db=JSON.parse(localStorage.getItem(LS_KEY)||'{}'); return db[addr]||{total:0,last:0,streak:0}; }
-    function writeLocal(addr,rec){ const db=JSON.parse(localStorage.getItem(LS_KEY)||'{}'); db[addr]=rec; localStorage.setItem(LS_KEY,JSON.stringify(db)); }
-
-    async function trySilentConnect(){
+    connectBtn.addEventListener('click',async()=>{
       try{
-        if(typeof window.ethereum === 'undefined') return false;
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' }).catch(()=>[]);
-        if(accounts && accounts.length>0){
-          provider = window.ethereum;
-          web3 = new Web3(provider);
-          setConnected(accounts[0]);
-          attachProviderListeners(provider);
-          return true;
-        }
-      }catch(e){ console.warn('silent', e); }
-      return false;
-    }
-
-    function attachProviderListeners(p){
-      if(!p||!p.on) return;
-      try{
-        p.on('accountsChanged', acc => { if(!acc||acc.length===0) doDisconnect(); else setConnected(acc[0]); });
-        p.on('disconnect', doDisconnect);
-        p.on('close', doDisconnect);
-      }catch(e){ console.warn('attach', e); }
-    }
-
-    function setConnected(addr){
-      currentAddress = addr.toLowerCase();
-      profileName.textContent = short(currentAddress);
-      profileSub.textContent = 'Connected';
-      statusText.textContent = 'Ready to claim your points';
-      claimBtn.classList.remove('disabled'); claimBtn.disabled=false; claimBtn.style.color='#000';
-      connectInline.style.display='none';
-      loadTotals();
-      fetch('/api/farcaster?address='+currentAddress).then(r=>r.json()).then(j=>{
-        if(j && j.ok && j.profile){ profileName.textContent = j.profile.username || short(currentAddress); if(j.profile.avatar) avatarImg.src=j.profile.avatar; }
-      }).catch(()=>{});
-    }
-
-    function doDisconnect(){
-      provider=null; web3=null; currentAddress=null;
-      connectInline.style.display='inline-block';
-      profileName.textContent='Not connected';
-      profileSub.textContent='Connect wallet to show profile';
-      avatarImg.src='https://vice-toads.vercel.app/images/icon.png';
-      claimBtn.classList.add('disabled'); claimBtn.disabled=true; claimBtn.style.color='#fff';
-      totalClaimedEl.textContent='0';
-      statusText.textContent='Connect wallet to claim';
-      stopCountdown();
-    }
-
-    async function userConnect(){
-      if(typeof window.ethereum === 'undefined'){ alert('No injected wallet detected. Open site in Base app or use WalletConnect.'); return; }
-      try{
-        statusText.textContent='Connect wallet';
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        if(accounts && accounts.length>0){
-          provider = window.ethereum; web3 = new Web3(provider);
-          setConnected(accounts[0]);
-          attachProviderListeners(provider);
-        } else { statusText.textContent='Connect wallet'; }
-      }catch(e){ console.warn(e); statusText.textContent='Connect wallet'; }
-    }
-
-    connectInline.addEventListener('click', userConnect);
-
-    claimBtn.addEventListener('click', async ()=>{
-      if(!currentAddress){ alert('Connect wallet first'); return; }
-      claimBtn.disabled=true; statusText.textContent='Claim in progress...';
-      try{
-        const res = await fetch('/api/claim', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ address: currentAddress, amount: 100 }) });
-        const j = await res.json().catch(()=>null);
-        if(j && j.ok){
-          const rec = readLocal(currentAddress);
-          rec.total = j.total || rec.total; rec.last = Date.now(); rec.streak = j.streak || (rec.streak||1);
-          writeLocal(currentAddress, rec);
-          totalClaimedEl.textContent = rec.total;
-          startCountdown(DAY_MS, ((rec.streak||0)+1)*100);
-          statusText.textContent = 'Claimed +' + (j.claimedAmount||100) + ' — next claim in 24:00:00';
-        } else { localClaim(); }
-      }catch(e){ localClaim(); }
-      finally{ claimBtn.disabled=false; claimBtn.style.color='#fff'; }
+        provider=await web3Modal.connect();
+        web3=new Web3(provider);
+        const accounts=await web3.eth.getAccounts();
+        currentAddress=accounts[0];
+        profileName.textContent=short(currentAddress);
+        connectBtn.textContent="Disconnect";
+        claimBtn.disabled=false;claimBtn.classList.remove('disabled');
+        statusText.textContent="Ready to claim your points";
+        loadTotals();
+      }catch(e){
+        statusText.textContent="Connect Wallet";
+      }
     });
 
-    function localClaim(){
-      const rec = readLocal(currentAddress);
-      const now = Date.now();
-      if(rec.last && (now - rec.last) < DAY_MS){
-        const rem = DAY_MS - (now - rec.last);
-        startCountdown(rem, ((rec.streak||0)+1)*100);
+    claimBtn.addEventListener('click',()=>{
+      if(!currentAddress){alert("Connect wallet first");return;}
+      const db=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
+      const rec=db[currentAddress]||{total:0,last:0};
+      const now=Date.now();
+      if(now-rec.last<DAY_MS){
+        statusText.textContent="Next claim available later";
         return;
       }
-      rec.streak = (rec.streak||0) + 1;
-      const amount = rec.streak * 100;
-      rec.total = (rec.total||0) + amount;
-      rec.last = now;
-      writeLocal(currentAddress, rec);
-      totalClaimedEl.textContent = rec.total;
-      statusText.textContent = 'Claimed +' + amount + ' — next claim in 24:00:00';
-      startCountdown(DAY_MS, ((rec.streak||0)+1)*100);
-      claimBtn.style.color = '#fff';
-    }
+      rec.total+=100;rec.last=now;db[currentAddress]=rec;
+      localStorage.setItem(LS_KEY,JSON.stringify(db));
+      totalClaimedEl.textContent=rec.total;
+      statusText.textContent="Claimed +100 — next claim in 24h";
+    });
 
-    function startCountdown(ms,nextAmt){
-      clearInterval(countdownInterval);
-      const start = Date.now();
-      countdownInterval = setInterval(()=>{
-        const t = Math.max(0, ms - (Date.now() - start));
-        if(t<=0){ clearInterval(countdownInterval); statusText.textContent = 'You can claim now — Next +' + nextAmt + ' pts'; if(currentAddress) claimBtn.style.color='#000'; return; }
-        const h = Math.floor(t/3600000), m = Math.floor((t%3600000)/60000), s = Math.floor((t%60000)/1000);
-        statusText.textContent = 'Next claim in ' + String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ' — Next +' + nextAmt + ' pts';
-      }, 1000);
-    }
-    function stopCountdown(){ clearInterval(countdownInterval); countdownInterval=null; }
+    mintBtn.addEventListener('click',()=>window.open('https://opensea.io/collection/based-vice-toads/overview','_blank'));
 
-    function loadTotals(){
-      if(!currentAddress) return;
-      const rec = readLocal(currentAddress);
-      totalClaimedEl.textContent = rec.total || 0;
-      if(rec.last && (Date.now() - rec.last) < DAY_MS){ startCountdown(DAY_MS - (Date.now() - rec.last), ((rec.streak||0)+1)*100); } else { stopCountdown(); statusText.textContent = 'You can claim now — Next +' + (((rec.streak||0)+1)*100) + ' pts'; if(currentAddress) claimBtn.style.color='#000'; }
-    }
-
-    (async function(){ try{ await trySilentConnect(); }catch(e){ console.warn(e); } })();
-
-    mintBtn.addEventListener('click', ()=> window.open('https://opensea.io/collection/based-vice-toads/overview','_blank'));
-    window.vct = { trySilentConnect, userConnect, doDisconnect };
+    // Generate floating boxes (lightweight)
+    const createBoxes=(color,count)=>{
+      for(let i=0;i<count;i++){
+        const s=document.createElement("div");
+        s.className="square";
+        s.style.left=Math.random()*100+"vw";
+        s.style.width=s.style.height=(10+Math.random()*50)+"px";
+        s.style.animationDuration=(5+Math.random()*10)+"s";
+        s.style.background=color;
+        document.body.appendChild(s);
+      }
+    };
+    createBoxes("#ffffff",12);
+    createBoxes("#2f9fff",10);
   })();
   </script>
-
-  <script>window.addEventListener('load', ()=> { try{ window.parent.postMessage({ type:'miniapp.ready', origin: window.location.origin }, '*'); }catch(e){} });</script>
 </body>
-  </html>
+</html>
