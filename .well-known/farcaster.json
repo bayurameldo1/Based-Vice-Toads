@@ -7,12 +7,12 @@
   "miniapp": {
     "version": "1",
     "name": "Based Vice Toads",
-    "homeUrl": "https://vice-toads.vercel.app/?autoconnect=1",
+    "homeUrl": "https://vice-toads.vercel.app/",
     "iconUrl": "https://vice-toads.vercel.app/images/icon.png",
     "splashImageUrl": "https://vice-toads.vercel.app/images/bg2.jpg",
     "splashBackgroundColor": "#000000",
     "webhookUrl": "https://vice-toads.vercel.app/api/webhook",
-    "subtitle": "Mint Based Vice Toads NFT",
+    "subtitle": "Mint & Claim Based Vice Toads NFT",
     "description": "On-chain art collectibles on Base Network.",
     "screenshotUrls": [
       "https://vice-toads.vercel.app/images/bg3.jpg",
@@ -32,7 +32,7 @@
     "ogTitle": "Based Vice Toads",
     "ogDescription": "Collect and mint Vice Toads on Base.",
     "ogImageUrl": "https://vice-toads.vercel.app/images/bg1.jpg",
-    "buttonTitle": "Mint Now",
+    "buttonTitle": "Launch",
     "noindex": true
   }
 }
