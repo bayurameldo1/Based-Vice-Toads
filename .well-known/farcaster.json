@@ -1,7 +1,3 @@
-
-  "baseBuilder": {
-    "ownerAddress": "0x7204f8dCcd784D3Be6577Eee99e59cBB6C0F4aE9"
-  }
 {
   "accountAssociation": {
     "header": "eyJmaWQiOjM0NjA3NSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDEwQjUzYTlGNDFBNzhlNENDQ0FhZUEyQzUxZGZiNUY2RmYwMjIzMTgifQ",
@@ -10,13 +6,16 @@
   },
   "frame": {
     "version": "1",
-    "name": "Based Vice Toads",
+    "name": "Example Frame",
     "iconUrl": "https://vice-toads.vercel.app/icon.png",
     "homeUrl": "https://vice-toads.vercel.app",
     "imageUrl": "https://vice-toads.vercel.app/image.png",
-    "buttonTitle": "launch",
+    "buttonTitle": "Check this out",
     "splashImageUrl": "https://vice-toads.vercel.app/splash.png",
     "splashBackgroundColor": "#eeccff",
     "webhookUrl": "https://vice-toads.vercel.app/api/webhook"
   }
 }
+  "baseBuilder": {
+    "ownerAddress": "0x7204f8dCcd784D3Be6577Eee99e59cBB6C0F4aE9"
+  }
