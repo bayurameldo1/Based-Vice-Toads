@@ -28,7 +28,7 @@
     "webhookUrl": "https://vice-toads.vercel.app/api/webhook",
     "noindex": true,
     "baseBuilder": {
-      "ownerAddress": "0x3C9d2436B3a4cAc62FBcfBA95903C391b3DFD002"
+      "ownerAddress": "0x7204f8dCcd784D3Be6577Eee99e59cBB6C0F4aE9"
     }
   }
 }
