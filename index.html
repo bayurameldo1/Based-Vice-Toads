@@ -2,153 +2,282 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <title>Based Vice Toads — Mint & Claim</title>
   <link rel="icon" href="https://vice-toads.vercel.app/images/icon.png" />
 
-  <meta name="fc:miniapp" content='{
+  <!-- fc:frame for Farcaster -->
+  <meta name="fc:frame" content='{
     "version":"next",
     "imageUrl":"https://vice-toads.vercel.app/images/bg1.jpg",
     "button":{
-      "title":"Mint Now",
+      "title":"Mint now",
       "action":{
-        "type":"launch_miniapp",
+        "type":"launch_frame",
         "name":"Based Vice Toads",
-        "url":"https://vice-toads.vercel.app"
+        "url":"https://vice-toads.vercel.app/",
+        "splashImageUrl":"https://vice-toads.vercel.app/images/bg2.jpg",
+        "splashBackgroundColor":"#1a0316"
       }
     }
   }' />
 
+  <meta property="og:title" content="Based Vice Toads" />
+  <meta property="og:description" content="Mint Based Vice Toads on Base Network" />
+  <meta property="og:image" content="https://vice-toads.vercel.app/images/bg1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
     :root{
-      --bg-dark:#0b0210;
-      --pink:#ff6fb3;
-      --card1:#ffb6d7;
-      --card2:#ff8fca;
-      --box-blue:#2f9fff;
+      --bg1:#17000b; --bg2:#2b021f; --pink:#ff6fb3; --box-blue:#2f9fff; --card1:#ffb6d7;
     }
-    html,body{height:100%;margin:0;background:var(--bg-dark);font-family:Poppins,system-ui;color:#fff;overflow-x:hidden}
-    .wrap{max-width:980px;margin:0 auto;padding:12px;position:relative;z-index:3;}
-    .marquee{overflow:hidden;white-space:nowrap;padding:8px 0;text-align:center;color:var(--box-blue);font-weight:800;font-size:14px}
-    .marquee .inner{display:inline-block;padding-left:100%;animation:marqueeAnim 8s linear infinite}
-    @keyframes marqueeAnim{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    html,body{
+      margin:0;padding:0;
+      font-family:Poppins,system-ui;
+      color:#fff;
+      background:linear-gradient(135deg,#110212 0%,#2b021f 50%,#110212 100%);
+      -webkit-font-smoothing:antialiased;
+    }
+    .container{
+      width:100%;
+      max-width:980px;
+      padding:28px;
+      margin:auto;
+      box-sizing:border-box;
+      position:relative;
+      z-index:5;
+    }
+    /* ===== HERO SECTION (full banner) ===== */
+    .hero{
+      width:100vw;
+      height:420px;
+      position:relative;
+      overflow:hidden;
+      left:50%;
+      right:50%;
+      margin-left:-50vw;
+      margin-right:-50vw;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6);
+    }
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      background-image:url('https://vice-toads.vercel.app/images/bg1.jpg');
+      background-size:cover;
+      background-position:center;
+      filter:contrast(0.98) saturate(1.05) brightness(0.95);
+    }
 
-    .hero{position:relative;width:100%;height:340px;border-radius:8px;overflow:hidden;margin-top:8px;box-shadow:0 18px 60px rgba(0,0,0,.7)}
-    .hero-bg{position:absolute;inset:0;background-image:url('https://vice-toads.vercel.app/images/bg1.jpg');background-size:cover;background-position:center}
+    /* ===== CONTROLS BELOW HERO ===== */
+    .below-hero{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+      margin-top:18px;
+    }
+    .mint-btn{
+      background:var(--pink);
+      border-radius:999px;
+      padding:12px 28px;
+      border:none;
+      color:#071018;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 12px 40px rgba(255,111,179,.14);
+    }
+    .logos{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .logo{
+      width:48px;height:48px;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      padding:6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .logo img{width:30px;height:30px;object-fit:contain;}
 
-    .overlay{position:absolute;z-index:6;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-    .title{font-size:52px;letter-spacing:4px;margin:0;color:#ffd6ec;text-shadow:0 14px 36px rgba(0,0,0,.7);font-weight:800;display:flex;gap:6px}
-    .title span{display:inline-block;transform-origin:center;animation:waveLetter 1.1s ease-in-out infinite}
-    @keyframes waveLetter{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    /* ===== CARD CLAIM SECTION ===== */
+    .card{
+      width:92%;
+      max-width:520px;
+      border-radius:14px;
+      padding:18px;
+      background:linear-gradient(180deg,var(--card1),#ff8fca);
+      color:#071018;
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+      margin:30px auto;
+    }
+    .row{display:flex;align-items:center;gap:12px;}
+    .avatar{width:64px;height:64px;border-radius:50%;overflow:hidden;background:#fff;}
+    .avatar img{width:100%;height:100%;object-fit:cover;}
+    .claim-row{display:flex;gap:10px;margin-top:14px;align-items:center;}
+    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800;}
+    .btn-connect{background:#071018;color:var(--card1);padding:10px 14px;border-radius:12px;}
+    .btn-claim{background:rgba(11,7,16,.18);color:#fff;padding:10px 14px;border-radius:12px;}
+    .disabled{opacity:.45;pointer-events:none;}
 
-    .controls{margin-top:14px;display:flex;align-items:center;gap:12px}
-    .mint-btn{background:var(--pink);border-radius:28px;padding:12px 28px;border:none;color:#071018;font-weight:800;cursor:pointer;box-shadow:0 8px 30px rgba(255,111,179,.14)}
-    .logos{display:flex;gap:10px;align-items:center}
-    .logo{width:44px;height:44px;border-radius:8px;overflow:hidden;background:#fff;padding:6px;display:flex;align-items:center;justify-content:center}
-    .logo img{width:28px;height:28px;object-fit:contain}
+    /* ===== BUBBLE EFFECT ===== */
+    .box-bubbles{position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;z-index:1;}
+    .box{position:absolute;bottom:-150px;background:#fff;animation:rise 12s linear infinite;border-radius:6px;display:flex;align-items:center;justify-content:center;}
+    .box::after{content:"";width:36%;height:36%;background:var(--box-blue);border-radius:3px;}
+    @keyframes rise{0%{transform:translateY(0)scale(.95);opacity:0}8%{opacity:.7}60%{opacity:.6;transform:translateY(-55vh)scale(1.02)}100%{transform:translateY(-120vh)scale(1.05);opacity:0}}
+    .b1{left:6%;width:20px;height:20px;animation-duration:8s;animation-delay:.2s}
+    .b2{left:18%;width:36px;height:36px;animation-duration:11s;animation-delay:1s}
+    .b3{left:30%;width:26px;height:26px;animation-duration:9s;animation-delay:.6s}
+    .b4{left:42%;width:52px;height:52px;animation-duration:13s;animation-delay:.9s}
+    .b5{left:54%;width:30px;height:30px;animation-duration:10s;animation-delay:.4s}
+    .b6{left:68%;width:44px;height:44px;animation-duration:12s;animation-delay:1.4s}
+    .b7{left:80%;width:18px;height:18px;animation-duration:9s;animation-delay:.7s}
 
-    .card{width:92%;max-width:420px;margin:18px auto;padding:16px;border-radius:12px;background:linear-gradient(180deg,var(--card1),var(--card2));color:#071018;box-shadow:0 14px 40px rgba(0,0,0,.48)}
-    .card .row{display:flex;align-items:center;gap:12px}
-    .avatar{width:56px;height:56px;border-radius:50%;overflow:hidden;background:#fff}
-    .avatar img{width:56px;height:56px;object-fit:cover}
-    .name{font-weight:800}.sub{font-size:12px;opacity:.7}
-    .points{font-weight:900;font-size:20px;margin-top:10px}
-    .claim-row{display:flex;gap:10px;margin-top:12px;align-items:center}
-    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800}
-    .btn-claim{background:rgba(11,7,16,.18);color:#fff;min-width:140px}
-    .btn-connect-inline{background:#071018;color:var(--card1);padding:10px 12px;border-radius:10px;border:none;font-weight:800;cursor:pointer}
-    .disabled{opacity:.45;pointer-events:none}
-    .bottom{margin-top:18px;display:flex;justify-content:center}
-    .bottom img{width:220px;height:auto;border-radius:10px;object-fit:contain}
-
-    .box-bubbles{position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;z-index:1}
-    .box{position:absolute;bottom:-100px;background:#fff;animation:rise linear infinite;border-radius:6px;display:flex;align-items:center;justify-content:center;}
-    .box::after{content:"";width:40%;height:40%;background:var(--box-blue);border-radius:2px;}
-    @keyframes rise{0%{transform:translateY(0)scale(1);opacity:0}10%{opacity:.8}80%{opacity:.6}100%{transform:translateY(-110vh)scale(1.1);opacity:0}}
-    .n1{left:5%;width:20px;height:20px;animation-duration:8s;animation-delay:.2s}
-    .n2{left:15%;width:30px;height:30px;animation-duration:10s;animation-delay:1s}
-    .n3{left:25%;width:40px;height:40px;animation-duration:12s;animation-delay:.4s}
-    .n4{left:35%;width:25px;height:25px;animation-duration:9s;animation-delay:1.3s}
-    .n5{left:45%;width:50px;height:50px;animation-duration:14s;animation-delay:.6s}
-    .n6{left:55%;width:22px;height:22px;animation-duration:11s;animation-delay:.8s}
-    .n7{left:65%;width:36px;height:36px;animation-duration:13s;animation-delay:.5s}
-    .n8{left:75%;width:28px;height:28px;animation-duration:10s;animation-delay:1.2s}
-    .n9{left:85%;width:18px;height:18px;animation-duration:9s;animation-delay:.7s}
-
-    .overlay-opensea{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:60}
-    .opensea-panel{background:#0b0210;border-radius:12px;padding:20px;text-align:center;color:#fff}
-    .opensea-btn{background:var(--pink);padding:10px 18px;border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer}
-    .close-btn{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:8px 12px;margin-left:10px;cursor:pointer}
+    /* ===== OPENSEA OVERLAY ===== */
+    .overlay-opensea{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:60;}
+    .opensea-panel{background:#0b0210;border-radius:12px;padding:20px;text-align:center;color:#fff;}
+    .opensea-btn{background:var(--pink);padding:10px 18px;border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
+    .close-btn{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:8px 12px;margin-left:10px;cursor:pointer;}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
-    <section class="hero"><div class="hero-bg"></div>
-      <div class="overlay">
-        <h1 class="title"><span>M</span><span>i</span><span>n</span><span>t</span><span>&nbsp;</span><span>n</span><span>o</span><span>w</span></h1>
-        <div class="controls">
-          <button id="mintBtn" class="mint-btn">MINT NOW</button>
-          <div class="logos">
-            <a class="logo" href="https://farcaster.xyz/" target="_blank"><img src="https://vice-toads.vercel.app/images/farcaster.png"/></a>
-            <a class="logo" href="https://base.org/" target="_blank"><img src="https://vice-toads.vercel.app/images/baseapp.png"/></a>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div class="container">
+    <!-- Banner -->
+    <div class="hero"><div class="hero-bg"></div></div>
 
+    <!-- Mint button + logos -->
+    <div class="below-hero">
+      <button id="mintBtn" class="mint-btn">MINT ON OPENSEA</button>
+      <div class="logos">
+        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank" rel="noopener"><img src="https://vice-toads.vercel.app/images/farcaster.png" alt="farcaster"/></a>
+        <a class="logo" href="https://base.app/profile/0xbres" target="_blank" rel="noopener"><img src="https://vice-toads.vercel.app/images/baseapp.png" alt="baseapp"/></a>
+      </div>
+    </div>
+
+    <!-- Claim + connect -->
     <div class="card">
       <div class="row">
-        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png"/></div>
-        <div><div class="name" id="profileName">Not connected</div><div class="sub" id="profileSub">Connect wallet to show profile</div></div>
+        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png" alt="avatar"/></div>
+        <div style="flex:1">
+          <div id="profileName" style="font-weight:900">Not connected</div>
+          <div id="profileSub" style="font-size:13px;opacity:.8">Connect wallet to show profile</div>
+        </div>
       </div>
-      <div class="points">+100 Vice Toads$ <div style="font-size:12px;opacity:.7;margin-top:6px">Total Claimed: <span id="totalClaimed">0</span></div></div>
-      <div class="claim-row"><button id="claimBtn" class="btn btn-claim disabled" disabled>Claim Now</button><button id="connectInline" class="btn-connect-inline">Connect Wallet</button></div>
-      <div style="margin-top:10px" id="statusText">Connect wallet to claim</div>
+
+      <div style="margin-top:12px;font-weight:900">+100 Vice Toads$
+        <div style="font-size:12px;opacity:.7;margin-top:6px">Total Claimed: <span id="totalClaimed">0</span></div>
+      </div>
+
+      <div class="claim-row">
+        <button id="claimBtn" class="btn-claim btn disabled" disabled>Claim Now</button>
+        <button id="connectInline" class="btn-connect">Connect Wallet</button>
+      </div>
+
+      <div id="statusText" style="margin-top:12px;opacity:.9">Connect wallet to claim</div>
     </div>
-
-    <div class="bottom"><img src="https://vice-toads.vercel.app/images/bg5.jpg" /></div>
-    <div class="marquee"><span class="inner">🟦 Join The Waitlist 🟦 &nbsp; 🟦 Join The Waitlist 🟦</span></div>
   </div>
 
-  <div class="box-bubbles">
-    <div class="box n1"></div><div class="box n2"></div><div class="box n3"></div><div class="box n4"></div>
-    <div class="box n5"></div><div class="box n6"></div><div class="box n7"></div><div class="box n8"></div><div class="box n9"></div>
+  <!-- background bubbles -->
+  <div class="box-bubbles" aria-hidden="true">
+    <div class="box b1"></div><div class="box b2"></div><div class="box b3"></div>
+    <div class="box b4"></div><div class="box b5"></div><div class="box b6"></div><div class="box b7"></div>
   </div>
 
+  <!-- OpenSea overlay -->
   <div id="openseaOverlay" class="overlay-opensea" style="display:none">
     <div class="opensea-panel">
-      <h2>Mint on OpenSea</h2>
-      <p style="opacity:.8">You're now on Based Vice Toads.<br>Continue to OpenSea to mint.</p>
-      <button id="openOpensea" class="opensea-btn">Go to OpenSea</button>
-      <button id="closeOpensea" class="close-btn">Stay</button>
+      <h3>Mint on OpenSea</h3>
+      <p style="opacity:.85">Continue to OpenSea to mint.</p>
+      <div style="display:flex;justify-content:center;gap:8px;">
+        <button id="openOpensea" class="opensea-btn">Go to OpenSea</button>
+        <button id="closeOpensea" class="close-btn">Stay</button>
+      </div>
     </div>
   </div>
 
+  <!-- Web3 libraries -->
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
+
   <script>
   (function(){
-    const RPC="https://mainnet.base.org", LS="vct_claims_v1", DAY=24*60*60*1000;
-    const connect=document.getElementById('connectInline'), claim=document.getElementById('claimBtn'), name=document.getElementById('profileName'), sub=document.getElementById('profileSub'), total=document.getElementById('totalClaimed'), status=document.getElementById('statusText');
-    const mint=document.getElementById('mintBtn'), overlay=document.getElementById('openseaOverlay'), go=document.getElementById('openOpensea'), close=document.getElementById('closeOpensea');
-    const providerOptions={walletconnect:{package:window.WalletConnectProvider.default,options:{rpc:{8453:RPC}}}};
-    const web3Modal=new window.Web3Modal.default({cacheProvider:false,providerOptions});
-    let web3=null, provider=null, address=null, interval=null;
+    const RPC = "https://mainnet.base.org";
+    const OPENSEA = "https://opensea.io/collection/based-vice-toads/overview";
+    const LS_KEY = "vct_claims_v1";
+    const DAY_MS = 24*60*60*1000;
+
+    const connectBtn = document.getElementById('connectInline');
+    const claimBtn = document.getElementById('claimBtn');
+    const profileName = document.getElementById('profileName');
+    const profileSub = document.getElementById('profileSub');
+    const avatarImg = document.getElementById('avatarImg');
+    const statusText = document.getElementById('statusText');
+    const totalClaimedEl = document.getElementById('totalClaimed');
+    const mintBtn = document.getElementById('mintBtn');
+    const openseaOverlay = document.getElementById('openseaOverlay');
+    const openOpensea = document.getElementById('openOpensea');
+    const closeOpensea = document.getElementById('closeOpensea');
+
+    const providerOptions = {
+      walletconnect: {
+        package: window.WalletConnectProvider.default,
+        options: { rpc: { 8453: RPC } }
+      }
+    };
+    const web3Modal = new window.Web3Modal.default({ cacheProvider:false, providerOptions });
+
+    let provider=null, web3=null, address=null, countdown=null;
+
     function short(a){return a?a.slice(0,6)+"..."+a.slice(-4):"";}
-    function colorConnected(){claim.style.color="#000";claim.style.background="var(--card1)";}
-    function colorDefault(){claim.style.color="#fff";claim.style.background="rgba(11,7,16,.18)";}
-    function stopTimer(){if(interval)clearInterval(interval);}
-    connect.onclick=async()=>{try{status.textContent="Connect Wallet";provider=await web3Modal.connect();web3=new Web3(provider);const acc=await web3.eth.getAccounts();address=acc[0].toLowerCase();name.textContent=short(address);sub.textContent="Connected (Base)";connect.style.display="none";claim.disabled=false;claim.classList.remove("disabled");colorConnected();loadTotal();}catch{status.textContent="Connect Wallet";}};
-    async function disconnect(){web3=null;provider=null;address=null;connect.style.display="inline-block";claim.disabled=true;claim.classList.add("disabled");name.textContent="Not connected";sub.textContent="Connect wallet";total.textContent="0";status.textContent="Connect wallet to claim";colorDefault();stopTimer();}
-    claim.onclick=()=>{if(!address)return alert("Connect wallet first");status.textContent="Claim in progress...";claim.disabled=true;const db=JSON.parse(localStorage.getItem(LS)||"{}");const r=db[address]||{total:0,last:0,streak:0};const now=Date.now();if(r.last&&(now-r.last)<DAY){const remain=DAY-(now-r.last);count(remain);claim.disabled=false;return;}const amt=(r.streak+1)*100;r.streak++;r.total+=amt;r.last=now;db[address]=r;localStorage.setItem(LS,JSON.stringify(db));total.textContent=r.total;status.textContent="Claimed +"+amt;count(DAY);colorDefault();claim.disabled=false;};
-    function count(ms){stopTimer();const s=Date.now();interval=setInterval(()=>{const t=Math.max(0,ms-(Date.now()-s));if(t<=0){status.textContent="Claim available!";colorConnected();stopTimer();return;}const h=Math.floor(t/3600000),m=Math.floor((t%3600000)/60000),sec=Math.floor((t%60000)/1000);status.textContent=`Next claim in ${h}h ${m}m ${sec}s`;},1000);}
-    function loadTotal(){const db=JSON.parse(localStorage.getItem(LS)||"{}");total.textContent=db[address]?.total||0;}
-    mint.onclick=()=>{overlay.style.display="flex";};
-    go.onclick=()=>{window.open("https://opensea.io/collection/based-vice-toads/overview","_blank");overlay.style.display="none";};
-    close.onclick=()=>overlay.style.display="none";
+    function nextAmount(r){return ((r?.streak||0)+1)*100;}
+    function setClaimConnected(){claimBtn.style.background='var(--card1)';claimBtn.style.color='#000';}
+    function setClaimDefault(){claimBtn.style.background='rgba(11,7,16,.18)';claimBtn.style.color='#fff';}
+    function stopCountdown(){if(countdown)clearInterval(countdown);countdown=null;}
+
+    async function doConnect(){
+      try{
+        provider=await web3Modal.connect();
+        web3=new Web3(provider);
+        const acc=await web3.eth.getAccounts();
+        if(!acc||!acc.length)throw new Error("No accounts");
+        address=acc[0].toLowerCase();
+        profileName.textContent=short(address);
+        profileSub.textContent="Connected (Base)";
+        connectBtn.style.display='none';
+        claimBtn.disabled=false;claimBtn.classList.remove('disabled');setClaimConnected();loadTotals();
+      }catch(e){console.warn("connect failed",e);}
+    }
+
+    function loadTotals(){
+      if(!address)return;
+      const db=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+      const rec=db[address]||{total:0,last:0,streak:0};
+      totalClaimedEl.textContent=rec.total||0;
+      if(rec.last&&(Date.now()-rec.last)<DAY_MS){startCountdown(DAY_MS-(Date.now()-rec.last));}
+      else{statusText.textContent='You can claim now';setClaimConnected();}
+    }
+
+    function startCountdown(ms){
+      stopCountdown();
+      const start=Date.now();
+      countdown=setInterval(()=>{
+        const t=Math.max(0,ms-(Date.now()-start));
+        if(t<=0){clearInterval(countdown);statusText.textContent='Claim available';setClaimConnected();return;}
+        const h=Math.floor(t/3600000),m=Math.floor((t%3600000)/60000),s=Math.floor((t%60000)/1000);
+        statusText.textContent=`Next claim in ${h}h ${m}m ${s}s`;
+      },1000);
+    }
+
+    connectBtn.addEventListener('click',doConnect);
+    mintBtn.addEventListener('click',()=>{openseaOverlay.style.display='flex';});
+    openOpensea.addEventListener('click',()=>{window.open(OPENSEA,'_blank');openseaOverlay.style.display='none';});
+    closeOpensea.addEventListener('click',()=>{openseaOverlay.style.display='none';});
+    claimBtn.disabled=true;setClaimDefault();
   })();
   </script>
 </body>
