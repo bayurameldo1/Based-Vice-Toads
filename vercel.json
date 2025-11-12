@@ -1,4 +1,6 @@
 {
+  "version": 2,
+  "public": true,
   "headers": [
     {
       "source": "/.well-known/farcaster.json",
@@ -7,7 +9,8 @@
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
         { "key": "X-Frame-Options", "value": "ALLOWALL" },
-        { "key": "Content-Security-Policy", "value": "frame-ancestors *;" }
+        { "key": "Content-Security-Policy", "value": "frame-ancestors *;" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
       ]
     },
     {
@@ -19,5 +22,9 @@
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
       ]
     }
+  ],
+  "routes": [
+    { "src": "/.well-known/farcaster.json", "dest": "/.well-known/farcaster.json" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
