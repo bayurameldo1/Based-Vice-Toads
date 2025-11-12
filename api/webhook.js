@@ -1,47 +1,41 @@
 // api/webhook.js
-// Simple webhook endpoint for Vercel / Next.js style functions.
-// Exports default handler (ESM style). Vercel will compile if necessary.
+// Simple webhook receiver for Vercel. Logs incoming body and responds 200.
+// Extend: validate signatures, write to DB, emit events, etc.
 
-export default function handler(req, res) {
-  // Allow CORS so Base / other services can POST
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+module.exports = async (req, res) => {
+  // Allow CORS from anywhere (adjust if you need stricter policy)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
-  // Handle preflight
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
-
-  // GET -> quick healthcheck
-  if (req.method === "GET") {
-    return res.status(200).json({
-      ok: true,
-      message: "Webhook endpoint active"
-    });
-  }
-
-  // POST -> handle event payload
-  if (req.method === "POST") {
-    try {
-      // If the platform sends JSON, Vercel/Next will parse body for you.
-      const payload = req.body ?? null;
-
-      // (Optional) Do something with payload:
-      // - save to DB
-      // - verify signature
-      // - trigger downstream process
-      // For now just log to Vercel logs (visible in Deployment / Functions logs)
-      console.log("Webhook received:", typeof payload, payload);
-
-      return res.status(200).json({ ok: true });
-    } catch (err) {
-      console.error("Webhook error:", err);
-      return res.status(500).json({ ok: false, error: String(err) });
+  try {
+    if (req.method === 'OPTIONS') {
+      // CORS preflight
+      res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      return res.status(200).send('');
     }
-  }
 
-  // Other methods not allowed
-  res.setHeader("Allow", "GET, POST, OPTIONS");
-  return res.status(405).json({ ok: false, error: "Method Not Allowed" });
-}
+    if (req.method !== 'POST') {
+      return res.status(405).json({ ok: false, error: 'Method not allowed. Use POST.' });
+    }
+
+    // parse JSON body (Vercel / Node provides parsed body for Next.js api; for raw frameworks, parse manually)
+    const payload = req.body || null;
+
+    // Basic validation example (you can add secret header validation here)
+    // const signature = req.headers['x-webhook-signature'];
+    // verifySignature(payload, signature);
+
+    // Example: basic routing by type
+    const type = (payload && payload.type) || 'event';
+    console.log('[webhook] received type=', type, 'payload=', JSON.stringify(payload));
+
+    // TODO: persist to DB, send to admin webhook, or push to message queue
+    // e.g. await saveToSupabase(payload);
+
+    return res.status(200).json({ ok: true, received: true });
+  } catch (err) {
+    console.error('webhook error', err);
+    return res.status(500).json({ ok: false, error: 'internal_server_error' });
+  }
+};
