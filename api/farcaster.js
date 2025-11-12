@@ -1,71 +1,129 @@
 // api/farcaster.js
-// Vercel serverless (CommonJS). Best-effort Farcaster profile lookup by ETH address or username.
-// Places to customize: add API keys or change provider order if you have paid access.
+// GET /api/farcaster?address=0x...
+// returns JSON: { ok:true, profile: { username, displayName, avatar } } or { ok:false, error: "..." }
 
-module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+import fs from "fs";
+import path from "path";
 
+const DATA_DIR = path.join(process.cwd(), "data");
+const CACHE_FILE = path.join(DATA_DIR, "farcaster_cache.json");
+
+// helper: ensure data dir exists
+function ensureDataDir() {
   try {
-    const address = (req.query.address || req.query.q || '').toString().trim();
-    if (!address) {
-      return res.status(400).json({ ok: false, error: 'Missing address or identity parameter' });
-    }
-
-    // Normalize: allow either eth address or farcaster username
-    const identity = address;
-
-    // 1) Try web3.bio profile API (supports Farcaster identity lookups)
-    // Endpoint: https://api.web3.bio/profile/farcaster/{identity}
-    // NOTE: public service; rate limits / availability may vary.
-    try {
-      const web3bioUrl = `https://api.web3.bio/profile/farcaster/${encodeURIComponent(identity)}`;
-      const r = await fetch(web3bioUrl, { method: 'GET' });
-      if (r.ok) {
-        const j = await r.json().catch(() => null);
-        if (j && (j.username || j.displayName || j.avatar || j.profile)) {
-          // web3.bio formats vary, try to normalize
-          const profile = {
-            username: j.username || j.profile?.username || null,
-            displayName: j.displayName || j.profile?.displayName || null,
-            avatar: j.avatar || j.profile?.avatar || j.pfpUrl || null,
-            raw: j
-          };
-          return res.status(200).json({ ok: true, profile });
-        }
-      }
-    } catch (e) {
-      // continue to next provider
-      console.warn('web3.bio lookup failed', e && e.message);
-    }
-
-    // 2) (Optional) Try Clicker/Daylight/other public proxies (example placeholder)
-    // Many third-party services exist. Here we try a generic Clicker endpoint example.
-    try {
-      const clickerUrl = `https://api.clicker.xyz/v1/addresses/from-farcaster/${encodeURIComponent(identity)}`;
-      const r2 = await fetch(clickerUrl, { method: 'GET' });
-      if (r2.ok) {
-        const j2 = await r2.json().catch(() => null);
-        if (j2 && j2.addresses && j2.addresses.length) {
-          return res.status(200).json({
-            ok: true,
-            profile: { username: identity, displayName: identity, avatar: null, addresses: j2.addresses, raw: j2 }
-          });
-        }
-      }
-    } catch (e) {
-      console.warn('clicker lookup failed', e && e.message);
-    }
-
-    // 3) If you have a Neynar / paid Farcaster indexer, call it here (example commented)
-    // const neynarUrl = `https://api.neynar.com/v1/users/by-address/${identity}?apiKey=REPLACE`;
-    // try { ... }
-
-    // fallback: not found
-    return res.status(200).json({ ok: false, error: 'Profile not found (best-effort)', identity });
-
-  } catch (err) {
-    console.error('api/farcaster error', err);
-    return res.status(500).json({ ok: false, error: 'internal_server_error' });
+    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
+    if (!fs.existsSync(CACHE_FILE)) fs.writeFileSync(CACHE_FILE, JSON.stringify({}), "utf8");
+  } catch (e) {
+    // ignore
   }
-};
+}
+
+export default async function handler(req, res) {
+  ensureDataDir();
+
+  const address = (req.query.address || "").toString().trim().toLowerCase();
+  if (!address) {
+    res.status(400).json({ ok: false, error: "address required" });
+    return;
+  }
+
+  // Try cached result first
+  try {
+    const cacheRaw = fs.readFileSync(CACHE_FILE, "utf8");
+    const cache = JSON.parse(cacheRaw || "{}");
+    if (cache[address]) {
+      res.setHeader("Cache-Control", "public, max-age=60"); // short cache
+      res.json({ ok: true, profile: cache[address], source: "cache" });
+      return;
+    }
+  } catch (e) {
+    // ignore cache errors
+  }
+
+  // Best-effort remote lookups:
+  // 1) try Farcaster public API (if available)
+  // 2) try Warpcast public API (if available)
+  // Note: these endpoints may change; we handle failures gracefully.
+
+  const tryEndpoints = [
+    // community endpoints: (may or may not work)
+    `https://api.farcaster.xyz/v2/user-by-address?address=${encodeURIComponent(address)}`,
+    `https://api.warpcast.com/v2/users/by-address/${encodeURIComponent(address)}`,
+    `https://api.castalchemy.org/v1/user?address=${encodeURIComponent(address)}` // example third-party (may 404)
+  ];
+
+  let profile = null;
+  let source = null;
+
+  for (const url of tryEndpoints) {
+    try {
+      const resp = await fetch(url, { method: "GET" });
+      if (!resp.ok) continue;
+      const j = await resp.json().catch(() => null);
+      if (!j) continue;
+
+      // Normalize different shapes
+      // Farcaster: might return { user: { username, displayName, avatar } } or similar
+      // Warpcast: returns user object frequently with avatar and username
+      let candidate = null;
+
+      // heuristics:
+      if (j.user) {
+        candidate = {
+          username: j.user.username || j.user.fname || null,
+          displayName: j.user.displayName || j.user.name || null,
+          avatar: j.user.avatar || j.user.avatarUrl || j.user.profileImageUrl || null
+        };
+      } else if (j.username || j.displayName || j.avatar) {
+        candidate = {
+          username: j.username || null,
+          displayName: j.displayName || null,
+          avatar: j.avatar || j.avatarUrl || null
+        };
+      } else if (j.result && j.result.username) {
+        candidate = {
+          username: j.result.username,
+          displayName: j.result.displayName || null,
+          avatar: j.result.avatar || null
+        };
+      }
+
+      if (candidate) {
+        profile = candidate;
+        source = url;
+        break;
+      }
+
+      // fallback: if j is an array or object that contains username property deep
+      if (typeof j === "object") {
+        const flat = JSON.stringify(j);
+        if (flat.includes("username") || flat.includes("avatar")) {
+          // best-effort parse
+          profile = { raw: j };
+          source = url;
+          break;
+        }
+      }
+    } catch (e) {
+      // try next
+    }
+  }
+
+  if (!profile) {
+    res.json({ ok: false, error: "profile not found (best-effort)", sourceTried: tryEndpoints });
+    return;
+  }
+
+  // Save to cache (best-effort)
+  try {
+    const raw = fs.readFileSync(CACHE_FILE, "utf8");
+    const cache = JSON.parse(raw || "{}");
+    cache[address] = profile;
+    fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2), "utf8");
+  } catch (e) {
+    // ignore write errors
+  }
+
+  res.setHeader("Cache-Control", "public, max-age=60");
+  res.json({ ok: true, profile, source });
+}
