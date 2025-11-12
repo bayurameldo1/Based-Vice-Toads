@@ -4,19 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <title>Based Vice Toads — Mint & Claim</title>
-  <link rel="icon" href="https://vice-toads.vercel.app/images/icon.png" />
+  <link rel="icon" href="https://vice-toads.vercel.app/images/icon.webp" />
 
-  <!-- fc:frame for Farcaster -->
+  <!-- Farcaster frame -->
   <meta name="fc:frame" content='{
     "version":"next",
-    "imageUrl":"https://vice-toads.vercel.app/images/bg1.jpg",
+    "imageUrl":"https://vice-toads.vercel.app/images/bg1.webp",
     "button":{
       "title":"Mint now",
       "action":{
         "type":"launch_frame",
         "name":"Based Vice Toads",
-        "url":"https://vice-toads.vercel.app/",
-        "splashImageUrl":"https://vice-toads.vercel.app/images/bg2.jpg",
+        "url":"https://vice-toads.vercel.app/?autoconnect=1",
+        "splashImageUrl":"https://vice-toads.vercel.app/images/bg2.webp",
         "splashBackgroundColor":"#1a0316"
       }
     }
@@ -24,110 +24,38 @@
 
   <meta property="og:title" content="Based Vice Toads" />
   <meta property="og:description" content="Mint Based Vice Toads on Base Network" />
-  <meta property="og:image" content="https://vice-toads.vercel.app/images/bg1.jpg" />
+  <meta property="og:image" content="https://vice-toads.vercel.app/images/bg1.webp" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
+
     :root{
-      --bg1:#17000b; --bg2:#2b021f; --pink:#ff6fb3; --box-blue:#2f9fff; --card1:#ffb6d7;
+      --pink:#ff6fb3; --box-blue:#2f9fff; --card1:#ffb6d7;
     }
-    html,body{
-      margin:0;padding:0;
-      font-family:Poppins,system-ui;
-      color:#fff;
-      background:linear-gradient(135deg,#110212 0%,#2b021f 50%,#110212 100%);
-      -webkit-font-smoothing:antialiased;
-    }
-    .container{
-      width:100%;
-      max-width:980px;
-      padding:28px;
-      margin:auto;
-      box-sizing:border-box;
-      position:relative;
-      z-index:5;
-    }
-    /* ===== HERO SECTION (full banner) ===== */
-    .hero{
-      width:100vw;
-      height:420px;
-      position:relative;
-      overflow:hidden;
-      left:50%;
-      right:50%;
-      margin-left:-50vw;
-      margin-right:-50vw;
-      box-shadow:0 30px 80px rgba(0,0,0,0.6);
-    }
-    .hero-bg{
-      position:absolute;
-      inset:0;
-      background-image:url('https://vice-toads.vercel.app/images/bg1.jpg');
-      background-size:cover;
-      background-position:center;
-      filter:contrast(0.98) saturate(1.05) brightness(0.95);
-    }
+    html,body{margin:0;height:100%;font-family:Poppins,system-ui;background:linear-gradient(135deg,#110212 0%,#2b021f 50%,#110212 100%);color:#fff}
+    .wrap{max-width:980px;margin:0 auto;padding:28px;position:relative;z-index:6}
 
-    /* ===== CONTROLS BELOW HERO ===== */
-    .below-hero{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:14px;
-      margin-top:18px;
-    }
-    .mint-btn{
-      background:var(--pink);
-      border-radius:999px;
-      padding:12px 28px;
-      border:none;
-      color:#071018;
-      font-weight:800;
-      cursor:pointer;
-      box-shadow:0 12px 40px rgba(255,111,179,.14);
-    }
-    .logos{
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-    .logo{
-      width:48px;height:48px;
-      border-radius:10px;
-      overflow:hidden;
-      background:#fff;
-      padding:6px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .logo img{width:30px;height:30px;object-fit:contain;}
+    /* Hero full banner */
+    .hero-wrap{width:100vw; margin-left:50%; transform:translateX(-50%); box-shadow:0 30px 80px rgba(0,0,0,.6); overflow:hidden; height:420px; position:relative}
+    .hero-img{width:100%;height:100%;object-fit:cover;display:block}
 
-    /* ===== CARD CLAIM SECTION ===== */
-    .card{
-      width:92%;
-      max-width:520px;
-      border-radius:14px;
-      padding:18px;
-      background:linear-gradient(180deg,var(--card1),#ff8fca);
-      color:#071018;
-      box-shadow:0 30px 80px rgba(0,0,0,0.5);
-      margin:30px auto;
-    }
-    .row{display:flex;align-items:center;gap:12px;}
-    .avatar{width:64px;height:64px;border-radius:50%;overflow:hidden;background:#fff;}
-    .avatar img{width:100%;height:100%;object-fit:cover;}
-    .claim-row{display:flex;gap:10px;margin-top:14px;align-items:center;}
-    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:800;}
-    .btn-connect{background:#071018;color:var(--card1);padding:10px 14px;border-radius:12px;}
-    .btn-claim{background:rgba(11,7,16,.18);color:#fff;padding:10px 14px;border-radius:12px;}
-    .disabled{opacity:.45;pointer-events:none;}
+    .below{text-align:center;margin-top:18px}
+    .mint-btn{background:var(--pink);border-radius:999px;padding:12px 28px;border:none;color:#071018;font-weight:800;cursor:pointer;box-shadow:0 12px 40px rgba(255,111,179,.14)}
+    .logos{display:inline-flex;gap:10px;align-items:center;margin-left:12px}
+    .logo{width:44px;height:44px;border-radius:8px;overflow:hidden;background:#fff;padding:6px;display:flex;align-items:center;justify-content:center}
+    .logo img{width:28px;height:28px;object-fit:contain}
 
-    /* ===== BUBBLE EFFECT ===== */
-    .box-bubbles{position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;z-index:1;}
-    .box{position:absolute;bottom:-150px;background:#fff;animation:rise 12s linear infinite;border-radius:6px;display:flex;align-items:center;justify-content:center;}
-    .box::after{content:"";width:36%;height:36%;background:var(--box-blue);border-radius:3px;}
+    .card{width:92%;max-width:520px;margin:30px auto;padding:18px;border-radius:14px;background:linear-gradient(180deg,var(--card1),#ff8fca);color:#071018;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+    .row{display:flex;align-items:center;gap:12px}
+    .avatar{width:64px;height:64px;border-radius:50%;overflow:hidden;background:#fff}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .claim-row{display:flex;gap:10px;margin-top:14px;align-items:center;justify-content:flex-start}
+
+    /* Boxes animation */
+    .box-bubbles{position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;z-index:1}
+    .box{position:absolute;bottom:-150px;background:#fff;animation:rise linear infinite;border-radius:6px;display:flex;align-items:center;justify-content:center}
+    .box::after{content:"";width:36%;height:36%;background:var(--box-blue);border-radius:3px}
     @keyframes rise{0%{transform:translateY(0)scale(.95);opacity:0}8%{opacity:.7}60%{opacity:.6;transform:translateY(-55vh)scale(1.02)}100%{transform:translateY(-120vh)scale(1.05);opacity:0}}
     .b1{left:6%;width:20px;height:20px;animation-duration:8s;animation-delay:.2s}
     .b2{left:18%;width:36px;height:36px;animation-duration:11s;animation-delay:1s}
@@ -137,31 +65,28 @@
     .b6{left:68%;width:44px;height:44px;animation-duration:12s;animation-delay:1.4s}
     .b7{left:80%;width:18px;height:18px;animation-duration:9s;animation-delay:.7s}
 
-    /* ===== OPENSEA OVERLAY ===== */
-    .overlay-opensea{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:60;}
-    .opensea-panel{background:#0b0210;border-radius:12px;padding:20px;text-align:center;color:#fff;}
-    .opensea-btn{background:var(--pink);padding:10px 18px;border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
-    .close-btn{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:8px 12px;margin-left:10px;cursor:pointer;}
+    @media(max-width:700px){.hero-wrap{height:320px}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Banner -->
-    <div class="hero"><div class="hero-bg"></div></div>
-
-    <!-- Mint button + logos -->
-    <div class="below-hero">
-      <button id="mintBtn" class="mint-btn">MINT ON OPENSEA</button>
-      <div class="logos">
-        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank" rel="noopener"><img src="https://vice-toads.vercel.app/images/farcaster.png" alt="farcaster"/></a>
-        <a class="logo" href="https://base.app/profile/0xbres" target="_blank" rel="noopener"><img src="https://vice-toads.vercel.app/images/baseapp.png" alt="baseapp"/></a>
-      </div>
+  <div class="wrap">
+    <!-- Hero -->
+    <div class="hero-wrap">
+      <img class="hero-img" src="https://vice-toads.vercel.app/images/bg1.webp" alt="Vice Toads banner" loading="eager" />
     </div>
 
-    <!-- Claim + connect -->
+    <div class="below">
+      <button id="mintBtn" class="mint-btn">MINT ON OPENSEA</button>
+      <span class="logos">
+        <a class="logo" href="https://farcaster.xyz/ameldoxg" target="_blank"><img src="https://vice-toads.vercel.app/images/farcaster.webp" alt="farcaster"/></a>
+        <a class="logo" href="https://base.app/profile/0xbres" target="_blank"><img src="https://vice-toads.vercel.app/images/baseapp.webp" alt="base"/></a>
+      </span>
+    </div>
+
+    <!-- Profile & claim -->
     <div class="card">
       <div class="row">
-        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.png" alt="avatar"/></div>
+        <div class="avatar"><img id="avatarImg" src="https://vice-toads.vercel.app/images/icon.webp" alt="avatar"></div>
         <div style="flex:1">
           <div id="profileName" style="font-weight:900">Not connected</div>
           <div id="profileSub" style="font-size:13px;opacity:.8">Connect wallet to show profile</div>
@@ -173,111 +98,89 @@
       </div>
 
       <div class="claim-row">
-        <button id="claimBtn" class="btn-claim btn disabled" disabled>Claim Now</button>
-        <button id="connectInline" class="btn-connect">Connect Wallet</button>
+        <button id="claimBtn" disabled style="opacity:.5">Claim Now</button>
+        <button id="connectInline">Connect Wallet</button>
       </div>
 
       <div id="statusText" style="margin-top:12px;opacity:.9">Connect wallet to claim</div>
     </div>
+
+    <div style="text-align:center;margin-top:18px">
+      <img src="https://vice-toads.vercel.app/images/bg5.webp" alt="bottom" loading="lazy" style="max-width:480px;border-radius:10px;object-fit:cover">
+    </div>
   </div>
 
-  <!-- background bubbles -->
-  <div class="box-bubbles" aria-hidden="true">
+  <!-- Floating box effects -->
+  <div class="box-bubbles">
     <div class="box b1"></div><div class="box b2"></div><div class="box b3"></div>
     <div class="box b4"></div><div class="box b5"></div><div class="box b6"></div><div class="box b7"></div>
   </div>
 
-  <!-- OpenSea overlay -->
-  <div id="openseaOverlay" class="overlay-opensea" style="display:none">
-    <div class="opensea-panel">
-      <h3>Mint on OpenSea</h3>
-      <p style="opacity:.85">Continue to OpenSea to mint.</p>
-      <div style="display:flex;justify-content:center;gap:8px;">
-        <button id="openOpensea" class="opensea-btn">Go to OpenSea</button>
-        <button id="closeOpensea" class="close-btn">Stay</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Web3 libraries -->
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
 
   <script>
   (function(){
-    const RPC = "https://mainnet.base.org";
-    const OPENSEA = "https://opensea.io/collection/based-vice-toads/overview";
-    const LS_KEY = "vct_claims_v1";
-    const DAY_MS = 24*60*60*1000;
+    const LS_KEY='vct_claims_v1',DAY_MS=86400000;
+    const connectBtn=document.getElementById('connectInline'),claimBtn=document.getElementById('claimBtn'),
+          nameEl=document.getElementById('profileName'),statusEl=document.getElementById('statusText'),
+          totalEl=document.getElementById('totalClaimed');
+    let provider,web3,address;
 
-    const connectBtn = document.getElementById('connectInline');
-    const claimBtn = document.getElementById('claimBtn');
-    const profileName = document.getElementById('profileName');
-    const profileSub = document.getElementById('profileSub');
-    const avatarImg = document.getElementById('avatarImg');
-    const statusText = document.getElementById('statusText');
-    const totalClaimedEl = document.getElementById('totalClaimed');
-    const mintBtn = document.getElementById('mintBtn');
-    const openseaOverlay = document.getElementById('openseaOverlay');
-    const openOpensea = document.getElementById('openOpensea');
-    const closeOpensea = document.getElementById('closeOpensea');
-
-    const providerOptions = {
-      walletconnect: {
-        package: window.WalletConnectProvider.default,
-        options: { rpc: { 8453: RPC } }
+    const web3Modal=new window.Web3Modal.default({
+      cacheProvider:false,
+      providerOptions:{
+        walletconnect:{package:window.WalletConnectProvider.default,options:{rpc:{8453:"https://mainnet.base.org"}}}
       }
-    };
-    const web3Modal = new window.Web3Modal.default({ cacheProvider:false, providerOptions });
+    });
 
-    let provider=null, web3=null, address=null, countdown=null;
-
-    function short(a){return a?a.slice(0,6)+"..."+a.slice(-4):"";}
-    function nextAmount(r){return ((r?.streak||0)+1)*100;}
-    function setClaimConnected(){claimBtn.style.background='var(--card1)';claimBtn.style.color='#000';}
-    function setClaimDefault(){claimBtn.style.background='rgba(11,7,16,.18)';claimBtn.style.color='#fff';}
-    function stopCountdown(){if(countdown)clearInterval(countdown);countdown=null;}
-
-    async function doConnect(){
+    async function connect(){
       try{
         provider=await web3Modal.connect();
         web3=new Web3(provider);
         const acc=await web3.eth.getAccounts();
-        if(!acc||!acc.length)throw new Error("No accounts");
-        address=acc[0].toLowerCase();
-        profileName.textContent=short(address);
-        profileSub.textContent="Connected (Base)";
+        address=acc[0];
+        nameEl.textContent=address.slice(0,6)+'...'+address.slice(-4);
         connectBtn.style.display='none';
-        claimBtn.disabled=false;claimBtn.classList.remove('disabled');setClaimConnected();loadTotals();
-      }catch(e){console.warn("connect failed",e);}
+        claimBtn.disabled=false;claimBtn.style.opacity=1;
+        statusEl.textContent='Ready to claim';
+        load();
+      }catch{statusEl.textContent='Connect wallet';}
     }
+    connectBtn.onclick=connect;
 
-    function loadTotals(){
+    function load(){
       if(!address)return;
       const db=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
-      const rec=db[address]||{total:0,last:0,streak:0};
-      totalClaimedEl.textContent=rec.total||0;
-      if(rec.last&&(Date.now()-rec.last)<DAY_MS){startCountdown(DAY_MS-(Date.now()-rec.last));}
-      else{statusText.textContent='You can claim now';setClaimConnected();}
+      const r=db[address]||{total:0,last:0,streak:0};
+      totalEl.textContent=r.total;
+      if(r.last&&(Date.now()-r.last)<DAY_MS){countdown(DAY_MS-(Date.now()-r.last));}
+      else{statusEl.textContent='You can claim now';}
     }
 
-    function startCountdown(ms){
-      stopCountdown();
-      const start=Date.now();
-      countdown=setInterval(()=>{
+    function countdown(ms){
+      const start=Date.now();const int=setInterval(()=>{
         const t=Math.max(0,ms-(Date.now()-start));
-        if(t<=0){clearInterval(countdown);statusText.textContent='Claim available';setClaimConnected();return;}
+        if(t<=0){clearInterval(int);statusEl.textContent='Claim available';return;}
         const h=Math.floor(t/3600000),m=Math.floor((t%3600000)/60000),s=Math.floor((t%60000)/1000);
-        statusText.textContent=`Next claim in ${h}h ${m}m ${s}s`;
+        statusEl.textContent=`Next claim in ${h}h ${m}m ${s}s`;
       },1000);
     }
 
-    connectBtn.addEventListener('click',doConnect);
-    mintBtn.addEventListener('click',()=>{openseaOverlay.style.display='flex';});
-    openOpensea.addEventListener('click',()=>{window.open(OPENSEA,'_blank');openseaOverlay.style.display='none';});
-    closeOpensea.addEventListener('click',()=>{openseaOverlay.style.display='none';});
-    claimBtn.disabled=true;setClaimDefault();
+    claimBtn.onclick=()=>{
+      if(!address)return alert('Connect first');
+      claimBtn.disabled=true;statusEl.textContent='Claim in progress...';
+      const db=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+      const r=db[address]||{total:0,last:0,streak:0};
+      if(r.last&&(Date.now()-r.last)<DAY_MS){countdown(DAY_MS-(Date.now()-r.last));claimBtn.disabled=false;return;}
+      const amt=(r.streak+1)*100;
+      r.streak++;r.total+=amt;r.last=Date.now();
+      db[address]=r;localStorage.setItem(LS_KEY,JSON.stringify(db));
+      totalEl.textContent=r.total;statusEl.textContent=`Claimed +${amt}`;claimBtn.disabled=false;countdown(DAY_MS);
+    };
+
+    document.getElementById('mintBtn').onclick=()=>window.open('https://opensea.io/collection/based-vice-toads/overview','_blank');
   })();
   </script>
 </body>
