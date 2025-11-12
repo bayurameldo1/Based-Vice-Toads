@@ -22,9 +22,5 @@
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
       ]
     }
-  ],
-  "rewrites": [
-    { "source": "/.well-known/farcaster.json", "destination": "/.well-known/farcaster.json" },
-    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
