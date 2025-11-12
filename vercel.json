@@ -23,8 +23,8 @@
       ]
     }
   ],
-  "routes": [
-    { "src": "/.well-known/farcaster.json", "dest": "/.well-known/farcaster.json" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/.well-known/farcaster.json", "destination": "/.well-known/farcaster.json" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
