@@ -4,31 +4,15 @@
     "payload": "eyJkb21haW4iOiJ2aWNlLXRvYWRzLnZlcmNlbC5hcHAifQ",
     "signature": "VuapZP02zGv/2Ho4HslcWbd9GKNA9BcxOc7qh9ND/OtUfuMfVGvaS9Z8gWyG8JEB1H6ZZpND7r/vpwPxjwpJ2Rs="
   },
-  "miniapp": {
+  "frame": {
     "version": "1",
-    "name": "Based Vice Toads",
-    "iconUrl": "https://vice-toads.vercel.app/images/icon.png",
-    "homeUrl": "https://vice-toads.vercel.app/",
-    "splashImageUrl": "https://vice-toads.vercel.app/images/splash.png",
-    "splashBackgroundColor": "#000000",
-    "subtitle": "Mint Based Vice Toads",
-    "description": "On-chain art collectibles on Base Network.",
-    "screenshotUrls": [
-      "https://vice-toads.vercel.app/images/screen1.webp",
-      "https://vice-toads.vercel.app/images/screen2.webp"
-    ],
-    "primaryCategory": "art-creativity",
-    "tags": ["vice","toads","base","mint","nft"],
-    "heroImageUrl": "https://vice-toads.vercel.app/images/hero-small.webp",
-    "imageUrl": "https://vice-toads.vercel.app/images/hero-small.webp",
-    "tagline": "Mint Based Vice Toads",
-    "ogTitle": "Based Vice Toads",
-    "ogDescription": "Collect and mint Vice Toads on Base.",
-    "ogImageUrl": "https://vice-toads.vercel.app/images/og.webp",
-    "webhookUrl": "https://vice-toads.vercel.app/api/webhook",
-    "noindex": true,
-    "baseBuilder": {
-      "ownerAddress": "0x7204f8dCcd784D3Be6577Eee99e59cBB6C0F4aE9"
-    }
+    "name": "Example Frame",
+    "iconUrl": "https://vice-toads.vercel.app/icon.png",
+    "homeUrl": "https://vice-toads.vercel.app",
+    "imageUrl": "https://vice-toads.vercel.app/image.png",
+    "buttonTitle": "Check this out",
+    "splashImageUrl": "https://vice-toads.vercel.app/splash.png",
+    "splashBackgroundColor": "#eeccff",
+    "webhookUrl": "https://vice-toads.vercel.app/api/webhook"
   }
 }
